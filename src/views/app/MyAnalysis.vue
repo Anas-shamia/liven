@@ -2,7 +2,7 @@
     <div>
         <Bar :title="'تحاليلي'"  :close="'/profile'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
-            <div class="mb-8" v-for="(item,index) in analyze" :key="index">
+            <div class="mb-8" v-for="(item,index) in sortedArray" :key="index">
                 <div class="flex items-center mb-3">
                     <h2 class="flex-grow text-blue-800 font-medium text-base"></h2>
                     <span class="text-xs p-color">{{item.created_at}}</span>
@@ -32,7 +32,12 @@
         created() {
             this.axios.get('/mobile/analyze/all')
                 .then(response => (this.analyze = response.data.data))
-        }
+        },
+        computed: {
+            sortedArray: function () {
+                return this.analyze = _.orderBy(this.analyze, ['id'], ['desc']);
+            }
+        },
     }
 </script>
 <style scoped lang="scss">

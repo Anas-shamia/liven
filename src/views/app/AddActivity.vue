@@ -92,14 +92,24 @@
             }
         },
         methods: {
+            getTiming(n) {
+                if (n < 10) {
+                    return '0' + n;
+                } else {
+                    return n
+                }
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addActivity'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
+                        form.type = parseInt(form.type);
                         const $timing = new Date(form.timing);
-                        form.timing = $timing.getHours() + ':' + $timing.getMinutes();
+                        const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
+                        const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
+                        form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
                         this.axios.post('/mobile/activity', form).then((res) => {
                             this.success = true;
                             this.loading = false;
