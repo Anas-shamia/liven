@@ -3,62 +3,75 @@
         <Bar :title="'السجل الغذائي'" :plus="false" :path="'/'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">الخطة الغذائية</h2>
-            <div class="mb-6">
-                <p class="text-xs font-light text-blue-800 mb-2">اليوم</p>
-                <div class="flex flex-wrap -mx-2">
-                    <router-link tag="div" to="/add-meal" class="w-1/3 px-1">
-                        <p class="text-base text-blue-800 mb-2">الوجبات</p>
-                        <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                    </router-link>
-                    <router-link tag="div" to="/add-water" class="w-1/3 px-1">
-                        <Slider :value="3"/>
-                    </router-link>
-                    <router-link tag="div" to="/add-drug" class="w-1/3 px-1 ">
-                        <p class="text-base text-blue-800 mb-2">الدواء</p>
-                        <div class="bg-white-900 py-2 px-3 rounded-10px progress-bars custom-box">
-                            <div class="mb-2">
-                                <p class="text-xs text-purple-100 mb-1 font-semibold">
-                                    Erythrocytes
-                                </p>
-                                <p class="text-xs text-blue-800 mb-1">ميعاد الدواء</p>
-                                <p class="flex items-center">
-                                    <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">02:30 PM</span>
-                                    <span class="px-2 p-color">-</span>
-                                    <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">06:30 PM</span>
-                                </p>
-                            </div>
+            <div class="mb-6" v-for="(item,index) in foodPlan" :key="index">
 
-                        </div>
-                    </router-link>
-                </div>
-            </div>
-            <div class="mb-6">
-                <p class="text-xs font-light text-blue-800 mb-2">اليوم</p>
+                <p class="text-xs font-light text-blue-800 mb-2">{{Object.keys(item)[0]}}</p>
                 <div class="flex flex-wrap -mx-2">
-                    <router-link tag="div" to="/add-meal" class="w-1/3 px-1">
-                        <p class="text-base text-blue-800 mb-2">الوجبات</p>
-                        <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                    </router-link>
-                    <router-link tag="div" to="/add-water" class="w-1/3 px-1">
-                        <Slider :value="4"/>
-                    </router-link>
-                    <router-link tag="div" to="/add-drug" class="w-1/3 px-1 ">
-                        <p class="text-base text-blue-800 mb-2">الدواء</p>
-                        <div class="bg-white-900 py-2 px-3 rounded-10px progress-bars custom-box">
-                            <div class="mb-2">
-                                <p class="text-xs text-purple-100 mb-1 font-semibold">
-                                    Erythrocytes
-                                </p>
-                                <p class="text-xs text-blue-800 mb-1">ميعاد الدواء</p>
-                                <p class="flex items-center">
-                                    <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">02:30 PM</span>
-                                    <span class="px-2 p-color">-</span>
-                                    <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">06:30 PM</span>
-                                </p>
-                            </div>
-
+                    <div class="w-1/3 px-1">
+                        <div v-if="Object.values(item)[0][0].hasOwnProperty('meals')">
+                            <p class="text-base text-blue-800 mb-2">الوجبات</p>
+                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
                         </div>
-                    </router-link>
+                        <router-link tag="div" to="/add-meal" v-else>
+                            <p class="text-base text-blue-800 mb-2">الوجبات</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="w-1/3 px-1">
+                        <div v-if="Object.values(item)[0][0].hasOwnProperty('water')">
+                            <Slider :value="Object.values(item)[0][0].water"/>
+                        </div>
+                        <router-link tag="div" to="/add-water" v-else>
+                            <p class="text-base text-blue-800 mb-2">مقدار الماء</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="w-1/3 px-1">
+                        <div v-if="Object.values(item)[0][0].hasOwnProperty('medicines')">
+                            <p class="text-base text-blue-800 mb-2">الدواء</p>
+                            <div class="bg-white-900 py-2 px-3 rounded-10px progress-bars custom-box">
+                                <div class="mb-2">
+                                    <p class="text-xs text-purple-100 mb-1 font-semibold">
+                                        Erythrocytes
+                                    </p>
+                                    <p class="text-xs text-blue-800 mb-1">ميعاد الدواء</p>
+                                    <p class="flex items-center">
+                                        <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">02:30 PM</span>
+                                        <span class="px-2 p-color">-</span>
+                                        <span class="text-xxs p-color whitespace-no-wrap 5sm:whitespace-normal">06:30 PM</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <router-link tag="div" to="/add-drug" v-else>
+                            <p class="text-base text-blue-800 mb-2">الدواء</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,9 +82,18 @@
     import Bar from '../../components/app/Bar';
 
     export default {
+        data() {
+            return {
+                foodPlan: null
+            }
+        },
         components: {
             Slider,
             Bar
+        },
+        created() {
+            this.axios.get('/mobile/food/plan')
+                .then(response => (this.foodPlan = response.data.data))
         }
     }
 </script>

@@ -22,7 +22,6 @@
             return {
                 options: {
                     min: 0,
-                    max: 10,
                     height: 6,
                     disabled: true,
                     tooltip: 'none'
