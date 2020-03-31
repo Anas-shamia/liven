@@ -153,11 +153,11 @@
                 </div>
             </div>
 
-            <!--            <ul class="mt-6 flex items-center">-->
-            <!--                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span></router-link>-->
-            <!--                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span></router-link>-->
-            <!--                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span></router-link>-->
-            <!--            </ul>-->
+                        <ul class="mt-6 flex items-center">
+                            <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span></router-link>
+                            <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span></router-link>
+                            <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span></router-link>
+                        </ul>
         </div>
 
     </div>

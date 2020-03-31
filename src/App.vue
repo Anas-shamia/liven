@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-    const default_layout = "auth";
+    const default_layout = "mobile";
     export default {
         computed: {
             layout() {

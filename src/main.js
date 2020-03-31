@@ -3,8 +3,6 @@ import App from './App.vue'
 import router from './router'
 import VueI18n from 'vue-i18n'
 
-import Default from './layouts/default.vue';
-import Auth from './layouts/auth.vue';
 import Mobile from './layouts/app.vue';
 
 
@@ -53,8 +51,6 @@ import HighchartsVue from 'highcharts-vue'
 Vue.use(HighchartsVue);
 
 Vue.use(VueI18n);
-Vue.component('default-layout', Default);
-Vue.component('auth-layout', Auth);
 Vue.component('mobile-layout', Mobile);
 
 Vue.component('ValidationProvider', ValidationProvider);
