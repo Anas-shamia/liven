@@ -27,41 +27,137 @@
                     دهون الجسم
                 </p>
             </div>
-            <div class="mb-4" v-for="(item,index) in weights" :key="index">
-                <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
-                <div class="flex flex-wrap -mx-2 2xs:-mx-1">
-                    <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box" v-for="(data,i) in item.weight" :key="i">
-                        <svg @click="openForm" v-if="index===0 && !active" aria-hidden="true" focusable="false"
-                             data-prefix="fas"
-                             data-icon="edit" role="img"
-                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                             class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
-                            <path fill="currentColor"
-                                  d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
-                                  class=""></path>
-                        </svg>
-                        <svg v-if="active && index===0" @click="openForm" aria-hidden="true" focusable="false" data-prefix="far"
-                             data-icon="check-square" role="img"
-                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                             class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
-                            <path fill="#1CC342"
-                                  d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
-                                  class=""></path>
-                        </svg>
-                        <div class="bg-white-900 rounded-10px text-center py-4">
-                            <p class="text-sm mb-2 p-title">{{data.title}}</p>
-                            <p class="text-primary-900">
-                                <span class="text-2xl font-bold" v-if="index===0 && !active">{{data.num}}</span>
-                                <span class="text-2xl font-bold" v-if="index===1">{{data.num}}</span>
-                                <span class="text-base font-bold">{{data.unit}}</span>
-                                <Input class="text-lg font-bold" v-model="form.weight"
-                                       v-if="index===0 && data.id=== '0' && active"/>
-                                <Input class="text-lg font-bold" v-model="form.waist"
-                                       v-if="index===0 && data.id=== '1' && active"/>
-                                <Input class="text-lg font-bold" v-model="form.highest"
-                                       v-if="index===0 && data.id=== '2' && active"/>
-                            </p>
-                        </div>
+            <div v-if="bodyAll.length">
+                <div class="mb-4" v-for="(item,index) in bodyAll" :key="index">
+                    <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
+                    <div class="flex flex-wrap -mx-2 2xs:-mx-1">
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <svg @click="openForm" v-if="index===0 && !active" aria-hidden="true" focusable="false"
+                                 data-prefix="fas"
+                                 data-icon="edit" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="currentColor"
+                                      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
+                                      class=""></path>
+                            </svg>
+                            <svg v-if="active && index===0" @click="openForm" aria-hidden="true" focusable="false"
+                                 data-prefix="far"
+                                 data-icon="check-square" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="#1CC342"
+                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
+                                      class=""></path>
+                            </svg>
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">الوزن</p>
+                                <p class="text-primary-900">
+                                    <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.weight}}</span>
+                                    <Input class="text-lg font-bold" v-model="item.weight" v-if="index===0 && active"/>
+                                    <span class="text-base font-bold">KG</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <svg @click="openForm" v-if="index===0 && !active" aria-hidden="true" focusable="false"
+                                 data-prefix="fas"
+                                 data-icon="edit" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="currentColor"
+                                      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
+                                      class=""></path>
+                            </svg>
+                            <svg v-if="active && index===0" @click="openForm" aria-hidden="true" focusable="false"
+                                 data-prefix="far"
+                                 data-icon="check-square" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="#1CC342"
+                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
+                                      class=""></path>
+                            </svg>
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">Hip</p>
+                                <p class="text-primary-900">
+                                    <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.highest}}</span>
+                                    <Input class="text-lg font-bold" v-model="item.highest" v-if="index===0 && active"/>
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <svg @click="openForm" v-if="index===0 && !active" aria-hidden="true" focusable="false"
+                                 data-prefix="fas"
+                                 data-icon="edit" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="currentColor"
+                                      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
+                                      class=""></path>
+                            </svg>
+                            <svg v-if="active && index===0" @click="openForm" aria-hidden="true" focusable="false"
+                                 data-prefix="far"
+                                 data-icon="check-square" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="#1CC342"
+                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
+                                      class=""></path>
+                            </svg>
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">West</p>
+                                <p class="text-primary-900">
+                                    <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.waist}}</span>
+                                    <Input class="text-lg font-bold" v-model="item.waist" v-if="index===0 && active"/>
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="mb-4">
+                    <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">Add</p>
+                    <div class="flex flex-wrap -mx-2 2xs:-mx-1">
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <svg @click="addBody" aria-hidden="true" focusable="false"
+                                 data-prefix="far"
+                                 data-icon="check-square" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="#1CC342"
+                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
+                                      class=""></path>
+                            </svg>
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">الوزن</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.weight" />
+                                    <span class="text-base font-bold">KG</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">Hip</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.highest" />
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">West</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.waist" />
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
                     </div>
                 </div>
             </div>
@@ -151,9 +247,9 @@
                 },
 
                 form: {
-                    weight: 82,
-                    waist: 90,
-                    highest: 120,
+                    weight: 0,
+                    waist: 0,
+                    highest: 0,
                 },
                 weights: [
                     {
@@ -199,17 +295,25 @@
                             }
                         ]
                     },
-                ]
+                ],
+                bodyAll: [],
             }
         },
         methods: {
             openForm() {
                 this.active = !this.active
-            }
+            },
+            loadBodyAll() {
+                this.axios.get('/mobile/body/all')
+                    .then(response => (this.bodyAll = response.data.data))
+            },
         },
         components: {
             Bar,
             Input
+        },
+        created() {
+            this.loadBodyAll();
         }
     }
 </script>
