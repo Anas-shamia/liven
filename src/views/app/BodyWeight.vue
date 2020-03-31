@@ -32,7 +32,7 @@
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="openForm" v-if="index===0 && !active" aria-hidden="true" focusable="false"
+                            <svg @click="openForm(item)" v-if="index===0 && !active" aria-hidden="true" focusable="false"
                                  data-prefix="fas"
                                  data-icon="edit" role="img"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
@@ -41,7 +41,7 @@
                                       d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
                                       class=""></path>
                             </svg>
-                            <svg v-if="active && index===0" @click="openForm" aria-hidden="true" focusable="false"
+                            <svg v-if="active && index===0" @click="updateForm" aria-hidden="true" focusable="false"
                                  data-prefix="far"
                                  data-icon="check-square" role="img"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -118,12 +118,12 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div v-else>
                 <div class="mb-4">
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">Add</p>
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="addBody" aria-hidden="true" focusable="false"
+                            <svg @click="addWeight" aria-hidden="true" focusable="false"
                                  data-prefix="far"
                                  data-icon="check-square" role="img"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -161,6 +161,10 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
+                <p class="p-3 text-base text-blue-800 font-medium">تمت العملية بنجاح</p>
+            </div>
         </div>
     </div>
 </template>
@@ -172,6 +176,7 @@
         data() {
             return {
                 active: false,
+                success: false,
                 chartOptions: {
                     active: false,
                     chart: {
@@ -297,16 +302,42 @@
                     },
                 ],
                 bodyAll: [],
+                itemEdit: null,
             }
         },
         methods: {
-            openForm() {
-                this.active = !this.active
+            openForm(item) {
+                this.active = !this.active;
+                this.itemEdit = item;
             },
             loadBodyAll() {
                 this.axios.get('/mobile/body/all')
                     .then(response => (this.bodyAll = response.data.data))
             },
+            addWeight() {
+                const $this = this;
+                this.axios.post('/mobile/body', this.form)
+                    .then(res => {
+                        this.bodyAll.push(res.data.data);
+                        this.success = true;
+                        setTimeout(function () {
+                            $this.success = false;
+                        }, 3000);
+                    });
+            },
+            updateForm() {
+                this.active = false;
+                const $form = this.bodyAll.find(x=>{
+                    return x.id === this.itemEdit.id
+                });
+                this.axios.post('/mobile/body/update', $form)
+                    .then(res => {
+                        this.success = true;
+                        setTimeout(function () {
+                            $this.success = false;
+                        }, 3000);
+                    });
+            }
         },
         components: {
             Bar,
