@@ -1,11 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Users from '../views/admin/Home.vue'
-import TicketsList from '../views/admin/tickets/index.vue'
-import Tickets from '../views/admin/tickets/details.vue'
-import Comments from '../views/admin/tickets/comments.vue'
-import Statistics from '../views/admin/tickets/statistics.vue'
-import Login from '../views/admin/Login.vue'
 
 import Home from '../views/app/Home.vue'
 import Advice from '../views/app/Advice.vue'
@@ -32,42 +26,6 @@ import AddMedicine from '../views/app/AddMedicine.vue'
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/admin/users',
-        name: 'Users',
-        meta: {layout: 'default'},
-        component: Users,
-    },
-    {
-        path: '/admin/login',
-        name: 'Login',
-        meta: {layout: 'auth'},
-        component: Login
-    },
-    {
-        path: '/admin/:user/details',
-        name: 'ticketsDetails',
-        meta: {layout: 'default'},
-        component: Tickets,
-    },
-    {
-        path: '/admin/tickets',
-        name: 'tickets',
-        meta: {layout: 'default'},
-        component: TicketsList,
-    },
-    {
-        path: '/admin/tickets/:user/comments',
-        name: 'comments',
-        meta: {layout: 'default'},
-        component: Comments,
-    },
-    {
-        path: '/admin/tickets/:user/statistics',
-        name: 'statistics',
-        meta: {layout: 'default'},
-        component: Statistics,
-    },
     {
         path: '/',
         name: 'Home',

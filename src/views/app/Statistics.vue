@@ -20,20 +20,20 @@
                    </div>
                </li>
            </ul>
-           <div class="mb-6">
-               <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">الوزن</h2>
-               <highcharts :options="chartOptions" :style="'height: 250px;'"></highcharts>
-               <p class="p-color text-xs flex items-center">
-                   <span class="w-3 h-3 rounded-full bg-blue-800 ltr:mr-2 rtl:ml-2"></span>
-                   دهون الجسم
-               </p>
-           </div>
            <div class="mb-8">
                <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">معدل السكر في الدم</h2>
                <highcharts :options="chartOptions2" :style="'height: 250px;'"></highcharts>
                <p class="p-color text-xs flex items-center">
                    <span class="w-3 h-3 rounded-full bg-purple-500 ltr:mr-2 rtl:ml-2"></span>
                    نسبة السكر في الدم
+               </p>
+           </div>
+           <div class="mb-6">
+               <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">الوزن</h2>
+               <highcharts :options="chartOptions" :style="'height: 250px;'"></highcharts>
+               <p class="p-color text-xs flex items-center">
+                   <span class="w-3 h-3 rounded-full bg-blue-800 ltr:mr-2 rtl:ml-2"></span>
+                   دهون الجسم
                </p>
            </div>
        </div>

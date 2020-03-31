@@ -10,6 +10,7 @@
                         <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">الدواء</label>
                         <v-select class="w-3/4 bg-white-900 rounded-25px py-3 px-6 appoint-select"
                                   :options="options"
+                                  label="name"
                                   placeholder="الدواء" :dir="dirLang" v-model="form.medicine_id"
                                   :class="{ 'has-danger': errors.length }">
                         </v-select>
@@ -32,10 +33,10 @@
                                         v-slot="{ errors }">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">ملاحظة</label>
                         <textarea
-                                  class="w-full bg-white-900 rounded-10px py-3 px-6 app-textarea focus:outline-none resize-none"
-                                  placeholder="ضع ملاحظتك هنا"
-                                  :class="{ 'has-danger': errors.length }"
-                                  v-model="form.notes"></textarea>
+                                class="w-full bg-white-900 rounded-10px py-3 px-6 app-textarea focus:outline-none resize-none"
+                                placeholder="ضع ملاحظتك هنا"
+                                :class="{ 'has-danger': errors.length }"
+                                v-model="form.notes"></textarea>
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
@@ -61,6 +62,7 @@
         },
         data() {
             return {
+                selected: null,
                 options: [],
                 success: false,
                 loading: false,
@@ -71,13 +73,14 @@
                 }
             }
         },
-        methods:{
+        methods: {
             handleSubmit() {
                 const $this = this;
                 this.$refs['addDrug'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
+                        form.medicine_id = form.medicine_id.id;
                         const $timing = new Date(form.timing);
                         form.timing = $timing.getHours() + ':' + $timing.getMinutes();
                         this.axios.post('/mobile/medicine', form).then((res) => {
@@ -110,8 +113,13 @@
             },
         },
         created() {
-            this.axios.get('/mobile/medicine/all')
-                .then(response => (this.options = response.data.data))
+            this.axios.get('/mobile/medicine/list')
+                .then(response => {
+                    let $options = response.data.data.filter(x => {
+                        return x.status === 0
+                    });
+                    this.options = $options;
+                });
         }
     }
 </script>

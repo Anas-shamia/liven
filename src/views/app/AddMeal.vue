@@ -8,7 +8,7 @@
                         <h4 class="text-base text-blue-800 mb-6">نوع الوجبة</h4>
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/3 mb-4" v-for="(item,index) in meals" :key="index">
-                                <CustomCheckbox :index="index" :title="item.title"  v-model="form.type"/>
+                                <CustomCheckbox :index="index" :title="item.title" v-model="form.type"/>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                 loading: false,
                 imageSrc: null,
                 form: {
-                    type:null,
+                    type: null,
                     image: '',
                     timing: null,
                     notes: null
@@ -131,19 +131,29 @@
             }
         },
         methods: {
+            getTiming(n) {
+                if (n < 10) {
+                    return '0' + n;
+                } else {
+                    return n
+                }
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addMeal'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
+                        form.type = parseInt(form.type);
                         const $timing = new Date(form.timing);
-                        form.timing = $timing.getHours() + ':' + $timing.getMinutes();
+                        const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
+                        const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
+                        form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
                         const formData = new FormData();
                         formData.append('notes', this.form.notes);
                         formData.append('image', this.imageSrc);
                         formData.append('timing', form.timing);
-                        formData.append('type', this.form.type);
+                        formData.append('type', form.type);
                         this.axios.post('/mobile/meal', formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -152,7 +162,7 @@
                             this.success = true;
                             this.loading = false;
                             this.form = {
-                                type:null,
+                                type: null,
                                 image: '',
                                 timing: null,
                                 notes: null
