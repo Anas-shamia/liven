@@ -4,17 +4,23 @@
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ul class="flex flex-wrap items-center -mx-2 mb-6">
                 <li class="w-1/3 px-2 text-center">
-                    <div class="bg-primary-900 text-white-900 rounded-25px py-2">
+                    <div @click="changeChart('week')" class="rounded-25px py-2"
+                         :class="selectedChart==='week'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
                         <span class="text-base font-medium">اسبوع</span>
                     </div>
                 </li>
                 <li class="w-1/3 px-2 text-center">
-                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
+                    <div @click="changeChart('month')" class="rounded-25px py-2"
+                         :class="selectedChart==='month'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
                         <span class="text-base font-medium">شهر</span>
                     </div>
                 </li>
                 <li class="w-1/3 px-2 text-center">
-                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
+                    <div @click="changeChart('year')" class="rounded-25px py-2"
+                         :class="selectedChart==='year'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
                         <span class="text-base font-medium">سنة</span>
                     </div>
                 </li>
@@ -32,7 +38,8 @@
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="openForm(item)" v-if="index===0 && !active" aria-hidden="true" focusable="false"
+                            <svg @click="openForm(item)" v-if="index===0 && !active" aria-hidden="true"
+                                 focusable="false"
                                  data-prefix="fas"
                                  data-icon="edit" role="img"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
@@ -135,7 +142,7 @@
                             <div class="bg-white-900 rounded-10px text-center py-4">
                                 <p class="text-sm mb-2 p-title">الوزن</p>
                                 <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.weight" />
+                                    <Input class="text-lg font-bold" v-model="form.weight"/>
                                     <span class="text-base font-bold">KG</span>
                                 </p>
                             </div>
@@ -144,7 +151,7 @@
                             <div class="bg-white-900 rounded-10px text-center py-4">
                                 <p class="text-sm mb-2 p-title">Hip</p>
                                 <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.highest" />
+                                    <Input class="text-lg font-bold" v-model="form.highest"/>
                                     <span class="text-base font-bold">CM</span>
                                 </p>
                             </div>
@@ -153,7 +160,7 @@
                             <div class="bg-white-900 rounded-10px text-center py-4">
                                 <p class="text-sm mb-2 p-title">West</p>
                                 <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.waist" />
+                                    <Input class="text-lg font-bold" v-model="form.waist"/>
                                     <span class="text-base font-bold">CM</span>
                                 </p>
                             </div>
@@ -175,6 +182,7 @@
     export default {
         data() {
             return {
+                selectedChart: 'week',
                 active: false,
                 success: false,
                 chartOptions: {
@@ -221,24 +229,7 @@
                     series: [
                         {
                             name: 'CGM',
-                            data: [
-                                {
-                                    name: "15 min",
-                                    y: 80,
-                                },
-                                {
-                                    name: "30 min",
-                                    y: 90,
-                                },
-                                {
-                                    name: "45 min",
-                                    y: 120,
-                                },
-                                {
-                                    name: "60 min",
-                                    y: 150,
-                                },
-                            ]
+                            data: []
                         }
                     ],
 
@@ -303,6 +294,7 @@
                 ],
                 bodyAll: [],
                 itemEdit: null,
+                bodyAllByType: [],
             }
         },
         methods: {
@@ -313,6 +305,15 @@
             loadBodyAll() {
                 this.axios.get('/mobile/body/all')
                     .then(response => (this.bodyAll = response.data.data))
+            },
+            changeChart(type) {
+                this.selectedChart = type;
+                this.chartOptions.series[0].data = [];
+                this.axios.get(`/mobile/body/chart/${this.selectedChart}`)
+                    .then(response => {
+                        this.bodyAllByType = response.data.data;
+                        this.chartOptions.series[0].data = this.bodyAllByType;
+                    });
             },
             addWeight() {
                 const $this = this;
@@ -327,7 +328,7 @@
             },
             updateForm() {
                 this.active = false;
-                const $form = this.bodyAll.find(x=>{
+                const $form = this.bodyAll.find(x => {
                     return x.id === this.itemEdit.id
                 });
                 this.axios.post('/mobile/body/update', $form)
@@ -345,6 +346,7 @@
         },
         created() {
             this.loadBodyAll();
+            this.changeChart('week');
         }
     }
 </script>
