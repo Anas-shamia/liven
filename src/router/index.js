@@ -21,6 +21,7 @@ import MyDrugs from '../views/app/MyDrugs.vue'
 import Profile from '../views/app/Profile.vue'
 import AddAnalyse from '../views/app/AddAnalyse.vue'
 import AddMedicine from '../views/app/AddMedicine.vue'
+import DailyFood from '../views/app/DailyFood.vue'
 
 
 Vue.use(VueRouter);
@@ -145,6 +146,12 @@ const routes = [
         name: 'medicine',
         meta: {layout: 'mobile'},
         component: AddMedicine,
+    },
+    {
+        path: '/daily-food',
+        name: 'daily-food',
+        meta: {layout: 'mobile'},
+        component: DailyFood,
     },
 ];
 

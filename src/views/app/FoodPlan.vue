@@ -8,10 +8,10 @@
                 <p class="text-xs font-light text-blue-800 mb-2">{{Object.keys(item)[0]}}</p>
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-1">
-                        <div v-if="Object.values(item)[0][0].hasOwnProperty('meals')">
+                        <router-link tag="div" :to="`/daily-food?date=${Object.keys(item)[0]}`" v-if="Object.values(item)[0][0].hasOwnProperty('meals')">
                             <p class="text-base text-blue-800 mb-2">الوجبات</p>
                             <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
+                        </router-link>
                         <router-link tag="div" to="/add-meal" v-else>
                             <p class="text-base text-blue-800 mb-2">الوجبات</p>
                             <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">

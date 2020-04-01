@@ -4,18 +4,23 @@ module.exports = {
     plugins: [
         require('tailwindcss'),
         require('autoprefixer'),
-        cssnano({
-            preset: 'default'
-        }),
-        purgecss({
-            // paths: [
-            //     'node_modules/vue-select/**/*.js',
-            // ],
-
-            // content: ['./layouts/**/*.html', './src/**/*.vue', './src/**/*.jsx', './node_modules/vue-select/**/*.js'],
-            content: ['index.html', '**/*.js', '**/*.html', '**/*.vue'],
-            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
-            // (/[A-z0-9-:\\/%-.]+/g) || []
+        // cssnano({
+        //     preset: 'default'
+        // }),
+        // purgecss({
+        //
+        //     content: ['./layouts/**/*.html', './src/**/*.vue', './src/**/*.jsx', './node_modules/vue-select/**/*.js'],
+        //     // content: ['index.html', '**/*.js', '**/*.html', '**/*.vue'],
+        //     defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+        //     // (/[A-z0-9-:\\/%-.]+/g) || []
+        // })
+        require('@fullhuman/postcss-purgecss')({
+            content: ['./public/**/*.html', './src/**/*.vue'],
+            defaultExtractor: (content) => {
+                const contentWithoutStyleBlocks = content.replace(/<style[^]+?<\/style>/gi, '')
+                return contentWithoutStyleBlocks.match(/[A-Za-z0-9-_/:]*[A-Za-z0-9-_/]+/g) || []
+            },
+            whitelistPatterns: [/-(leave|enter|appear)(|-(to|from|active))$/, /^(?!cursor-move).+-move$/, /^router-link(|-exact)-active$/],
         })
     ]
 };
