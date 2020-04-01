@@ -10,7 +10,7 @@
                 </div>
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in breakFast" :key="index" v-if="item.image_url">
-                        <div>
+                        <div class="bg-white-900 rounded-10px">
                             <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
@@ -22,58 +22,39 @@
                 </div>
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in lunch" :key="index" v-if="item.image_url">
-                        <div>
+                        <div class="bg-white-900 rounded-10px">
                             <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mb-6" v-if="lunch.length">
+            <div class="mb-6" v-if="dinner.length">
                 <div class="flex items-center">
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">عشاء</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in dinner" :key="index" v-if="item.image_url">
+                            <div class="bg-white-900 rounded-10px">
+                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            </div>
                         </div>
                     </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-
                 </div>
             </div>
-            <div class="mb-6">
+            <div class="mb-6" v-if="snacks.length">
                 <div class="flex items-center">
-                    <p class="text-sm flex-grow font-light text-blue-800 mb-2">وجبة خفيفة</p>
+                    <p class="text-sm flex-grow font-light text-blue-800 mb-2">وجبات خفيفة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in snacks" :key="index" v-if="item.image_url">
+                        <div class="bg-white-900 rounded-10px">
+                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -106,7 +87,7 @@
             breakFast() {
                 if (this.mealsToday.length) {
                     return this.mealsToday.filter(x => {
-                        return x.type = 1;
+                        return x.type == 1;
                     });
                 } else {
                     return [];
@@ -115,7 +96,7 @@
             lunch() {
                 if (this.mealsToday.length) {
                     return this.mealsToday.filter(x => {
-                        return x.type = 2;
+                        return x.type == 2;
                     });
                 } else {
                     return [];
@@ -124,7 +105,7 @@
             dinner() {
                 if (this.mealsToday.length) {
                     return this.mealsToday.filter(x => {
-                        return x.type = 3;
+                        return x.type == 3;
                     });
                 } else {
                     return [];
@@ -133,7 +114,7 @@
             snacks() {
                 if (this.mealsToday.length) {
                     return this.mealsToday.filter(x => {
-                        return x.type = 4;
+                        return x.type == 4;
                     });
                 } else {
                     return [];
@@ -153,6 +134,7 @@
                     }
                 }
             });
+
         }
 
     }
