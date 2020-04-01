@@ -58,7 +58,7 @@ Vue.component('ValidationObserver', ValidationObserver);
 
 Vue.component('datetime', Datetime);
 Vue.component('v-select', vSelect);
-Vue.component('VueSlider', VueSlider)
+Vue.component('VueSlider', VueSlider);
 
 Vue.use(PerfectScrollbar);
 
