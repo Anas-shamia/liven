@@ -1,22 +1,22 @@
-const purgecss = require('@fullhuman/postcss-purgecss');
-const cssnano = require('cssnano');
+// const purgecss = require('@fullhuman/postcss-purgecss');
+// const cssnano = require('cssnano');
 module.exports = {
     plugins: [
         require('tailwindcss'),
         require('autoprefixer'),
-        cssnano({
-            preset: 'default'
-        }),
-        purgecss({
-            // paths: [
-            //     'node_modules/vue-select/**/*.js',
-            // ],
-
-            // content: ['./layouts/**/*.html', './src/**/*.vue', './src/**/*.jsx', './node_modules/vue-select/**/*.js'],
-            content: ['index.html', '**/*.js', '**/*.html', '**/*.vue'],
-            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
-            // (/[A-z0-9-:\\/%-.]+/g) || []
-        })
+        // cssnano({
+        //     preset: 'default'
+        // }),
+        // purgecss({
+        //     // paths: [
+        //     //     'node_modules/vue-select/**/*.js',
+        //     // ],
+        //
+        //     content: ['./layouts/**/*.html', './src/**/*.vue', './src/**/*.jsx', './node_modules/vue-select/**/*.js'],
+        //     // content: ['index.html', '**/*.js', '**/*.html', '**/*.vue'],
+        //     defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+        //     // (/[A-z0-9-:\\/%-.]+/g) || []
+        // })
     ]
 };
 
