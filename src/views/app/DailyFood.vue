@@ -33,11 +33,9 @@
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">عشاء</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="flex flex-wrap -mx-2">
-                        <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in dinner" :key="index" v-if="item.image_url">
-                            <div class="bg-white-900 rounded-10px">
-                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
-                            </div>
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in dinner" :key="index" v-if="item.image_url">
+                        <div class="bg-white-900 rounded-10px">
+                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
                 </div>
