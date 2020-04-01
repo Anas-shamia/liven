@@ -3,58 +3,34 @@
         <Bar :title="'وجبات اليوم'" :close="'/food-plan'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">وجبات اليوم</h2>
-            <div class="mb-6">
+            <p class="text-xl font-light text-blue-800 mb-4">{{mealDate}}</p>
+            <div class="mb-6" v-if="breakFast.length">
                 <div class="flex items-center">
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">فطور</p>
-                    <p class="text-sm font-light text-blue-800 mb-2">منذ 16 ساعة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in breakFast" :key="index" v-if="item.image_url">
                         <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
+                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-
                 </div>
             </div>
-            <div class="mb-6">
+            <div class="mb-6" v-if="lunch.length">
                 <div class="flex items-center">
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">غداء</p>
-                    <p class="text-sm font-light text-blue-800 mb-2">منذ 16 ساعة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in lunch" :key="index" v-if="item.image_url">
                         <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
+                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
                         </div>
                     </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/3 px-1">
-                        <div>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
-                        </div>
-                    </div>
-
                 </div>
             </div>
-            <div class="mb-6">
+            <div class="mb-6" v-if="lunch.length">
                 <div class="flex items-center">
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">عشاء</p>
-                    <p class="text-sm font-light text-blue-800 mb-2">منذ 16 ساعة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-1">
@@ -78,7 +54,6 @@
             <div class="mb-6">
                 <div class="flex items-center">
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">وجبة خفيفة</p>
-                    <p class="text-sm font-light text-blue-800 mb-2">منذ 16 ساعة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-1">
@@ -108,36 +83,73 @@
     export default {
         data() {
             return {
-                foodPlan: null
+                foodPlan: null,
+                meals: [],
             }
         },
         components: {
             Bar
         },
-        created() {
-            this.axios.post('/mobile/medicine/item', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
+        methods: {
+            formatDate($date) {
+                const _date = $date;
+                return (new Date(_date).getDate() + '/' + (new Date(_date).getMonth() + 1) + '/' + new Date(_date).getFullYear());
+            },
+        },
+        computed: {
+            mealDate() {
+                return this.meals.length ? this.meals[0].date : '';
+            },
+            mealsToday() {
+                return this.meals.length ? this.meals[0].meals_today : [];
+            },
+            breakFast() {
+                if (this.mealsToday.length) {
+                    return this.mealsToday.filter(x => {
+                        return x.type = 1;
+                    });
+                } else {
+                    return [];
                 }
-            }).then((res) => {
-                this.success = true;
-                this.loading = false;
-                this.form = {
-                    name: null,
-                    count: null,
-                    status: null,
-                    image: '',
-                    notes: null
-                };
-                setTimeout(function () {
-                    $this.success = false;
-                }, 3000);
-                this.$refs['addMedicine'].reset();
+            },
+            lunch() {
+                if (this.mealsToday.length) {
+                    return this.mealsToday.filter(x => {
+                        return x.type = 2;
+                    });
+                } else {
+                    return [];
+                }
+            },
+            dinner() {
+                if (this.mealsToday.length) {
+                    return this.mealsToday.filter(x => {
+                        return x.type = 3;
+                    });
+                } else {
+                    return [];
+                }
+            },
+            snacks() {
+                if (this.mealsToday.length) {
+                    return this.mealsToday.filter(x => {
+                        return x.type = 4;
+                    });
+                } else {
+                    return [];
+                }
+            }
+
+
+        },
+        created() {
+            const date = new Date(this.$route.query.date);
+            const $date = {date: this.formatDate(date)};
+            this.axios.post('/mobile/meal/by/date', $date).then((res) => {
+                this.meals = res.data.data
             }).catch((error) => {
-                this.loading = false;
                 if (error.response) {
                     if (error.response.status === 422) {
-                        this.$refs['addMedicine'].setErrors(error.response.data.errors);
                     }
                 }
             });
