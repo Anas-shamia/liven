@@ -28,7 +28,7 @@
                     </div>
                     <div class="w-1/3 px-1">
                         <div v-if="hasKey(getKeys(Object.values(item)[0]),'water')">
-                            <Slider :value="Object.values(item)[0][0].water"/>
+                            <Slider :value="parseInt(getValue(Object.values(item)[0], 'water'))"/>
                         </div>
                         <router-link tag="div" to="/add-water" v-else>
                             <p class="text-base text-blue-800 mb-2">مقدار الماء</p>
@@ -97,6 +97,11 @@
             },
             hasKey(arr, name) {
                 return arr.indexOf(name) >= 0;
+            },
+            getValue(arr, key) {
+                return arr.find((x) => {
+                    return x[key]
+                })[key];
             }
         },
         created() {
