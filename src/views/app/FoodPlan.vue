@@ -9,7 +9,7 @@
                     <div class="w-1/3 px-1">
 
                         <router-link tag="div" :to="`/daily-food?date=${Object.keys(item)[0]}`"
-                                     v-if="Object.values(item)[0][0].hasOwnProperty('meals')">
+                                     v-if="hasKey(getKeys(Object.values(item)[0]),'meals')">
                             <p class="text-base text-blue-800 mb-2">الوجبات</p>
                             <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/meal.jpg" alt="">
                         </router-link>
@@ -27,7 +27,7 @@
                         </router-link>
                     </div>
                     <div class="w-1/3 px-1">
-                        <div v-if="Object.values(item)[0][0].hasOwnProperty('water')">
+                        <div v-if="hasKey(getKeys(Object.values(item)[0]),'water')">
                             <Slider :value="Object.values(item)[0][0].water"/>
                         </div>
                         <router-link tag="div" to="/add-water" v-else>
@@ -44,9 +44,11 @@
                         </router-link>
                     </div>
                     <div class="w-1/3 px-1">
-                        <router-link tag="div" :to="`/daily-drugs?date=${Object.keys(item)[0]}`" v-if="Object.values(item)[0][0].hasOwnProperty('medicines')">
+                        <router-link tag="div" :to="`/daily-drugs?date=${Object.keys(item)[0]}`"
+                                     v-if="hasKey(getKeys(Object.values(item)[0]),'medicines')">
                             <p class="text-base text-blue-800 mb-2">الدواء</p>
-                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/drug-img.jpg" alt="">
+                            <img class="custom-box w-full object-cover rounded-10px" src="@/assets/img/drug-img.jpg"
+                                 alt="">
                         </router-link>
                         <router-link tag="div" to="/add-drug" v-else>
                             <p class="text-base text-blue-800 mb-2">الدواء</p>
@@ -84,6 +86,18 @@
             // sortedArray: function () {
             //     return this.foodPlan = _.orderBy(this.foodPlan, Object.keys(this.foodPlan)[0], ['acs']);
             // }
+        },
+        methods: {
+            getKeys(arr) {
+                let keys = [];
+                arr.forEach((x) => {
+                    keys.push(Object.keys(x)[0]);
+                });
+                return keys;
+            },
+            hasKey(arr, name) {
+                return arr.indexOf(name) >= 0;
+            }
         },
         created() {
             this.axios.get('/mobile/food/plan')
