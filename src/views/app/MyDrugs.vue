@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="myDrugs===null">لا يوجد أدوية
+            <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="myDrugs">لا يوجد أدوية
                 لعرضها</h2>
         </div>
     </div>
