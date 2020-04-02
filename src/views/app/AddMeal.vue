@@ -116,7 +116,7 @@
                         title: 'وجبة خفيفة'
                     }
                 ],
-                sharedSize: 3000,
+                sharedSize: 2000,
                 errorMsg: false,
                 imageMsg: false,
                 success: false,
