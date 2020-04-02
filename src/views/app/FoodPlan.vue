@@ -65,6 +65,52 @@
                     </div>
                 </div>
             </div>
+            <div v-if="!foodPlan.length">
+                <div class="flex flex-wrap -mx-2">
+                    <div class="w-1/3 px-1">
+                        <router-link tag="div" to="/add-meal">
+                            <p class="text-base text-blue-800 mb-2">الوجبات</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="w-1/3 px-1">
+                        <router-link tag="div" to="/add-water">
+                            <p class="text-base text-blue-800 mb-2">الماء</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="w-1/3 px-1">
+                        <router-link tag="div" to="/add-drug">
+                            <p class="text-base text-blue-800 mb-2">الدواء</p>
+                            <div class="bg-white-900 flex items-center justify-center py-2 px-3 rounded-10px progress-bars custom-box">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                     class="svg-inline--fa fa-plus w-8">
+                                    <path fill="#cbcbcb"
+                                          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                          class=""></path>
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
