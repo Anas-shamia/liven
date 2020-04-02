@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="w-2/3 flex items-center justify-center bg-white-900 mid-div"
-                     v-if="this.profile.diabetes.length===0">
+                     v-if="!this.profile.diabetes.length">
                     <div>
                         <p class="text-xs font-light text-blue-800">الرجاء اضافة قراءة السكر</p>
                     </div>
@@ -69,22 +69,52 @@
                 <div class="w-1/3 flex items-center justify-center bg-purple-100 rtl:rounded-r-10px ltr:rounded-l-10px">
                     <h4 class="font-medium text-base text-white-900 mb-0">وزن الجسم</h4>
                 </div>
-                <div class="w-2/3 flex items-center justify-around bg-white-900 rtl:rounded-l-10px ltr:rounded-r-10px px-2 2xs:px-0">
-                    <div class="w-1/3 px-1">
-                        <p class="text-purple-100 font-light text-xs">الوزن الحالي</p>
-                        <p class="text-purple-100 font-bold text-lg">
-                            90
-                            <span class="text-xs">KG</span>
+
+
+                <div class="w-1/3 flex items-center justify-center bg-white-900 mid-div"
+                     v-for="(item,index) in this.profile.body" :key="index">
+                    <div v-if="index === 0">
+                        <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
+                        <p class="text-3xl font-bold text-blue-800">
+                            {{item.weight}}
+                            <span class="text-base font-bold">KG</span>
                         </p>
                     </div>
-                    <div class="w-1/3 px-1">
-                        <p class="text-purple-100 font-light text-xs">الوزن السابق</p>
-                        <p class="text-purple-100 font-bold text-lg">
-                            112
-                            <span class="text-xs">KG</span>
+                    <div v-if="index > 0">
+                        <p class="text-xs font-light text-purple-100">الوزن السابق</p>
+                        <p class="text-3xl font-bold text-purple-100">
+                            {{item.weight}}
+                            <span class="text-base font-bold">KG</span>
                         </p>
                     </div>
                 </div>
+
+                <div class="w-2/3 flex items-center justify-center bg-white-900 mid-div"
+                     v-if="!this.profile.body.length">
+                    <div>
+                        <p class="text-xs font-light text-blue-800">الرجاء اضافة وزن</p>
+                    </div>
+                </div>
+
+
+                <!--                <div class="w-2/3 flex items-center justify-around bg-white-900 rtl:rounded-l-10px ltr:rounded-r-10px px-2 2xs:px-0">-->
+                <!--                    <div class="w-1/3 px-1">-->
+                <!--                        <p class="text-purple-100 font-light text-xs">الوزن الحالي</p>-->
+                <!--                        <p class="text-purple-100 font-bold text-lg">-->
+                <!--                            {{profile.body[0].weight}}-->
+                <!--                            <span class="text-xs">KG</span>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="w-1/3 px-1">-->
+                <!--                        <p class="text-purple-100 font-light text-xs">الوزن السابق</p>-->
+                <!--                        <p class="text-purple-100 font-bold text-lg">-->
+                <!--                            {{profile.body[1].weight}}-->
+                <!--                            <span class="text-xs">KG</span>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
             </router-link>
             <div class="flex items-center 2xs:flex-wrap mb-2 -mx-2 5sm:-mx-1">
                 <div class="w-full 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">
@@ -153,11 +183,14 @@
                 </div>
             </div>
 
-                        <ul class="mt-6 flex items-center">
-                            <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span></router-link>
-                            <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span></router-link>
-                            <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span></router-link>
-                        </ul>
+            <ul class="mt-6 flex items-center">
+                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span>
+                </router-link>
+                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span>
+                </router-link>
+                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span>
+                </router-link>
+            </ul>
         </div>
 
     </div>

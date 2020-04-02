@@ -5,10 +5,10 @@
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">أدوية اليوم</h2>
             <div class="py-4 drug-box" v-for="(item,index) in sortedArray" :key="index">
                 <p class="text-xs p-color mb-2">{{item.date}}</p>
-                <h4 class="text-base text-blue-800 font-medium mb-2">{{item.name}}</h4>
+                <h4 class="text-base text-blue-800 font-medium mb-2">{{item.medicine.name}}</h4>
                 <div class="flex -mx-2">
                     <div class="w-1/2 px-2">
-                        <img class="custom-box w-full object-cover rounded-10px" :src="item.url" alt="durg-img">
+                        <img class="custom-box w-full object-cover rounded-10px" :src="item.medicine.url" alt="durg-img">
                     </div>
                     <div class="w-1/2 px-2">
                         <p class="text-sm text-blue-800 font-medium">ملاحظات</p>
