@@ -35,6 +35,10 @@ const routes = [
         component: Home,
     },
     {
+        path: '/home',
+        redirect: '/'
+    },
+    {
         path: '/advice',
         name: 'Advice',
         meta: {layout: 'mobile'},

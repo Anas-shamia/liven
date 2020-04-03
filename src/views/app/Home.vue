@@ -203,8 +203,19 @@
             }
         },
         created() {
-            this.axios.get('/mobile/home')
-                .then(response => (this.profile = response.data.data))
+            let $user_id = this.$route.query.user_id;
+
+            let url = '/mobile/home';
+            if ($user_id)
+                url = `/mobile/user/${$user_id}/liven_app/token`;
+
+            this.axios.get(url)
+                .then(res => {
+                    const $data = res.data;
+                    this.profile = $data.data;
+                    if ($data.hasOwnProperty('token'))
+                        localStorage.setItem('token', $data.token);
+                })
         }
     }
 </script>
