@@ -81,17 +81,19 @@
                             </p>
                         </div>
                     </li>
-                    <router-link tag="li" to="/my-analysis" class="w-1/2 mt-4 px-3">
+                </ul>
+                <div class="flex items-center">
+                    <router-link tag="div" to="/my-analysis" class="w-1/2 mt-4 px-3">
                         <div class="flex items-center justify-center bg-primary-900 py-4 px-4 rounded-full">
                             <p class="text-lg font-medium text-white-900 ">تحاليلي</p>
                         </div>
                     </router-link>
-                    <router-link tag="li" to="/my-drugs" class="w-1/2 mt-4 px-3">
+                    <router-link tag="div" to="/my-drugs" class="w-1/2 mt-4 px-3">
                         <div class="flex items-center justify-center bg-blue-800 py-4 px-4 rounded-full">
                             <p class="text-lg font-medium text-white-900">أدويتي</p>
                         </div>
                     </router-link>
-                </ul>
+                </div>
             </div>
         </div>
     </div>

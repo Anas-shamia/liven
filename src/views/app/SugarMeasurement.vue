@@ -47,8 +47,7 @@
                         </p>
                     </li>
                 </ul>
-                <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!measurement.length">لا يوجد أدوية
-                    لعرضها</h2>
+                <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!measurement.length">يرجى اضافة قياس سكر</h2>
             </div>
         </div>
     </div>

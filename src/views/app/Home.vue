@@ -10,7 +10,7 @@
                             <img class="object-cover w-full h-full p-2px rounded-full"
                                  src="@/assets/img/avatar.svg"
                                  alt="profile-pic"
-                                 v-if="profile.user.image === null"
+                                 v-if="!profile.user.image"
                             >
                             <img class="object-cover w-full h-full p-2px rounded-full"
                                  v-else
@@ -40,8 +40,9 @@
                 <div class="w-1/3 flex items-center justify-center bg-purple-100 rtl:rounded-r-10px ltr:rounded-l-10px">
                     <h4 class="font-medium text-base text-white-900 mb-0">قياس السكر</h4>
                 </div>
-                <div class="w-1/3 flex items-center justify-center bg-white-900 mid-div"
-                     v-for="(item,index) in this.profile.diabetes" :key="index">
+                <div class="flex items-center justify-center bg-white-900 mid-div"
+                     v-for="(item,index) in this.profile.diabetes" :key="index"
+                     :class="profile.diabetes.length === 1 ? 'w-2/3' :'w-1/3'">
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">القراءة الحالية</p>
                         <p class="text-3xl font-bold text-blue-800">
@@ -72,7 +73,8 @@
 
 
                 <div class="w-1/3 flex items-center justify-center bg-white-900 mid-div"
-                     v-for="(item,index) in this.profile.body" :key="index">
+                     v-for="(item,index) in this.profile.body" :key="index"
+                     :class="profile.body.length===1 ? 'w-2/3' :'w-1/3'">
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
                         <p class="text-3xl font-bold text-blue-800">
