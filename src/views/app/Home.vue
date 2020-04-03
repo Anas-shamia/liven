@@ -199,89 +199,12 @@
     export default {
         data() {
             return {
-                profile2: null,
-                profile: {
-                    "user": {
-                        "id": 34,
-                        "name": "Akmal Aldahdouh",
-                        "phone": 966501762722,
-                        "email": null,
-                        "country": null,
-                        "city": null,
-                        "gender": "ذكر",
-                        "length": 170,
-                        "weight": 80,
-                        "age": 40,
-                        "image": null,
-                        "notification": 0,
-                        "created_at": "2020-03-28 19:49:55",
-                        "updated_at": "2020-04-02 23:02:20",
-                        "state": "1",
-                        "submitted_age": null,
-                        "injection_state": null,
-                        "role": "patient",
-                        "status": "pending",
-                        "new_password": null,
-                        "otp_code": null,
-                        "dietitian_id": 6,
-                        "temp_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiOTlhZWM1Y2MzZjgwM2RmNjI4MDAwZWU4ODE5OGYxNWVkZjczN2U1MjJlOWYxNzA2MjQzMjRlYTRlYTFmNzkzMDc3YTE4NDE2MzA5NjI0ZmUiLCJpYXQiOjE1ODU4Njg1NDAsIm5iZiI6MTU4NTg2ODU0MCwiZXhwIjoxNjE3NDA0NTQwLCJzdWIiOiIzNCIsInNjb3BlcyI6W119.jCg9n4tmfOieZ4iNqE-olzXIQbeM6ky6fWv7JRBFvDzET48h9YodfsrEZDClDGdJCp6gGFuBOP58WcJlYfP8Gg",
-                        "url": null,
-                        "weeks": 1
-                    },
-                    "diabetes": [{
-                        "id": 27,
-                        "user_id": 34,
-                        "value": 200,
-                        "date": "02/04/2020",
-                        "timing": "04:47 pm",
-                        "created_at": "April 2, 2020 13:47 pm",
-                        "updated_at": "April 2, 2020 13:47 pm",
-                        "time": "2nd of April 2020 12:00 pm"
-                    }, {
-                        "id": 28,
-                        "user_id": 34,
-                        "value": 200,
-                        "date": "02/04/2020",
-                        "timing": "04:47 pm",
-                        "created_at": "April 2, 2020 13:47 pm",
-                        "updated_at": "April 2, 2020 13:47 pm",
-                        "time": "2nd of April 2020 12:00 pm"
-                    }],
-                    "body": [{
-                        "id": 25,
-                        "user_id": 34,
-                        "weight": 160,
-                        "waist": 65,
-                        "highest": 60,
-                        "date": "02/04/2020",
-                        "notes": null,
-                        "created_at": "April 2, 2020 07:34 am",
-                        "updated_at": "April 2, 2020 13:46 pm"
-                    }, {
-                        "id": 19,
-                        "user_id": 34,
-                        "weight": 150,
-                        "waist": 90,
-                        "highest": 90,
-                        "date": "01/04/2020",
-                        "notes": null,
-                        "created_at": "April 1, 2020 08:52 am",
-                        "updated_at": "April 1, 2020 16:34 pm"
-                    }],
-                    "appointment": [],
-                    "advice": {
-                        "id": 2,
-                        "title": "شرب الماء كثير يعطي سيولة في الدم",
-                        "date": "29/03/2020",
-                        "created_at": "March 29, 2020 16:53 pm",
-                        "updated_at": "March 29, 2020 16:53 pm"
-                    }
-                }
+                profile: null,
             }
         },
         created() {
-            // this.axios.get('/mobile/home')
-            //     .then(response => (this.profile = response.data.data))
+            this.axios.get('/mobile/home')
+                .then(response => (this.profile = response.data.data))
         }
     }
 </script>
