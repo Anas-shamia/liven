@@ -62,7 +62,11 @@
                     <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
                             <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الجنس</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.gender" v-if="active"/>
+                            <v-select class="bg-gray-100 w-1/2 text-center" v-if="active"
+                                      :options="options"
+                                      label="name"
+                                      :dir="dirLang" v-model="form.gender">
+                            </v-select>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.gender}}</span>
                             </p>
@@ -124,6 +128,7 @@
             return {
                 checkbox: false,
                 profile: {},
+                options: ['ذكر', 'انثى'],
                 active: false,
                 success: false,
                 form: {
@@ -163,6 +168,11 @@
         created() {
             this.axios.get('/mobile/user/profile')
                 .then(response => (this.profile = response.data.data))
+        },
+        computed: {
+            dirLang() {
+                return this.$i18n.locale === 'en' ? 'ltr' : 'rtl';
+            },
         }
     }
 </script>
