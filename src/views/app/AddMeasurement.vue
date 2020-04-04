@@ -74,6 +74,9 @@
                         const $timing = new Date(form.timing);
                         const $date = new Date(form.date);
                         form.timing = $timing.getHours() + ':' + $timing.getMinutes();
+                        // const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
+                        // const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
+                        // form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
                         form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
                         this.axios.post('/mobile/diabetes', form).then((res) => {
                             this.success = true;

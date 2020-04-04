@@ -2,7 +2,15 @@
     <div class="bg-gray-100 min-h-screen">
         <div class="gradient mobile-padding pb-8">
             <div class="flex items-center justify-between relative" style="height: 45px;">
-                <img src="@/assets/img/edit.svg" alt="">
+                <img @click="openForm()" v-if="!active" src="@/assets/img/edit.svg" alt="">
+                <svg aria-hidden="true" @click="updateForm" v-if="active" focusable="false" data-prefix="fas"
+                     data-icon="check" role="img"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                     class="svg-inline--fa fa-check w-6">
+                    <path fill="#fff"
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          class=""></path>
+                </svg>
                 <router-link tag="span" to="/" class="bg-transparent absolute rtl:left-0 ltr:right-0 ">
                     <img src="@/assets/img/back.svg" alt="">
                 </router-link>
@@ -16,7 +24,8 @@
                 </div>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
                 <p class="text-sm text-white-900 font-medium mb-6">{{profile.email}}</p>
-                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900">تغيير كلمة المرور</router-link>
+                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900">تغيير كلمة المرور
+                </router-link>
             </div>
         </div>
         <div class="mobile-padding  py-6">
@@ -32,7 +41,8 @@
                 <ul class="flex flex-wrap -mx-3">
                     <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">العمر</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">العمر</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.age" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.age}}</span>
                                 <span class="text-xs">Yr</span>
@@ -41,7 +51,8 @@
                     </li>
                     <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">الطول</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الطول</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.length" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.length}}</span>
                                 <span class="text-xs">cm</span>
@@ -50,7 +61,8 @@
                     </li>
                     <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">الجنس</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الجنس</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.gender" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.gender}}</span>
                             </p>
@@ -58,30 +70,36 @@
                     </li>
                     <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">الوزن</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الوزن</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.weight" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.weight}}</span>
                                 <span class="text-xs">kg</span>
                             </p>
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3" v-if="profile.country">
+                    <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">البلد</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">البلد</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.country" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.country}}</span>
                             </p>
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3" v-if="profile.city">
+                    <li class="w-1/2 mb-2 px-3">
                         <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow">المدينة</p>
+                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">المدينة</p>
+                            <Input class="text-lg font-bold text-center" v-model="form.city" v-if="active"/>
                             <p class="text-base text-blue-800">
                                 <span class="px-2">{{profile.city}}</span>
                             </p>
                         </div>
                     </li>
                 </ul>
+                <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
+                    <p class="p-3 text-base text-blue-800 font-medium">تمت التعديل بنجاح</p>
+                </div>
                 <div class="flex items-center">
                     <router-link tag="div" to="/my-analysis" class="w-1/2 mt-4 px-3">
                         <div class="flex items-center justify-center bg-primary-900 py-4 px-4 rounded-full">
@@ -99,18 +117,48 @@
     </div>
 </template>
 <script>
+    import Input from '../../components/app/Input';
+
     export default {
         data() {
             return {
                 checkbox: false,
-                profile: {}
+                profile: {},
+                active: false,
+                success: false,
+                form: {
+                    age: null,
+                    city: null,
+                    gender: null,
+                    weight: null,
+                    length: null,
+                    country: null
+                }
             }
         },
         methods: {
             toggleCheckbox() {
                 this.checkbox = !this.checkbox;
                 this.$emit('setCheckboxVal', this.checkbox)
+            },
+            openForm() {
+                this.active = !this.active;
+            },
+            updateForm() {
+                const $this = this;
+                this.active = false;
+                this.axios.post('/mobile/user', this.form)
+                    .then(res => {
+                        this.success = true;
+                        location.reload();
+                        setTimeout(function () {
+                            $this.success = false;
+                        }, 3000);
+                    });
             }
+        },
+        components: {
+            Input
         },
         created() {
             this.axios.get('/mobile/user/profile')

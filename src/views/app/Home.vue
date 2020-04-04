@@ -131,7 +131,9 @@
                         <div class="w-3/4">
                             <h4 class="text-purple-100 text-base font-medium mb-2">المواعيد</h4>
                             <p class="text-white-900 text-xs 5sm:text-xxs" v-if="profile.appointment.length">
-                                لديك موعد مع أخصائي التغذية بتاريخ {{profile.appointment[0].reserved_date}} من الساعة {{profile.appointment[0].appointment.from}} الى الساعة  {{profile.appointment[0].appointment.to}}
+                                لديك موعد مع أخصائي التغذية بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
+                                {{profile.appointment[0].appointment.from}} الى الساعة
+                                {{profile.appointment[0].appointment.to}}
                             </p>
 
                             <p class="text-white-900 text-xs 5sm:text-xxs" v-else>
@@ -166,9 +168,9 @@
             </div>
         </div>
         <div class="mobile-padding bg-gray-100 py-6">
-            <router-link tag="div" to="/advice" class="bg-white-900 rounded-10px text-center py-3 mb-4">
+            <router-link tag="div" to="/advice" class="bg-white-900 rounded-10px text-center py-3 mb-4" v-if="profile.advice">
                 <h2 class="text-primary-900 font-medium text-base-900 mb-2px">نصيحة اليوم</h2>
-                <p class="text-xs font-light text-blue-800 w-4/5 mx-auto">{{profile.advice.title}}</p>
+                <p class="text-xs font-light text-blue-800 w-4/5 mx-auto" v-if="profile.advice">{{profile.advice.title}}</p>
             </router-link>
             <div class="flex flex-wrap -mx-3 5sm:-mx-2 2xs:-mx-1">
                 <div class="w-1/4 px-3 5sm:px-2 2xs:px-1 flex items-center justify-center">
