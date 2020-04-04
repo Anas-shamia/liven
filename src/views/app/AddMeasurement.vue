@@ -85,7 +85,8 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                            }, 3000);
+                                $this.$router.push('/measurement')
+                            }, 2000);
                             this.$refs['addSugar'].reset();
                         }).catch((error) => {
                             this.loading = false;

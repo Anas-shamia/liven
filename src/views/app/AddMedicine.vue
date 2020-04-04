@@ -29,6 +29,7 @@
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/3 mb-4" v-for="(item,index) in meals" :key="index">
                                 <CustomCheckbox :index="index-1" :title="item.title" v-model="form.status"/>
+
                             </div>
                         </div>
                     </div>
@@ -76,7 +77,6 @@
                     </div>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
                                         name="notes"
-                                        rules="required"
                                         v-slot="{ errors }">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">ملاحظة</label>
                         <textarea
@@ -128,7 +128,7 @@
                 form: {
                     name: null,
                     count: null,
-                    status: 0,
+                    status: 1,
                     image: '',
                     notes: null
                 }

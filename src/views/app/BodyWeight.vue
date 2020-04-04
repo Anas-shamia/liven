@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Bar :title="'وزن الجسم'"/>
+        <Bar :title="'قياسات الجسم'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ul class="flex flex-wrap items-center -mx-2 mb-6">
                 <li class="w-1/3 px-2 text-center">
@@ -30,7 +30,7 @@
                 <highcharts :options="chartOptions" :style="'height: 250px;'"></highcharts>
                 <p class="p-color text-xs flex items-center">
                     <span class="w-3 h-3 rounded-full bg-blue-800 ltr:mr-2 rtl:ml-2"></span>
-                    دهون الجسم
+                    الوزن
                 </p>
             </div>
             <div v-if="bodyAll.length">
@@ -86,7 +86,7 @@
                                       class=""></path>
                             </svg>
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">Hip</p>
+                                <p class="text-sm mb-2 p-title">عرض الورك</p>
                                 <p class="text-primary-900">
                                     <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.highest}}</span>
                                     <Input class="text-lg font-bold" v-model="item.highest" v-if="index===0 && active"/>
@@ -114,7 +114,7 @@
                                       class=""></path>
                             </svg>
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">West</p>
+                                <p class="text-sm mb-2 p-title">عرض الخصر</p>
                                 <p class="text-primary-900">
                                     <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.waist}}</span>
                                     <Input class="text-lg font-bold" v-model="item.waist" v-if="index===0 && active"/>
@@ -149,7 +149,7 @@
                         </div><!--col-->
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">Hip</p>
+                                <p class="text-sm mb-2 p-title">عرض الورك</p>
                                 <p class="text-primary-900">
                                     <Input class="text-lg font-bold" v-model="form.highest"/>
                                     <span class="text-base font-bold">CM</span>
@@ -158,7 +158,7 @@
                         </div><!--col-->
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">West</p>
+                                <p class="text-sm mb-2 p-title">عرض الخصر</p>
                                 <p class="text-primary-900">
                                     <Input class="text-lg font-bold" v-model="form.waist"/>
                                     <span class="text-base font-bold">CM</span>
@@ -259,13 +259,13 @@
                             },
                             {
                                 id: '1',
-                                title: 'Hip',
+                                title: 'عرض الورك',
                                 num: '12',
                                 unit: 'CM'
                             },
                             {
                                 id: '2',
-                                title: 'West',
+                                title: 'عرض الخصر',
                                 num: '30',
                                 unit: 'CM'
                             }
@@ -280,7 +280,7 @@
                                 unit: 'KG'
                             },
                             {
-                                title: 'دهون الجسم',
+                                title: 'الوزن',
                                 num: '12',
                                 unit: 'CM'
                             },

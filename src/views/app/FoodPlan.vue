@@ -1,8 +1,7 @@
 <template>
     <div>
-        <Bar :title="'السجل الغذائي'" :plus="false" :path="'/'"/>
+        <Bar :title="'السجل اليومي'" :plus="false" :path="'/'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
-            <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">الخطة الغذائية</h2>
             <div class="mb-6" v-for="(item,index) in foodPlan" :key="index">
                 <p class="text-xs font-light text-blue-800 mb-2">{{Object.keys(item)[0]}}</p>
                 <div class="flex flex-wrap -mx-2">
@@ -121,7 +120,7 @@
     export default {
         data() {
             return {
-                foodPlan: null
+                foodPlan: []
             }
         },
         components: {

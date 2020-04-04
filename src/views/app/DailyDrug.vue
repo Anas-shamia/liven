@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Bar :title="'أدوية اليوم'" :close="'/food-plan'"/>
+        <Bar :title="'أدوية اليوم'" :close="'/food-plan'" :plus="true" :path="'/add-drug'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">أدوية اليوم</h2>
             <div class="py-4 drug-box" v-for="(item,index) in sortedArray" :key="index">

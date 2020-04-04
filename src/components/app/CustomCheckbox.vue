@@ -19,7 +19,7 @@
         props: ['index', 'title', 'value'],
         data() {
             return {
-                picked: 0
+                picked: 1
             }
         },
         methods: {

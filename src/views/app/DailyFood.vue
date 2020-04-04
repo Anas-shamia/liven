@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Bar :title="'وجبات اليوم'" :close="'/food-plan'"/>
+        <Bar :title="'وجبات اليوم'" :back="'/food-plan'" :plus="true" :path="'/add-meal'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">وجبات اليوم</h2>
             <p class="text-xl font-light text-blue-800 mb-4">{{mealDate}}</p>

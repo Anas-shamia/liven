@@ -145,7 +145,7 @@
             measurement($val) {
                 this.chartOptions.series[0].data = $val.map(x => {
                     return {
-                        name: x.created_at,
+                        name: x.timing,
                         y: x.value
                     }
                 });

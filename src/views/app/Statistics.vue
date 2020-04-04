@@ -33,7 +33,7 @@
                <highcharts :options="chartOptions" :style="'height: 250px;'"></highcharts>
                <p class="p-color text-xs flex items-center">
                    <span class="w-3 h-3 rounded-full bg-blue-800 ltr:mr-2 rtl:ml-2"></span>
-                   دهون الجسم
+                   الوزن
                </p>
            </div>
        </div>

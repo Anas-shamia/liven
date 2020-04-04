@@ -32,7 +32,6 @@
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
                                         name="notes"
-                                        rules="required"
                                         v-slot="{ errors }">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">ملاحظة</label>
                         <textarea
@@ -84,7 +83,7 @@
                 success: false,
                 loading: false,
                 form: {
-                    type: null,
+                    type: '1',
                     timing: null,
                     interval: null,
                     notes: null
@@ -121,7 +120,8 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                            }, 3000);
+                                $this.$router.push('/');
+                            }, 2000);
                             this.$refs['addActivity'].reset();
                         }).catch((error) => {
                             this.loading = false;

@@ -1,8 +1,8 @@
 <template>
     <div class="bg-gray-100 min-h-screen" v-if="profile">
         <div class="gradient mobile-padding py-4">
-            <div class="flex items-center flex-wrap mb-6">
-                <div class="w-1/2 flex items-center">
+            <div class="flex items-center flex-wrap mb-2">
+                <div class="w-full flex items-center">
                     <div>
                         <router-link tag="div"
                                      class="w-14 h-14 rounded-full border-2 border-white-900 flex items-center justify-center"
@@ -21,10 +21,12 @@
                     </div>
                     <div class="ltr:pl-2 rtl:pr-2">
                         <p class="text-white-900 text-xl 2xs:text-base">مرحبا <span>{{profile.user.name}}</span></p>
-                        <p class="text-white-900 font-light text-xs">أنت الآن في الاسبوع <span>8</span></p>
+                        <p class="text-white-900 font-light text-xs">أنت الآن في الاسبوع <span>{{profile.user.weeks}}</span></p>
                     </div>
                 </div>
-                <div class="w-1/2 ltr:pl-2 rtl:pr-2">
+            </div>
+            <div class="flex items-center mb-6">
+                <div class="w-full ltr:pl-2 rtl:pr-2">
                     <div class="flex items-end mb-2">
                         <p class="text-white-900 font-light text-xs flex-grow">نسبه انجازك لأهدافك</p>
                         <p class="text-white-900 text-xl 2xs:text-base"><span
@@ -185,14 +187,14 @@
                 </div>
             </div>
 
-            <ul class="mt-6 flex items-center">
-                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span>
-                </router-link>
-                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span>
-                </router-link>
-                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span>
-                </router-link>
-            </ul>
+<!--            <ul class="mt-6 flex items-center">-->
+<!--                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span>-->
+<!--                </router-link>-->
+<!--                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span>-->
+<!--                </router-link>-->
+<!--                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span>-->
+<!--                </router-link>-->
+<!--            </ul>-->
         </div>
 
     </div>

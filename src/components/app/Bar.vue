@@ -31,7 +31,7 @@
 <style lang="scss">
     .bar {
         height: 45px;
-        background-color: #6A306D;
+        background-color: #77317A;
         img {
             width: 20px;
             height: 20px;

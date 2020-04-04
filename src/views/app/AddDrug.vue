@@ -29,7 +29,6 @@
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
                                         name="notes"
-                                        rules="required"
                                         v-slot="{ errors }">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">ملاحظة</label>
                         <textarea
@@ -93,7 +92,8 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                            }, 3000);
+                                $this.$router.push('/food-plan');
+                            }, 2000);
                             this.$refs['addDrug'].reset();
                         }).catch((error) => {
                             this.loading = false;

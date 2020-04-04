@@ -48,7 +48,6 @@
                     </div>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
                                         name="notes"
-                                        rules="required"
                                         v-slot="{ errors }">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">ملاحظة</label>
                         <textarea
