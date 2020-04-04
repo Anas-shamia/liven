@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100 min-h-screen" v-if="profile">
+    <div class="bg-gray-100 min-h-screen relative" v-if="profile">
         <div class="gradient mobile-padding py-4">
             <div class="flex items-center flex-wrap mb-2">
                 <div class="w-full flex items-center">
@@ -21,7 +21,8 @@
                     </div>
                     <div class="ltr:pl-2 rtl:pr-2">
                         <p class="text-white-900 text-xl 2xs:text-base">مرحبا <span>{{profile.user.name}}</span></p>
-                        <p class="text-white-900 font-light text-xs">أنت الآن في الاسبوع <span>{{profile.user.weeks}}</span></p>
+                        <p class="text-white-900 font-light text-xs">أنت الآن في الاسبوع
+                            <span>{{profile.user.weeks}}</span></p>
                     </div>
                 </div>
             </div>
@@ -96,7 +97,11 @@
                 <div class="w-2/3 flex items-center justify-center bg-white-900 mid-div"
                      v-if="!this.profile.body.length">
                     <div>
-                        <p class="text-xs font-light text-blue-800">الرجاء اضافة وزن</p>
+                        <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
+                        <p class="text-3xl font-bold text-blue-800">
+                            {{profile.user.weight}}
+                            <span class="text-base font-bold">KG</span>
+                        </p>
                     </div>
                 </div>
 
@@ -123,12 +128,18 @@
             <div class="flex items-center 2xs:flex-wrap mb-2 -mx-2 5sm:-mx-1">
                 <div class="w-full 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">
                     <div class="flex flex-wrap items-center h-full flex-wrap px-3">
-                        <div class="w-1/2 5sm:w-2/3">
+                        <div class="w-3/4">
                             <h4 class="text-purple-100 text-base font-medium mb-2">المواعيد</h4>
-                            <p class="text-white-900 text-xs 5sm:text-xxs">اخصائي التغذية اليوم
-                                العاشرة مساءا</p>
+                            <p class="text-white-900 text-xs 5sm:text-xxs" v-if="profile.appointment.length">
+                                لديك موعد مع أخصائي التغذية بتاريخ {{profile.appointment[0].reserved_date}} من الساعة {{profile.appointment[0].appointment.from}} الى الساعة  {{profile.appointment[0].appointment.to}}
+                            </p>
+
+                            <p class="text-white-900 text-xs 5sm:text-xxs" v-else>
+                                الرجاء اختيار موعد مع أخصائي التغذية الخاص بك
+                            </p>
+
                         </div>
-                        <div class="w-1/2 5sm:w-1/3 ltr:text-right rtl:text-left">
+                        <div class="w-1/4 ltr:text-right rtl:text-left">
                             <img class="mb-2 ltr:ml-auto rtl:mr-auto" src="@/assets/img/bill.svg" alt="">
                             <router-link tag="div" to="/appointments" type="button"
                                          class="text-white-900 font-medium text-xs px-3 py-1 rounded-full bg-blue-800 inline-block">
@@ -187,19 +198,20 @@
                 </div>
             </div>
 
-<!--            <ul class="mt-6 flex items-center">-->
-<!--                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span>-->
-<!--                </router-link>-->
-<!--                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span>-->
-<!--                </router-link>-->
-<!--                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span>-->
-<!--                </router-link>-->
-<!--            </ul>-->
+            <!--            <ul class="mt-6 flex items-center">-->
+            <!--                <router-link tag="li" to="/weight-statistics" class="px-2"><span class="text-xs">احصائيات</span>-->
+            <!--                </router-link>-->
+            <!--                <router-link tag="li" to="/inquiries-list" class="px-2"><span class="text-xs">استفسارات</span>-->
+            <!--                </router-link>-->
+            <!--                <router-link tag="li" to="/food-plan" class="px-2"><span class="text-xs">الخطة الغذائية</span>-->
+            <!--                </router-link>-->
+            <!--            </ul>-->
         </div>
 
     </div>
 </template>
 <script>
+
     export default {
         data() {
             return {
@@ -219,7 +231,7 @@
                     this.profile = $data.data;
                     if ($data.hasOwnProperty('token'))
                         localStorage.setItem('token', $data.token);
-                })
+                });
         }
     }
 </script>

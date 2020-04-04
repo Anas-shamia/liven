@@ -327,6 +327,7 @@
                     });
             },
             updateForm() {
+                const $this = this;
                 this.active = false;
                 const $form = this.bodyAll.find(x => {
                     return x.id === this.itemEdit.id

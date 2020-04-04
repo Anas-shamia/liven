@@ -16,7 +16,7 @@
                 </div>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
                 <p class="text-sm text-white-900 font-medium mb-6">{{profile.email}}</p>
-                <p class="underline text-xs text-white-900">تغيير كلمة المرور</p>
+                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900">تغيير كلمة المرور</router-link>
             </div>
         </div>
         <div class="mobile-padding  py-6">

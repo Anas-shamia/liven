@@ -4,18 +4,24 @@
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ul class="flex flex-wrap items-center -mx-2 mb-6">
                 <li class="w-1/3 px-2 text-center">
-                    <div class="bg-primary-900 text-white-900 rounded-25px py-2">
-                        <span class="text-base font-medium">يوم</span>
-                    </div>
-                </li>
-                <li class="w-1/3 px-2 text-center">
-                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
+                    <div @click="changeChart('week')" class="rounded-25px py-2"
+                         :class="selectedChart==='week'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
                         <span class="text-base font-medium">اسبوع</span>
                     </div>
                 </li>
                 <li class="w-1/3 px-2 text-center">
-                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
+                    <div @click="changeChart('month')" class="rounded-25px py-2"
+                         :class="selectedChart==='month'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
                         <span class="text-base font-medium">شهر</span>
+                    </div>
+                </li>
+                <li class="w-1/3 px-2 text-center">
+                    <div @click="changeChart('year')" class="rounded-25px py-2"
+                         :class="selectedChart==='year'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                    >
+                        <span class="text-base font-medium">سنة</span>
                     </div>
                 </li>
             </ul>
@@ -47,7 +53,8 @@
                         </p>
                     </li>
                 </ul>
-                <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!measurement.length">يرجى اضافة قياس سكر</h2>
+                <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!measurement.length">يرجى اضافة
+                    قياس سكر</h2>
             </div>
         </div>
     </div>
@@ -58,28 +65,7 @@
     export default {
         data() {
             return {
-                // measurement: [
-                //     {
-                //         average: '80',
-                //         text: 'طبيعي',
-                //         date: 'Today , 02:15PM'
-                //     },
-                //     {
-                //         average: '113',
-                //         text: 'متوسط',
-                //         date: 'Today , 05:10PM'
-                //     },
-                //     {
-                //         average: '95',
-                //         text: 'معتدل',
-                //         date: 'Today , 06:00PM'
-                //     },
-                //     {
-                //         average: '90',
-                //         text: 'معتدل',
-                //         date: 'Today , 08:20PM'
-                //     },
-                // ],
+                selectedChart: '',
                 measurement: [],
                 chartOptions: {
                     chart: {
@@ -135,7 +121,8 @@
                             },
                         }]
                     }
-                }
+                },
+                measurementAllByType: [],
             }
         },
         components: {
@@ -158,6 +145,24 @@
                 console.log(new Date(_date).getFullYear(), (new Date(_date).getMonth() + 1), new Date(_date).getDate());
                 return (new Date(_date).getFullYear() + '-' + (new Date(_date).getMonth() + 1) + '-' + new Date(_date).getDate());
             },
+            loadMeasurementAll() {
+                this.axios.get('/mobile/diabetes/all')
+                    .then(response => (this.measurement = response.data.data))
+            },
+            changeChart(type) {
+                if (type === '') {
+                    return;
+                } else {
+                    this.selectedChart = type;
+                    this.chartOptions.series[0].data = [];
+                    this.axios.get(`/mobile/diabetes/chart/${this.selectedChart}`)
+                        .then(response => {
+                            this.measurementAllByType = response.data.data;
+                            this.chartOptions.series[0].data = this.measurementAllByType;
+                        });
+                }
+
+            },
         },
         computed: {
             sortedArray: function () {
@@ -165,8 +170,8 @@
             }
         },
         created() {
-            this.axios.get('/mobile/diabetes/all')
-                .then(response => (this.measurement = response.data.data))
+            this.loadMeasurementAll();
+            this.changeChart('');
         }
     }
 </script>

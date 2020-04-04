@@ -23,6 +23,7 @@ import AddAnalyse from '../views/app/AddAnalyse.vue'
 import AddMedicine from '../views/app/AddMedicine.vue'
 import DailyFood from '../views/app/DailyFood.vue'
 import DailyDrug from '../views/app/DailyDrug.vue'
+import ChangePassword from '../views/app/ChangePassword.vue'
 
 
 Vue.use(VueRouter);
@@ -163,6 +164,12 @@ const routes = [
         name: 'daily-drugs',
         meta: {layout: 'mobile'},
         component: DailyDrug,
+    },
+    {
+        path: '/change-password',
+        name: 'change-password',
+        meta: {layout: 'mobile'},
+        component: ChangePassword,
     },
 ];
 

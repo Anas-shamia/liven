@@ -41,9 +41,9 @@
                                               class=""></path>
                                     </svg>
                                 </button>
-                                <input type="file" @change="onFileChange" accept="image/*" capture="camera">
+                                <input type="file" @change="onFileChange" accept="image/*;capture=camera">
                                 <p class="message-danger">{{ errors[0] }}</p>
-                                <p class="message-danger" v-if="errorMsg">حجم الصورة يجب ان يكون اقل من 3000kb</p>
+                                <p class="message-danger" v-if="errorMsg">حجم الصورة يجب ان يكون اقل من 2000kb</p>
                                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                             </ValidationProvider>
                         </div>
