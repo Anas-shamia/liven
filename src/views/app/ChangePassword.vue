@@ -4,20 +4,20 @@
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ValidationObserver ref="changePassword">
                 <form @submit.prevent="handleSubmit" class="mt-4">
-                    <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
-                                        vid="old_password" name="old Password" rules="required"
-                                        v-slot="{ errors }">
-                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">كلمة المرور القديمة</label>
-                        <input type="password" class="w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                               placeholder="كلمة المرور القديمة" v-model="form.old_password"
-                               :class="{ 'has-danger': errors.length }">
-                        <p class="message-danger">{{ errors[0] }}</p>
-                    </ValidationProvider>
+<!--                    <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"-->
+<!--                                        vid="old_password" name="old Password" rules="required"-->
+<!--                                        v-slot="{ errors }">-->
+<!--                        <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-2">كلمة المرور القديمة</label>-->
+<!--                        <input type="password" class="w-full bg-white-900 rounded-25px py-3 px-6 focus:outline-none"-->
+<!--                               placeholder="كلمة المرور القديمة" v-model="form.old_password"-->
+<!--                               :class="{ 'has-danger': errors.length }">-->
+<!--                        <p class="message-danger">{{ errors[0] }}</p>-->
+<!--                    </ValidationProvider>-->
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="password" name="password" rules="required"
                                         v-slot="{ errors }">
-                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">كلمة المرور الجديدة</label>
-                        <input type="password" class="w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
+                        <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-2">كلمة المرور الجديدة</label>
+                        <input type="password" class="w-full bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                placeholder="كلمة المرور الجديدة" v-model="form.password"
                                :class="{ 'has-danger': errors.length }">
                         <p class="message-danger">{{ errors[0] }}</p>
@@ -25,8 +25,8 @@
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="password_confirmation" name="password" rules="required|confirmed:password"
                                         v-slot="{ errors }">
-                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">تأكيد كلمة المرور</label>
-                        <input type="password" class="w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
+                        <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-2">تأكيد كلمة المرور</label>
+                        <input type="password" class="w-full bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                placeholder="تأكيد كلمة المرور" v-model="form.password_confirmation"
                                :class="{ 'has-danger': errors.length }">
                         <p class="message-danger">{{ errors[0] }}</p>
@@ -59,7 +59,7 @@
                 success: false,
                 loading: false,
                 form: {
-                    old_password: null,
+                    // old_password: null,
                     password: null,
                     password_confirmation: null,
                 }
@@ -75,7 +75,7 @@
                             this.success = true;
                             this.loading = false;
                             this.form = {
-                                old_password: null,
+                                // old_password: null,
                                 password: null,
                                 password_confirmation: null,
                             };

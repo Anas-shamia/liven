@@ -222,7 +222,7 @@
         },
         created() {
             let $user_id = this.$route.query.user_id;
-
+            console.log($user_id);
             let url = '/mobile/home';
             if ($user_id)
                 url = `/mobile/user/${$user_id}/liven_app/token`;

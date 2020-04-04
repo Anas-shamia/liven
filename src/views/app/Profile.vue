@@ -16,7 +16,16 @@
                 </router-link>
             </div>
             <div class="text-center mt-4">
-                <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center">
+                <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
+<!--                    <svg id="plus-circle" class="absolute z-2 bottom-0 top-0 rtl:right-0 ltr:left-0 rtl:mr-5 ltr:ml-5 mt-3"-->
+<!--                         xmlns="http://www.w3.org/2000/svg"-->
+<!--                         width="16" height="16" viewBox="0 0 16 16">-->
+<!--                        <rect width="16" height="16" opacity="0"/>-->
+<!--                        <path d="M8,0a8,8,0,1,0,5.657,2.343A8,8,0,0,0,8,0Z" fill="#21b363"/>-->
+<!--                        <path data-name="Path"-->
+<!--                              d="M7,5H5V7A1,1,0,0,1,3,7V5H1A1,1,0,0,1,1,3H3V1A1,1,0,0,1,5,1V3H7A1,1,0,0,1,7,5Z"-->
+<!--                              transform="translate(4 4)" fill="#fff"/>-->
+<!--                    </svg>-->
                     <img class="object-cover w-full h-full p-2px rounded-full" v-if="profile.image" :src="profile.image"
                          alt="profile-pic">
                     <img class="object-cover w-full h-full p-2px rounded-full" v-else src="@/assets/img/avatar.svg"
@@ -39,65 +48,81 @@
             <div class="mb-6">
                 <h2 class="flex-grow text-base text-blue-800 mb-2">المعلومات الشخصية</h2>
                 <ul class="flex flex-wrap -mx-3">
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">العمر</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.age" v-if="active"/>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.age}}</span>
-                                <span class="text-xs">Yr</span>
-                            </p>
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">العمر</p>
+
+                                <p class="text-base text-blue-800 mr-auto">
+                                    <span class="px-2">{{profile.age}}</span>
+                                    <span class="text-xs">Yr</span>
+                                </p>
+                            </div>
+                            <Input class="text-lg font-bold w-full" v-model="form.age" v-if="active"/>
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الطول</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.length" v-if="active"/>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.length}}</span>
-                                <span class="text-xs">cm</span>
-                            </p>
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الطول</p>
+                                <p class="text-base text-blue-800">
+                                    <span class="px-2">{{profile.length}}</span>
+                                    <span class="text-xs">cm</span>
+                                </p>
+                            </div>
+                            <Input class="text-lg font-bold w-full" v-model="form.length" v-if="active"/>
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الجنس</p>
-                            <v-select class="bg-gray-100 w-1/2 text-center" v-if="active"
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px relative">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الجنس</p>
+                                <p class="text-base text-blue-800">
+                                    <span class="px-2">{{profile.gender}}</span>
+                                </p>
+                            </div>
+                            <v-select class="bg-gray-100 w-full text-center" v-if="active"
                                       :options="options"
                                       label="name"
                                       :dir="dirLang" v-model="form.gender">
                             </v-select>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.gender}}</span>
-                            </p>
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الوزن</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.weight" v-if="active"/>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.weight}}</span>
-                                <span class="text-xs">kg</span>
-                            </p>
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الوزن</p>
+                                <p class="text-base text-blue-800">
+                                    <span class="px-2">{{profile.weight}}</span>
+                                    <span class="text-xs">kg</span>
+                                </p>
+                            </div>
+                            <Input class="text-lg font-bold w-full" v-model="form.weight" v-if="active"/>
+
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">البلد</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.country" v-if="active"/>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.country}}</span>
-                            </p>
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">البلد</p>
+                                <p class="text-base text-blue-800">
+                                    <span class="px-2">{{profile.country}}</span>
+                                </p>
+                            </div>
+                            <Input class="text-lg font-bold w-full" v-model="form.country" v-if="active"/>
+
                         </div>
                     </li>
-                    <li class="w-1/2 mb-2 px-3">
-                        <div class="flex items-center bg-white-900 py-3 px-4 rounded-full">
-                            <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">المدينة</p>
-                            <Input class="text-lg font-bold text-center" v-model="form.city" v-if="active"/>
-                            <p class="text-base text-blue-800">
-                                <span class="px-2">{{profile.city}}</span>
-                            </p>
+                    <li class="w-1/2 mb-2 px-3 profile-box">
+                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                            <div class="flex items-center w-full">
+                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">المدينة</p>
+
+                                <p class="text-base text-blue-800">
+                                    <span class="px-2">{{profile.city}}</span>
+                                </p>
+                            </div>
+                            <Input class="text-lg font-bold w-full" v-model="form.city" v-if="active"/>
                         </div>
                     </li>
                 </ul>
@@ -176,6 +201,23 @@
         }
     }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
+    .profile-box {
+        input {
+            padding: 0 !important;
+            width: 100%;
+            border-radius: 0 !important;
+        }
+
+        .vs__dropdown-menu {
+            left: 0 !important;
+            width: 100% !important;
+            min-width: 100%;
+        }
+
+        .vs__selected-options {
+            flex-wrap: nowrap;
+        }
+    }
 
 </style>
