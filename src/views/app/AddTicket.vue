@@ -16,16 +16,16 @@
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
-                                        vid="medicine_id" name="medicine" rules="required"
+                                        vid="category_id" name="Type" rules="required"
                                         v-slot="{ errors }">
-                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">التصنيف</label>
+                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">النوع</label>
                         <v-select class="w-3/4 bg-white-900 rounded-25px py-3 px-6 appoint-select"
                                   :options="options"
                                   label="name"
-                                  placeholder="ما هو تصنيفة" :dir="dirLang" v-model="form.category_id"
+                                  placeholder="ما هو النوع" :dir="dirLang" v-model="form.category_id"
                                   :class="{ 'has-danger': errors.length }">
                         </v-select>
-                        <p class="message-danger">{{ errors[0] }}</p>
+                        <p class="message-danger" v-if="ticketError">please select Type</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="description"
                                         name="Message"
@@ -65,6 +65,7 @@
                 success: false,
                 loading: false,
                 options: [],
+                ticketError: false,
                 form: {
                     title: null,
                     category_id: null,
@@ -75,8 +76,9 @@
         methods: {
             handleSubmit() {
                 const $this = this;
+                this.ticketError = true;
                 let $fields = _.cloneDeep(this.form);
-                $fields.category_id = $fields.category_id.id;
+                $fields.category_id = $fields.category_id ? $fields.category_id.id : null;
                 this.$refs['addTicket'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
@@ -90,6 +92,7 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
+                                $this.$router.push('/inquiries-list');
                             }, 3000);
                             this.$refs['addTicket'].reset();
                         }).catch((error) => {

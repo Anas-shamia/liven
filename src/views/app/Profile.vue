@@ -17,15 +17,15 @@
             </div>
             <div class="text-center mt-4">
                 <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
-<!--                    <svg id="plus-circle" class="absolute z-2 bottom-0 top-0 rtl:right-0 ltr:left-0 rtl:mr-5 ltr:ml-5 mt-3"-->
-<!--                         xmlns="http://www.w3.org/2000/svg"-->
-<!--                         width="16" height="16" viewBox="0 0 16 16">-->
-<!--                        <rect width="16" height="16" opacity="0"/>-->
-<!--                        <path d="M8,0a8,8,0,1,0,5.657,2.343A8,8,0,0,0,8,0Z" fill="#21b363"/>-->
-<!--                        <path data-name="Path"-->
-<!--                              d="M7,5H5V7A1,1,0,0,1,3,7V5H1A1,1,0,0,1,1,3H3V1A1,1,0,0,1,5,1V3H7A1,1,0,0,1,7,5Z"-->
-<!--                              transform="translate(4 4)" fill="#fff"/>-->
-<!--                    </svg>-->
+                    <!--                    <svg id="plus-circle" class="absolute z-2 bottom-0 top-0 rtl:right-0 ltr:left-0 rtl:mr-5 ltr:ml-5 mt-3"-->
+                    <!--                         xmlns="http://www.w3.org/2000/svg"-->
+                    <!--                         width="16" height="16" viewBox="0 0 16 16">-->
+                    <!--                        <rect width="16" height="16" opacity="0"/>-->
+                    <!--                        <path d="M8,0a8,8,0,1,0,5.657,2.343A8,8,0,0,0,8,0Z" fill="#21b363"/>-->
+                    <!--                        <path data-name="Path"-->
+                    <!--                              d="M7,5H5V7A1,1,0,0,1,3,7V5H1A1,1,0,0,1,1,3H3V1A1,1,0,0,1,5,1V3H7A1,1,0,0,1,7,5Z"-->
+                    <!--                              transform="translate(4 4)" fill="#fff"/>-->
+                    <!--                    </svg>-->
                     <img class="object-cover w-full h-full p-2px rounded-full" v-if="profile.image" :src="profile.image"
                          alt="profile-pic">
                     <img class="object-cover w-full h-full p-2px rounded-full" v-else src="@/assets/img/avatar.svg"
@@ -47,85 +47,139 @@
             </div>
             <div class="mb-6">
                 <h2 class="flex-grow text-base text-blue-800 mb-2">المعلومات الشخصية</h2>
-                <ul class="flex flex-wrap -mx-3">
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">العمر</p>
+                <ValidationObserver ref="UpdateProfile">
+                    <form @submit.prevent="updateForm">
+                        <ul class="flex flex-wrap -mx-3">
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            العمر</p>
 
-                                <p class="text-base text-blue-800 mr-auto">
-                                    <span class="px-2">{{profile.age}}</span>
-                                    <span class="text-xs">Yr</span>
-                                </p>
-                            </div>
-                            <Input class="text-lg font-bold w-full" v-model="form.age" v-if="active"/>
-                        </div>
-                    </li>
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الطول</p>
-                                <p class="text-base text-blue-800">
-                                    <span class="px-2">{{profile.length}}</span>
-                                    <span class="text-xs">cm</span>
-                                </p>
-                            </div>
-                            <Input class="text-lg font-bold w-full" v-model="form.length" v-if="active"/>
-                        </div>
-                    </li>
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px relative">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الجنس</p>
-                                <p class="text-base text-blue-800">
-                                    <span class="px-2">{{profile.gender}}</span>
-                                </p>
-                            </div>
-                            <v-select class="bg-gray-100 w-full text-center" v-if="active"
-                                      :options="options"
-                                      label="name"
-                                      :dir="dirLang" v-model="form.gender">
-                            </v-select>
-                        </div>
-                    </li>
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">الوزن</p>
-                                <p class="text-base text-blue-800">
-                                    <span class="px-2">{{profile.weight}}</span>
-                                    <span class="text-xs">kg</span>
-                                </p>
-                            </div>
-                            <Input class="text-lg font-bold w-full" v-model="form.weight" v-if="active"/>
+                                        <p class="text-base text-blue-800 mr-auto">
+                                            <span class="px-2">{{profile.age}}</span>
+                                            <span class="text-xs">Yr</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div"
+                                                        vid="age" name="age" rules="required|integer"
+                                                        v-slot="{ errors }">
+                                        <input type="text" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-blue-800 text-lg font-bold w-full border border-transparent"
+                                               v-model="form.age"
+                                               v-if="active"/>
+                                        <p class="message-danger">{{ errors[0] }}</p>
+                                    </ValidationProvider>
+                                </div>
+                            </li>
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            الطول</p>
+                                        <p class="text-base text-blue-800">
+                                            <span class="px-2">{{profile.length}}</span>
+                                            <span class="text-xs">cm</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div"
+                                                        vid="length" name="length" rules="required|integer"
+                                                        v-slot="{ errors }">
+                                        <input type="text" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               v-model="form.length"
+                                               v-if="active"/>
+                                        <p class="message-danger">{{ errors[0] }}</p>
+                                    </ValidationProvider>
+                                </div>
+                            </li>
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px relative">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            الجنس</p>
+                                        <p class="text-base text-blue-800">
+                                            <span class="px-2">{{profile.gender}}</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div" class="w-full"
+                                                        vid="gender" name="gender" rules="required"
+                                                        v-slot="{ errors }">
+                                        <v-select class="bg-gray-100 w-full text-center" v-if="active"
+                                                  :options="options"
+                                                  label="name"
+                                                  :dir="dirLang" v-model="form.gender">
+                                        </v-select>
+                                        <p class="message-danger" v-if="genderError">please select Gender</p>
+                                    </ValidationProvider>
 
-                        </div>
-                    </li>
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">البلد</p>
-                                <p class="text-base text-blue-800">
-                                    <span class="px-2">{{profile.country}}</span>
-                                </p>
-                            </div>
-                            <Input class="text-lg font-bold w-full" v-model="form.country" v-if="active"/>
+                                </div>
+                            </li>
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            الوزن</p>
+                                        <p class="text-base text-blue-800">
+                                            <span class="px-2">{{profile.weight}}</span>
+                                            <span class="text-xs">kg</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div"
+                                                        vid="weight" name="weight" rules="required|integer"
+                                                        v-slot="{ errors }">
+                                        <input type="text" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               v-model="form.weight"
+                                               v-if="active"/>
+                                        <p class="message-danger">{{ errors[0] }}</p>
+                                    </ValidationProvider>
 
-                        </div>
-                    </li>
-                    <li class="w-1/2 mb-2 px-3 profile-box">
-                        <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                            <div class="flex items-center w-full">
-                                <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">المدينة</p>
 
-                                <p class="text-base text-blue-800">
-                                    <span class="px-2">{{profile.city}}</span>
-                                </p>
-                            </div>
-                            <Input class="text-lg font-bold w-full" v-model="form.city" v-if="active"/>
-                        </div>
-                    </li>
-                </ul>
+                                </div>
+                            </li>
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            البلد</p>
+                                        <p class="text-base text-blue-800">
+                                            <span class="px-2">{{profile.country}}</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div"
+                                                        vid="country" name="country" rules="required"
+                                                        v-slot="{ errors }">
+                                        <input type="text" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               v-model="form.country"
+                                               v-if="active"/>
+                                    </ValidationProvider>
+                                </div>
+                            </li>
+                            <li class="w-1/2 mb-2 px-3 profile-box">
+                                <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
+                                    <div class="flex items-center w-full">
+                                        <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
+                                            المدينة</p>
+
+                                        <p class="text-base text-blue-800">
+                                            <span class="px-2">{{profile.city}}</span>
+                                        </p>
+                                    </div>
+                                    <ValidationProvider tag="div"
+                                                        vid="city" name="city" rules="required"
+                                                        v-slot="{ errors }">
+                                        <input type="text" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               v-model="form.city"
+                                               v-if="active"/>
+                                    </ValidationProvider>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </ValidationObserver>
                 <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
                     <p class="p-3 text-base text-blue-800 font-medium">تمت التعديل بنجاح</p>
                 </div>
@@ -153,9 +207,19 @@
             return {
                 checkbox: false,
                 profile: {},
-                options: ['ذكر', 'انثى'],
+                options: [
+                    {
+                        name: 'ذكر',
+                        value: 'm'
+                    },
+                    {
+                        name: 'انثى',
+                        value: 'f'
+                    }
+                ],
                 active: false,
                 success: false,
+                genderError: false,
                 form: {
                     age: null,
                     city: null,
@@ -176,15 +240,40 @@
             },
             updateForm() {
                 const $this = this;
-                this.active = false;
-                this.axios.post('/mobile/user', this.form)
-                    .then(res => {
-                        this.success = true;
-                        location.reload();
-                        setTimeout(function () {
-                            $this.success = false;
-                        }, 3000);
-                    });
+                let $fields = _.cloneDeep(this.form);
+                this.genderError = true;
+                $fields.gender = $fields.gender ? $fields.gender.value : null;
+                this.$refs['UpdateProfile'].validate().then((result) => {
+                    if (result) {
+                        this.loading = true;
+                        this.axios.post('/mobile/user', $fields).then((res) => {
+                            this.success = true;
+                            this.active = false;
+                            this.loading = false;
+                            this.genderError = false;
+                            this.form = {
+                                age: null,
+                                city: null,
+                                gender: null,
+                                weight: null,
+                                length: null,
+                                country: null
+                            };
+                            setTimeout(function () {
+                                location.reload();
+                                $this.success = false;
+                            }, 3000);
+                            this.$refs['UpdateProfile'].reset();
+                        }).catch((error) => {
+                            this.loading = false;
+                            if (error.response) {
+                                if (error.response.status === 422) {
+                                    this.$refs['UpdateProfile'].setErrors(error.response.data.errors);
+                                }
+                            }
+                        });
+                    }
+                });
             }
         },
         components: {
@@ -192,7 +281,17 @@
         },
         created() {
             this.axios.get('/mobile/user/profile')
-                .then(response => (this.profile = response.data.data))
+                .then(response => {
+                    this.profile = response.data.data;
+                    this.form = {
+                        age: this.profile.age,
+                        city: this.profile.city,
+                        weight: this.profile.weight,
+                        length: this.profile.length,
+                        country: this.profile.country
+                    };
+                });
+
         },
         computed: {
             dirLang() {

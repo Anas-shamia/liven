@@ -22,14 +22,22 @@
                     <p class="text-sm font-medium text-blue-800 mb-2">الدواء الحالى</p>
                     <div class="flex items-center">
                         <div class="w-1/4">
-                            <CustomCheckbox2 :medicine_id="item.id" :id="`drug${index}0`" :index="index" :title="'نعم'" :initialValue="0"
-                                            v-model="item.status"/>
-                        </div>
-                        <div class="w-1/4">
-                            <CustomCheckbox2 :medicine_id="item.id" :id="`drug${index}1`" :index="index" :title="'لا'" :initialValue="1"
+                            <CustomCheckbox2 :medicine_id="item.id" :id="`drug${index}0`" :index="index" :title="'نعم'"
+                                             :initialValue="0"
                                              v-model="item.status"/>
                         </div>
+                        <div class="w-1/4">
+                            <CustomCheckbox2 :medicine_id="item.id" :id="`drug${index}1`" :index="index" :title="'لا'"
+                                             :initialValue="1"
+                                             v-model="item.status"/>
+                        </div>
+                        <div class="w-1/4">
+                            <p class="message-danger underline font-bold" @click="deleteMedicine(item.id)">حذف</p>
+                        </div>
                     </div>
+                </div>
+                <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
+                    <p class="p-3 text-base text-blue-800 font-medium">تمت الحذف بنجاح</p>
                 </div>
             </div>
             <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!myDrugs.length">لا يوجد أدوية
@@ -45,6 +53,7 @@
         data() {
             return {
                 myDrugs: null,
+                success: false,
                 option: [
                     {
                         title: 'نعم'
@@ -58,6 +67,21 @@
         components: {
             Bar,
             CustomCheckbox2
+        },
+        methods: {
+            deleteMedicine(itemID) {
+                const $this = this;
+                console.log(itemID);
+                this.axios.delete(`/mobile/medicine/${itemID}`).then((res) => {
+                    this.success = true;
+                    setTimeout(function () {
+                        // location.reload();
+                        $this.success = false;
+                    }, 3000);
+                }).catch((error) => {
+                    this.loading = false;
+                });
+            }
         },
         created() {
             this.axios.get('/mobile/medicine/list')

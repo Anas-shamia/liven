@@ -12,7 +12,7 @@ Vue.axios.defaults.baseURL = 'http://it-team-dev.com/api';
 const $token = localStorage.getItem('token');
 Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${$token}`;
 
-// `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiODgyMzcxNjhmNWFiYmIyYTU4MzFhMTE2ZDcxMzJiNjE0MTlkYzhmYzYzMDZmZmUzMjM3ZjM1NmQzMDZmMTM5MTc1OGYzMGNlODlkZTFjMTEiLCJpYXQiOjE1ODU0MzQxNjEsIm5iZiI6MTU4NTQzNDE2MSwiZXhwIjoxNjE2OTcwMTYxLCJzdWIiOiIzNCIsInNjb3BlcyI6W119.ExNLUqofu0dKdMGHcyWS8TVD8-MHkIz836Xh9WSro2_sT9mSYtVRY7i7iIuvQ7_qhmVuxlCkU1PHxVbaf4PsOA`;
+// `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYTJhYTJjMmE3NmM2OTZhNzFjMjI1ZTM4NzVjNjQyMDk1MzhmNTE5ZWJlZWQ2MmU3MjNlMjNhZDhkNThkNzdjYzZiNGM1ZWM0NGFlOGM4MTUiLCJpYXQiOjE1ODYxODMwOTksIm5iZiI6MTU4NjE4MzA5OSwiZXhwIjoxNjE3NzE5MDk5LCJzdWIiOiI5MSIsInNjb3BlcyI6W119.EbMdlV60geri652XkKVPtXx7Vt9spEmGQfJbc5tfnTPgnxPxyLusFGb1-vz-5izFLUTys4bpcqIoln8hMBubpQ`;
 
 Vue.use(VueAuth, {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),

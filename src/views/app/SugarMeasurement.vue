@@ -33,7 +33,6 @@
                     نسبة السكر في الدم
                 </p>
             </div>
-
             <div class="mt-4">
                 <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">قياس السكر</h2>
                 <ul class="measurements">
@@ -65,7 +64,7 @@
     export default {
         data() {
             return {
-                selectedChart: '',
+                selectedChart: 'week',
                 measurement: [],
                 chartOptions: {
                     chart: {
@@ -92,7 +91,24 @@
                     yAxis: {
                         title: {
                             text: ''
-                        }
+                        },
+                        plotLines: [{
+                            value: 70,
+                            color: 'red',
+                            dashStyle: 'shortdash',
+                            width: 2,
+                            label: {
+                                text: '70 mg/dl'
+                            }
+                        }, {
+                            value: 180,
+                            color: 'red',
+                            dashStyle: 'shortdash',
+                            width: 2,
+                            label: {
+                                text: '180 mg/dl'
+                            }
+                        }]
                     },
                     legend: {
                         enabled: false,
@@ -109,7 +125,7 @@
 
                     series: [
                         {
-                            name: 'CGM',
+                            name: 'معدل السكر ',
                             data: []
                         }
                     ],
@@ -130,6 +146,7 @@
         },
         watch: {
             measurement($val) {
+                $val = _.orderBy($val, ['id'], ['asc']);
                 this.chartOptions.series[0].data = $val.map(x => {
                     return {
                         name: x.timing,
@@ -142,7 +159,6 @@
         methods: {
             formatDate($date) {
                 const _date = $date.substring(0, $date.length - 3);
-                console.log(new Date(_date).getFullYear(), (new Date(_date).getMonth() + 1), new Date(_date).getDate());
                 return (new Date(_date).getFullYear() + '-' + (new Date(_date).getMonth() + 1) + '-' + new Date(_date).getDate());
             },
             loadMeasurementAll() {

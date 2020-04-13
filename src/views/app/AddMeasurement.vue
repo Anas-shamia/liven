@@ -6,7 +6,7 @@
             <ValidationObserver ref="addSugar">
                 <form @submit.prevent="handleSubmit">
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
-                                        vid="value" name="sugar" rules="required"
+                                        vid="value" name="sugar" rules="required|integer"
                                         v-slot="{ errors }">
                         <label class="w-2/6 text-base text-blue-800 rtl:pl-8 ltr:pr-8">قياس السكر</label>
                         <input type="text" class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"

@@ -134,13 +134,10 @@
                     return;
                 const $file = files[0];
                 if ($file['type'] === 'image/png' || $file['type'] === 'image/jpeg' || $file['type'] === 'image/jpg') {
-                    if (($file.size / 1024) <= this.sharedSize) {
-                        this.createImage($file);
-                        this.imageSrc = $file;
-                        this.errorMsg = false
-                    } else {
-                        this.errorMsg = true
-                    }
+                    this.createImage($file);
+                    this.imageSrc = $file;
+                    this.errorMsg = false
+
                 } else {
                     this.imageMsg = true;
                 }

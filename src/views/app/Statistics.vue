@@ -102,7 +102,7 @@
 
                     series: [
                         {
-                            name: 'CGM',
+                            name: 'معدل السكر',
                             data: []
                         }
                     ],
@@ -157,7 +157,7 @@
 
                     series: [
                         {
-                            name: 'CGM',
+                            name: 'معدل السكر',
                             data: []
                         }
                     ],

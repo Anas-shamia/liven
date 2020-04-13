@@ -39,7 +39,7 @@
                              class="mx-auto w-full text-center border-2 border-dashed border-gray-400">
                             <ValidationProvider class="upload-btn-wrapper 3sm:w-2/5 w-1/3 mx-auto text-center p-8"
                                                 tag="div" vid="image" name="Image"
-                                                rules="image|required"
+                                                rules="image"
                                                 v-slot="{ errors }">
                                 <button class="btn mx-auto">
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-upload"
@@ -181,13 +181,9 @@
                     return;
                 const $file = files[0];
                 if ($file['type'] === 'image/png' || $file['type'] === 'image/jpeg' || $file['type'] === 'image/jpg') {
-                    if (($file.size / 1024) <= this.sharedSize) {
-                        this.createImage($file);
-                        this.imageSrc = $file;
-                        this.errorMsg = false
-                    } else {
-                        this.errorMsg = true
-                    }
+                    this.createImage($file);
+                    this.imageSrc = $file;
+                    this.errorMsg = false
                 } else {
                     this.imageMsg = true;
                 }

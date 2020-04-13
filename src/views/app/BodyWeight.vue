@@ -86,7 +86,7 @@
                                       class=""></path>
                             </svg>
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">عرض الورك</p>
+                                <p class="text-sm mb-2 p-title">محيط الورك</p>
                                 <p class="text-primary-900">
                                     <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.highest}}</span>
                                     <Input class="text-lg font-bold" v-model="item.highest" v-if="index===0 && active"/>
@@ -114,7 +114,7 @@
                                       class=""></path>
                             </svg>
                             <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">عرض الخصر</p>
+                                <p class="text-sm mb-2 p-title">محيط الخصر</p>
                                 <p class="text-primary-900">
                                     <span class="text-base font-bold" v-if="index!==0 || (index===0 && !active)">{{item.waist}}</span>
                                     <Input class="text-lg font-bold" v-model="item.waist" v-if="index===0 && active"/>
@@ -228,7 +228,7 @@
 
                     series: [
                         {
-                            name: 'CGM',
+                            name: 'معدل السكر',
                             data: []
                         }
                     ],
@@ -259,13 +259,13 @@
                             },
                             {
                                 id: '1',
-                                title: 'عرض الورك',
+                                title: 'محيط الورك',
                                 num: '12',
                                 unit: 'CM'
                             },
                             {
                                 id: '2',
-                                title: 'عرض الخصر',
+                                title: 'محيط الخصر',
                                 num: '30',
                                 unit: 'CM'
                             }

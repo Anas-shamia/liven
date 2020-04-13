@@ -21,7 +21,7 @@
                     </div>
                     <div class="ltr:pl-2 rtl:pr-2">
                         <p class="text-white-900 text-xl 2xs:text-base">مرحبا <span>{{profile.user.name}}</span></p>
-                        <p class="text-white-900 font-light text-xs">أنت الآن في الاسبوع
+                        <p class="text-white-900 font-light text-xs mt-2">أنت الآن في الاسبوع
                             <span>{{profile.user.weeks}}</span></p>
                     </div>
                 </div>
@@ -30,12 +30,17 @@
                 <div class="w-full ltr:pl-2 rtl:pr-2">
                     <div class="flex items-end mb-2">
                         <p class="text-white-900 font-light text-xs flex-grow">نسبه انجازك لأهدافك</p>
-                        <p class="text-white-900 text-xl 2xs:text-base"><span
-                                class="text-3xl 2xs:text-lg font-bold">63</span>%</p>
+                        <p class="text-white-900 text-xl 2xs:text-base" v-if="profile.user.completion_rate">
+                            <span class="text-3xl 2xs:text-lg font-bold">{{profile.user.completion_rate}}</span>%</p>
+                        <p class="text-white-900 text-xl 2xs:text-base" v-else>
+                            <span class="text-3xl 2xs:text-lg font-bold">0</span>%</p>
                     </div>
                     <div class="shadow w-full bg-purple-100 rounded-full">
-                        <div class="bg-white-900 text-xs leading-none py-1 text-center rounded-full"
-                             style="width: 45%"></div>
+                        <div v-if="profile.user.completion_rate"
+                             class="bg-white-900 text-xs leading-none py-1 text-center rounded-full"
+                             :style="`width: ${profile.user.completion_rate}%`"></div>
+                        <div v-else class="bg-white-900 text-xs leading-none py-1 text-center rounded-full"
+                             style="width: 0"></div>
                     </div>
                 </div>
             </div>
@@ -49,15 +54,17 @@
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">القراءة الحالية</p>
                         <p class="text-3xl font-bold text-blue-800">
+                            <span class="text-base font-bold inline-block">mg/dL</span>
+
                             {{item.value}}
-                            <span class="text-base font-bold">mg/dL</span>
                         </p>
                     </div>
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">القراءة السابقة</p>
                         <p class="text-3xl font-bold text-purple-100">
+                            <span class="text-base font-bold inline-block">mg/dL</span>
+
                             {{item.value}}
-                            <span class="text-base font-bold">mg/dL</span>
                         </p>
                     </div>
                 </div>
@@ -81,15 +88,15 @@
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
                         <p class="text-3xl font-bold text-blue-800">
+                            <span class="text-base font-bold inline-block">KG</span>
                             {{item.weight}}
-                            <span class="text-base font-bold">KG</span>
                         </p>
                     </div>
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">الوزن السابق</p>
                         <p class="text-3xl font-bold text-purple-100">
+                            <span class="text-base font-bold inline-block">KG</span>
                             {{item.weight}}
-                            <span class="text-base font-bold">KG</span>
                         </p>
                     </div>
                 </div>
@@ -99,8 +106,8 @@
                     <div>
                         <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
                         <p class="text-3xl font-bold text-blue-800">
+                            <span class="text-base font-bold inline-block">KG</span>
                             {{profile.user.weight}}
-                            <span class="text-base font-bold">KG</span>
                         </p>
                     </div>
                 </div>
@@ -131,7 +138,7 @@
                         <div class="w-3/4">
                             <h4 class="text-purple-100 text-base font-medium mb-2">المواعيد</h4>
                             <p class="text-white-900 text-xs 5sm:text-xxs" v-if="profile.appointment.length">
-                                لديك موعد مع أخصائي التغذية بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
+                                لديك موعد مع الأخصائي  بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
                                 {{profile.appointment[0].appointment.from}} الى الساعة
                                 {{profile.appointment[0].appointment.to}}
                             </p>
@@ -168,9 +175,11 @@
             </div>
         </div>
         <div class="mobile-padding bg-gray-100 py-6">
-            <router-link tag="div" to="/advice" class="bg-white-900 rounded-10px text-center py-3 mb-4" v-if="profile.advice">
+            <router-link tag="div" to="/advice" class="bg-white-900 rounded-10px text-center py-3 mb-4">
                 <h2 class="text-primary-900 font-medium text-base-900 mb-2px">نصيحة اليوم</h2>
-                <p class="text-xs font-light text-blue-800 w-4/5 mx-auto" v-if="profile.advice">{{profile.advice.title}}</p>
+                <p class="text-xs font-light text-blue-800 w-4/5 mx-auto" v-if="profile.advice">
+                    {{profile.advice.title}}
+                </p>
             </router-link>
             <div class="flex flex-wrap -mx-3 5sm:-mx-2 2xs:-mx-1">
                 <div class="w-1/4 px-3 5sm:px-2 2xs:px-1 flex items-center justify-center">
@@ -225,8 +234,6 @@
             let url = '/mobile/home';
             if ($user_id)
                 url = `/mobile/user/${$user_id}/liven_app/token`;
-
-            alert(url);
 
             this.axios.get(url)
                 .then(res => {
