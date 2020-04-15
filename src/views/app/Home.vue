@@ -10,11 +10,11 @@
                             <img class="object-cover w-full h-full p-2px rounded-full"
                                  src="@/assets/img/avatar.svg"
                                  alt="profile-pic"
-                                 v-if="!profile.user.image"
+                                 v-if="!profile.user.url"
                             >
                             <img class="object-cover w-full h-full p-2px rounded-full"
                                  v-else
-                                 :src="profile.user.image"
+                                 :src="profile.user.url"
                                  alt="profile-pic">
 
                         </router-link>
@@ -78,7 +78,7 @@
             </router-link>
             <router-link tag="div" to="/weight" class="flex items-center measure-sugar box-height mb-6">
                 <div class="w-1/3 flex items-center justify-center bg-purple-100 rtl:rounded-r-10px ltr:rounded-l-10px">
-                    <h4 class="font-medium text-base text-white-900 mb-0">وزن الجسم</h4>
+                    <h4 class="font-medium text-base text-white-900 mb-0">قياسات الجسم</h4>
                 </div>
 
 

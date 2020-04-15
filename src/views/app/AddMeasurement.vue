@@ -58,6 +58,7 @@
                 success: false,
                 loading: false,
                 form: {
+                    id: null,
                     value: null,
                     timing: null,
                     date: null,
@@ -78,7 +79,15 @@
                         // const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
                         // form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
                         form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
-                        this.axios.post('/mobile/diabetes', form).then((res) => {
+                        let $url = '/mobile/diabetes';
+                        let $id = this.$route.params.id;
+                        let $type = this.$route.params.type;
+                        if ($type === 'edit') {
+                            $url = '/mobile/diabetes/update';
+                            form.id = $id;
+
+                        }
+                        this.axios.post($url, form).then((res) => {
                             this.success = true;
                             this.loading = false;
                             this.form = {

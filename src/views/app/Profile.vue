@@ -17,20 +17,25 @@
             </div>
             <div class="text-center mt-4">
                 <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
-                    <!--                    <svg id="plus-circle" class="absolute z-2 bottom-0 top-0 rtl:right-0 ltr:left-0 rtl:mr-5 ltr:ml-5 mt-3"-->
-                    <!--                         xmlns="http://www.w3.org/2000/svg"-->
-                    <!--                         width="16" height="16" viewBox="0 0 16 16">-->
-                    <!--                        <rect width="16" height="16" opacity="0"/>-->
-                    <!--                        <path d="M8,0a8,8,0,1,0,5.657,2.343A8,8,0,0,0,8,0Z" fill="#21b363"/>-->
-                    <!--                        <path data-name="Path"-->
-                    <!--                              d="M7,5H5V7A1,1,0,0,1,3,7V5H1A1,1,0,0,1,1,3H3V1A1,1,0,0,1,5,1V3H7A1,1,0,0,1,7,5Z"-->
-                    <!--                              transform="translate(4 4)" fill="#fff"/>-->
-                    <!--                    </svg>-->
-                    <img class="object-cover w-full h-full p-2px rounded-full" v-if="profile.image" :src="profile.image"
-                         alt="profile-pic">
-                    <img class="object-cover w-full h-full p-2px rounded-full" v-else src="@/assets/img/avatar.svg"
+                    <div class="absolute z-2 top-0 rtl:right-0 ltr:left-0 rtl:mr-2 ltr:ml-2 mt-1">
+                        <input type="file" class="absolute w-full inset-0 opacity-0" style="opacity: 0"
+                               @change="onFileChange">
+                        <svg id="plus-circle"
+                             class=""
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="20" height="20" viewBox="0 0 16 16">
+                            <rect width="16" height="16" opacity="0"/>
+                            <path d="M8,0a8,8,0,1,0,5.657,2.343A8,8,0,0,0,8,0Z" fill="#21b363"/>
+                            <path data-name="Path"
+                                  d="M7,5H5V7A1,1,0,0,1,3,7V5H1A1,1,0,0,1,1,3H3V1A1,1,0,0,1,5,1V3H7A1,1,0,0,1,7,5Z"
+                                  transform="translate(4 4)" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <img class="object-cover w-full h-full p-2px rounded-full"
+                         :src="profile.url ? profile.url: image"
                          alt="profile-pic">
                 </div>
+                <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
                 <p class="text-sm text-white-900 font-medium mb-6">{{profile.email}}</p>
                 <router-link tag="p" to="/change-password" class="underline text-xs text-white-900">تغيير كلمة المرور
@@ -200,7 +205,6 @@
     </div>
 </template>
 <script>
-    import Input from '../../components/app/Input';
 
     export default {
         data() {
@@ -220,6 +224,9 @@
                 active: false,
                 success: false,
                 genderError: false,
+                image: './img/avatar.svg',
+                imageSrc: null,
+                imageMsg: false,
                 form: {
                     age: null,
                     city: null,
@@ -227,6 +234,13 @@
                     weight: null,
                     length: null,
                     country: null
+                }
+            }
+        },
+        watch: {
+            image: function ($val) {
+                if ($val) {
+                    this.uploadUserImage($val);
                 }
             }
         },
@@ -274,10 +288,46 @@
                         });
                     }
                 });
-            }
-        },
-        components: {
-            Input
+            },
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                const $file = files[0];
+                if ($file['type'] === 'image/png' || $file['type'] === 'image/jpeg' || $file['type'] === 'image/jpg') {
+                    this.createImage($file);
+                    this.imageSrc = $file;
+                } else {
+                    this.imageMsg = true;
+                }
+            },
+            createImage(file) {
+                const reader = new FileReader();
+                const vm = this;
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
+            uploadUserImage($file) {
+                console.log($file);
+                let formData = new FormData();
+                formData.append('image', this.imageSrc);
+                this.axios.post('/mobile/user/image', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res) => {
+                    location.reload();
+                }).catch((error) => {
+                    this.loading = false;
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            console.log('error');
+                        }
+                    }
+                });
+            },
         },
         created() {
             this.axios.get('/mobile/user/profile')

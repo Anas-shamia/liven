@@ -70,6 +70,12 @@ const routes = [
         component: AddMeasurement,
     },
     {
+        path: '/edit-measurement/:type/:id',
+        name: 'editMeasurement',
+        meta: {layout: 'mobile'},
+        component: AddMeasurement,
+    },
+    {
         path: '/weight',
         name: 'weight',
         meta: {layout: 'mobile'},

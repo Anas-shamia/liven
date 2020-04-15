@@ -79,7 +79,13 @@
                     <div class="flex items-center flex-wrap">
                         <button type="submit"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
-                                :disabled="loading">ارسال
+                                :class="loading?'btn-loading':''"
+                                :disabled="loading">
+                            <span>ارسال</span>
+                            <div v-if="loading" class="spinner">
+                                <div class="double-bounce1"></div>
+                                <div class="double-bounce2"></div>
+                            </div>
                         </button>
                     </div>
                     <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">

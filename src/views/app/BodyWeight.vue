@@ -33,6 +33,51 @@
                     الوزن
                 </p>
             </div>
+            <div>
+                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()">اضافة وزن جديد</p>
+                <div class="mb-4" v-if="newWeight">
+                    <div class="flex flex-wrap -mx-2 2xs:-mx-1">
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <svg @click="addWeight" aria-hidden="true" focusable="false"
+                                 data-prefix="far"
+                                 data-icon="check-square" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
+                                <path fill="#1CC342"
+                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
+                                      class=""></path>
+                            </svg>
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">الوزن</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.weight"/>
+                                    <span class="text-base font-bold">KG</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">عرض الورك</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.highest"/>
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
+                            <div class="bg-white-900 rounded-10px text-center py-4">
+                                <p class="text-sm mb-2 p-title">عرض الخصر</p>
+                                <p class="text-primary-900">
+                                    <Input class="text-lg font-bold" v-model="form.waist"/>
+                                    <span class="text-base font-bold">CM</span>
+                                </p>
+                            </div>
+                        </div><!--col-->
+                    </div>
+                    <p class="message-danger mt-2" v-if="errorMsg">لا يمكنك إضافة اكثر من وزن في نفس اليوم</p>
+                </div>
+            </div>
+
             <div v-if="bodyAll.length">
                 <div class="mb-4" v-for="(item,index) in bodyAll" :key="index">
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
@@ -125,49 +170,6 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
-                <div class="mb-4">
-                    <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">Add</p>
-                    <div class="flex flex-wrap -mx-2 2xs:-mx-1">
-                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="addWeight" aria-hidden="true" focusable="false"
-                                 data-prefix="far"
-                                 data-icon="check-square" role="img"
-                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                 class="svg-inline--fa fa-edit w-5 absolute top-0 rtl:right-0 ltr:left-0 rtl:mr-4 mt-3">
-                                <path fill="#1CC342"
-                                      d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"
-                                      class=""></path>
-                            </svg>
-                            <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">الوزن</p>
-                                <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.weight"/>
-                                    <span class="text-base font-bold">KG</span>
-                                </p>
-                            </div>
-                        </div><!--col-->
-                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">عرض الورك</p>
-                                <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.highest"/>
-                                    <span class="text-base font-bold">CM</span>
-                                </p>
-                            </div>
-                        </div><!--col-->
-                        <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <div class="bg-white-900 rounded-10px text-center py-4">
-                                <p class="text-sm mb-2 p-title">عرض الخصر</p>
-                                <p class="text-primary-900">
-                                    <Input class="text-lg font-bold" v-model="form.waist"/>
-                                    <span class="text-base font-bold">CM</span>
-                                </p>
-                            </div>
-                        </div><!--col-->
-                    </div>
-                </div>
-            </div>
 
             <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
                 <p class="p-3 text-base text-blue-800 font-medium">تمت العملية بنجاح</p>
@@ -185,6 +187,8 @@
                 selectedChart: 'week',
                 active: false,
                 success: false,
+                errorMsg: false,
+                newWeight: false,
                 chartOptions: {
                     active: false,
                     chart: {
@@ -321,10 +325,18 @@
                     .then(res => {
                         this.bodyAll.push(res.data.data);
                         this.success = true;
+                        this.errorMsg = false;
                         setTimeout(function () {
+                            location.reload();
                             $this.success = false;
                         }, 3000);
-                    });
+                    }).catch((error) => {
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            this.errorMsg = true;
+                        }
+                    }
+                });
             },
             updateForm() {
                 const $this = this;
@@ -339,6 +351,9 @@
                             $this.success = false;
                         }, 3000);
                     });
+            },
+            AddNewWeight() {
+                this.newWeight = !this.newWeight;
             }
         },
         components: {
