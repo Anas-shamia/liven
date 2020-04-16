@@ -72,10 +72,10 @@
             deleteMedicine(itemID) {
                 const $this = this;
                 console.log(itemID);
-                this.axios.delete(`/mobile/medicine/${itemID}`).then((res) => {
+                this.axios.delete(`/mobile/medicine/item/${itemID}`).then((res) => {
                     this.success = true;
                     setTimeout(function () {
-                        // location.reload();
+                        location.reload();
                         $this.success = false;
                     }, 3000);
                 }).catch((error) => {

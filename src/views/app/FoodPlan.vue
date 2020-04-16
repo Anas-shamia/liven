@@ -27,7 +27,9 @@
                     </div>
                     <div class="w-1/3 px-1">
                         <div v-if="hasKey(getKeys(Object.values(item)[0]),'water')">
-                            <Slider :value="parseInt(getValue(Object.values(item)[0], 'water'))"/>
+                            <router-link tag="div" :to="`/add-water?date=${Object.keys(item)[0]}`">
+                                <Slider :value="parseInt(getValue(Object.values(item)[0], 'water'))"/>
+                            </router-link>
                         </div>
                         <router-link tag="div" to="/add-water" v-else>
                             <p class="text-base text-blue-800 mb-2">مقدار الماء</p>

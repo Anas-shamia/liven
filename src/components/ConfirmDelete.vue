@@ -20,7 +20,7 @@
                             </button>
                         </div>
                         <div class="w-1/2 px-4">
-                            <button type="button"
+                            <button type="button" @click.self="$emit('close')"
                                     class="w-full bg-blue-800 py-2 rounded-lg text-sm font-medium text-white-900 ">
                                 إلغاء
                             </button>
@@ -34,17 +34,18 @@
 </template>
 <script>
     export default {
-        props: ['id'],
+        props: ['id','url'],
         data() {
             return {
                 success: false,
-                myID: this.id
+                myID: this.id,
+                myUrl : this.url,
             }
         },
         methods: {
             deleteSugar(itemID) {
                 const $this = this;
-                this.axios.delete(`/mobile/diabetes/${itemID}`).then((res) => {
+                this.axios.delete(`${this.myUrl}/${itemID}`).then((res) => {
                     this.success = true;
                     setTimeout(function () {
                         $this.success = false;
