@@ -39,16 +39,16 @@
                     <li class="bg-white-900 rounded-25px mb-4 flex items-center px-3 py-2px"
                         v-for="(item,index) in sortedArray" :key="index">
                         <p class="w-30% text-primary-900 text-3xl font-bold rtl:border-l ltr:border-r measure">
-                            <span class="px-2">{{item.value}}</span>
+                            <span class="px-2">{{item.y}}</span>
                             <span class="text-base">mg/dL</span>
                         </p>
                         <p class="text-xs font-medium rtl:pr-4 ltr:pl-4 p-color flex-grow">
-                            <span v-if="item.value<70">منخفض</span>
-                            <span v-else-if="item.value>180">مرتفع</span>
+                            <span v-if="item.y<70">منخفض</span>
+                            <span v-else-if="item.y>180">مرتفع</span>
                             <span v-else>معتدل</span>
                         </p>
                         <p class="text-xs p-color rtl:pl-3 ltr:pr-3">
-                            {{item.created_at}}
+                            {{item.time}}
                         </p>
                         <router-link tag="p" :to="`/edit-measurement/edit/${item.id}`">
                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="edit" role="img"
@@ -189,7 +189,7 @@
                 return (new Date(_date).getFullYear() + '-' + (new Date(_date).getMonth() + 1) + '-' + new Date(_date).getDate());
             },
             loadMeasurementAll() {
-                this.axios.get('/mobile/diabetes/all')
+                this.axios.get('/mobile/diabetes/chart/week')
                     .then(response => (this.measurement = response.data.data))
             },
             changeChart(type) {
@@ -214,7 +214,7 @@
         },
         created() {
             this.loadMeasurementAll();
-            this.changeChart('');
+            this.changeChart('week');
         }
     }
 </script>

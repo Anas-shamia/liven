@@ -7,7 +7,8 @@
                 <h4 class="text-base text-blue-800 font-medium mb-2">{{item.name}}</h4>
                 <div class="flex items-center -mx-2">
                     <div class="w-1/2 px-2">
-                        <img class="custom-box w-full object-cover rounded-10px" :src="item.url" alt="durg-img">
+                        <img class="custom-box w-full object-cover rounded-10px" v-if="item.url" :src="item.url" alt="durg-img">
+                        <p v-else>لا يوجد صورة للدواء</p>
                     </div>
                     <div class="w-1/2 px-2">
                         <p class="text-sm text-blue-800 font-medium">عدد المرات</p>
