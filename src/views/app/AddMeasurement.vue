@@ -9,7 +9,7 @@
                                         vid="value" name="sugar" rules="required|integer"
                                         v-slot="{ errors }">
                         <label class="w-2/6 text-base text-blue-800 rtl:pl-8 ltr:pr-8">قياس السكر</label>
-                        <input type="text" class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
+                        <input type="tel" inputmode="numeric" pattern="[0-9]*" class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                placeholder="قياس السكر" v-model="form.value" :class="{ 'has-danger': errors.length }">
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>

@@ -209,7 +209,7 @@
         },
         computed: {
             sortedArray: function () {
-                return this.measurement = _.orderBy(this.measurement, ['id'], ['desc']);
+                return this.measurementAllByType = _.orderBy(this.measurementAllByType, ['id'], ['desc']);
             }
         },
         created() {

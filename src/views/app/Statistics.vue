@@ -140,7 +140,24 @@
                     yAxis: {
                         title: {
                             text: ''
-                        }
+                        },
+                        plotLines: [{
+                            value: 70,
+                            color: 'red',
+                            dashStyle: 'shortdash',
+                            width: 2,
+                            label: {
+                                text: '70 mg/dl'
+                            }
+                        }, {
+                            value: 180,
+                            color: 'red',
+                            dashStyle: 'shortdash',
+                            width: 2,
+                            label: {
+                                text: '180 mg/dl'
+                            }
+                        }]
                     },
                     legend: {
                         enabled: false,

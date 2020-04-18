@@ -11,9 +11,6 @@
                           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
                           class=""></path>
                 </svg>
-                <router-link tag="span" to="/" class="bg-transparent absolute rtl:left-0 ltr:right-0 ">
-                    <img src="@/assets/img/back.svg" alt="">
-                </router-link>
             </div>
             <div class="text-center mt-4">
                 <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
@@ -34,6 +31,10 @@
                     <img class="object-cover w-full h-full p-2px rounded-full"
                          :src="profile.url ? profile.url: image"
                          alt="profile-pic">
+                </div>
+                <div v-if="loading" class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
                 </div>
                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
@@ -209,6 +210,7 @@
     export default {
         data() {
             return {
+                loading: false,
                 checkbox: false,
                 profile: {},
                 options: [
@@ -311,6 +313,7 @@
             },
             uploadUserImage($file) {
                 console.log($file);
+                this.loading = true;
                 let formData = new FormData();
                 formData.append('image', this.imageSrc);
                 this.axios.post('/mobile/user/image', formData, {
@@ -318,6 +321,7 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((res) => {
+                    this.loading = false;
                     location.reload();
                 }).catch((error) => {
                     this.loading = false;

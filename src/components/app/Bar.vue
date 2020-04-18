@@ -4,9 +4,7 @@
             <img src="@/assets/img/plus.svg" alt="">
         </router-link>
         <h2 class="text-white-900 text-lg flex-grow text-center">{{title}}</h2>
-        <router-link tag="span" :to="back" class="bg-transparent absolute rtl:left-0 ltr:right-0 icon-padding" exact v-if="!close">
-            <img src="@/assets/img/back.svg" alt="">
-        </router-link>
+
         <router-link tag="span" :to="close" class="bg-transparent absolute rtl:left-0 ltr:right-0 icon-padding" exact v-if="close">
             <img class="close" src="@/assets/img/times.svg" alt="">
         </router-link>

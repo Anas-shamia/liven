@@ -1,6 +1,6 @@
 <template>
     <div class="d-inline-block">
-        <input class="w-1/2 mx-auto text-center bg-gray-100 rounded-lg p-2" type="text" v-model="inputVal">
+        <input class="w-1/2 mx-auto text-center bg-gray-100 rounded-lg p-2" type="tel" inputmode="numeric" pattern="[0-9]*" v-model="inputVal">
     </div>
 </template>
 <script>

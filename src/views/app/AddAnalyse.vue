@@ -1,11 +1,11 @@
 <template>
     <div>
-        <Bar :title="'اضافة تحيليل'" :close="'/my-analysis'"/>
+        <Bar :title="'اضافة تحليل'" :close="'/my-analysis'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ValidationObserver ref="addAnalyse">
                 <form @submit.prevent="handleSubmit" class="mt-4">
                     <div class="flex items-center flex-wrap mb-4 image-uploader">
-                        <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">صورة التحيليل</label>
+                        <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">صورة التحليل</label>
                         <div v-if="!form.image"
                              class="mx-auto w-full text-center border-2 border-dashed border-gray-400">
                             <ValidationProvider class="upload-btn-wrapper 3sm:w-2/5 w-1/3 mx-auto text-center p-8"
