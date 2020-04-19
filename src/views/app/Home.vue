@@ -138,7 +138,7 @@
                         <div class="w-3/4">
                             <h4 class="text-purple-100 text-base font-medium mb-2">المواعيد</h4>
                             <p class="text-white-900 text-xs 5sm:text-xxs" v-if="profile.appointment.length">
-                                لديك موعد مع الأخصائي  بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
+                                لديك موعد مع الأخصائي بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
                                 {{profile.appointment[0].appointment.from}} الى الساعة
                                 {{profile.appointment[0].appointment.to}}
                             </p>
@@ -239,8 +239,13 @@
                 .then(res => {
                     const $data = res.data;
                     this.profile = $data.data;
-                    if ($data.hasOwnProperty('token'))
+
+                    if ($data.hasOwnProperty('token')) {
+                        window.token = $data.token;
+                        this.$store.dispatch('getToken', $data.token);
+                        console.log(this.$store.state.token);
                         localStorage.setItem('token', $data.token);
+                    }
                 });
         }
     }

@@ -9,7 +9,7 @@
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">فطور</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in breakFast" :key="index" v-if="item.image_url">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in breakFast" :key="index">
                         <div class="bg-white-900 rounded-10px relative">
                             <button class="absolute top-0 rtl:left-0 ltr:right-0 p-2" @click="openDeleteModal(item.id)">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
@@ -21,7 +21,13 @@
                                           class=""></path>
                                 </svg>
                             </button>
-                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-if="item.image_url">
+                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            </router-link>
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-else>
+                                <img class="custom-box w-full object-cover rounded-10px"
+                                     src="@/assets/img/default-img.png" alt="">
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -31,7 +37,7 @@
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">غداء</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in lunch" :key="index" v-if="item.image_url">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in lunch" :key="index">
                         <div class="bg-white-900 rounded-10px relative">
                             <button class="absolute top-0 rtl:left-0 ltr:right-0 p-2" @click="openDeleteModal(item.id)">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
@@ -43,7 +49,13 @@
                                           class=""></path>
                                 </svg>
                             </button>
-                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-if="item.image_url">
+                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            </router-link>
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-else>
+                                <img class="custom-box w-full object-cover rounded-10px"
+                                     src="@/assets/img/default-img.png" alt="">
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -53,7 +65,7 @@
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">عشاء</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in dinner" :key="index" v-if="item.image_url">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in dinner" :key="index">
                         <div class="bg-white-900 rounded-10px relative">
                             <button class="absolute top-0 rtl:left-0 ltr:right-0 p-2" @click="openDeleteModal(item.id)">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
@@ -65,7 +77,14 @@
                                           class=""></path>
                                 </svg>
                             </button>
-                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-if="item.image_url">
+                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            </router-link>
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-else>
+                                <img class="custom-box w-full object-cover rounded-10px"
+                                     src="@/assets/img/default-img.png" alt="">
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -75,7 +94,7 @@
                     <p class="text-sm flex-grow font-light text-blue-800 mb-2">وجبات خفيفة</p>
                 </div>
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in snacks" :key="index" v-if="item.image_url">
+                    <div class="w-1/3 px-1 mb-2" v-for="(item ,index) in snacks" :key="index">
                         <div class="bg-white-900 rounded-10px relative">
                             <button class="absolute top-0 rtl:left-0 ltr:right-0 p-2" @click="openDeleteModal(item.id)">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
@@ -87,7 +106,13 @@
                                           class=""></path>
                                 </svg>
                             </button>
-                            <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-if="item.image_url">
+                                <img class="custom-box w-full object-cover rounded-10px" :src="item.image_url" alt="">
+                            </router-link>
+                            <router-link tag="div" :to="`/edit-meal/edit/${item.id}`" v-else>
+                                <img class="custom-box w-full object-cover rounded-10px"
+                                     src="@/assets/img/default-img.png" alt="">
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -99,6 +124,7 @@
 <script>
     import Bar from '../../components/app/Bar';
     import ConfirmDelete from '../../components/ConfirmDelete';
+
     export default {
         data() {
             return {

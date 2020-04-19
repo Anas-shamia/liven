@@ -24,6 +24,7 @@ import AddMedicine from '../views/app/AddMedicine.vue'
 import DailyFood from '../views/app/DailyFood.vue'
 import DailyDrug from '../views/app/DailyDrug.vue'
 import ChangePassword from '../views/app/ChangePassword.vue'
+import TicketDetails from '../views/app/TicketDetails.vue'
 
 
 Vue.use(VueRouter);
@@ -94,6 +95,12 @@ const routes = [
         component: AddMeal,
     },
     {
+        path: '/edit-meal/:type/:id',
+        name: 'editMeal',
+        meta: {layout: 'mobile'},
+        component: AddMeal,
+    },
+    {
         path: '/add-activity',
         name: 'addActivity',
         meta: {layout: 'mobile'},
@@ -116,6 +123,12 @@ const routes = [
         name: 'InquiriesList',
         meta: {layout: 'mobile'},
         component: InquiriesList,
+    },
+    {
+        path: '/ticket-details/:id',
+        name: 'TicketDetails',
+        meta: {layout: 'mobile'},
+        component: TicketDetails,
     },
     {
         path: '/add-ticket',
@@ -156,6 +169,12 @@ const routes = [
     {
         path: '/add-medicine',
         name: 'medicine',
+        meta: {layout: 'mobile'},
+        component: AddMedicine,
+    },
+    {
+        path: '/edit-medicine/:type/:id',
+        name: 'editMedicine',
         meta: {layout: 'mobile'},
         component: AddMedicine,
     },

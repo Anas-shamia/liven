@@ -27,7 +27,7 @@
                 <router-link tag="span" to="/add-analyse" class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3 text-center">اضافة تحليل</router-link>
             </div>
         </div>
-        <ConfirmDelete v-if="openDelete" @close="openDelete = false" :id="myId" :url="'/mobile/meal'"/>
+        <ConfirmDelete v-if="openDelete" @close="openDelete = false" :id="myId" :url="'/mobile/analyze'"/>
     </div>
 </template>
 <script>

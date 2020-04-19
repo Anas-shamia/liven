@@ -2,13 +2,21 @@
     <div>
         <Bar :title="'أدويتي'" :close="'/profile'" :plus="true" :path="'/add-medicine'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
+            <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
+                <p class="p-3 text-base text-blue-800 font-medium">تمت الحذف بنجاح</p>
+            </div>
             <div class="py-4 drug-box" v-for="(item,index) in sortedArray" :key="index">
                 <p class="text-xs p-color mb-2">{{item.updated_at}}</p>
                 <h4 class="text-base text-blue-800 font-medium mb-2">{{item.name}}</h4>
                 <div class="flex items-center -mx-2">
                     <div class="w-1/2 px-2">
-                        <img class="custom-box w-full object-cover rounded-10px" v-if="item.url" :src="item.url" alt="durg-img">
-                        <p v-else>لا يوجد صورة للدواء</p>
+                        <!--                        tag="div" :to="`/edit-meal/edit/${item.id}`"-->
+                        <router-link tag="div" :to="`/edit-medicine/edit/${item.id}`" v-if="item.url">
+                            <img class="custom-box w-full object-cover rounded-10px" :src="item.url" alt="durg-img">
+                        </router-link>
+                        <router-link v-else tag="p" :to="`/edit-medicine/edit/${item.id}`">
+                            لا يوجد صورة للدواء
+                        </router-link>
                     </div>
                     <div class="w-1/2 px-2">
                         <p class="text-sm text-blue-800 font-medium">عدد المرات</p>
@@ -33,28 +41,30 @@
                                              v-model="item.status"/>
                         </div>
                         <div class="w-1/4">
-                            <p class="message-danger underline font-bold" @click="deleteMedicine(item.id)">حذف</p>
+                            <p class="message-danger underline font-bold" @click="openDeleteModal(item.id)">حذف</p>
                         </div>
                     </div>
-                </div>
-                <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
-                    <p class="p-3 text-base text-blue-800 font-medium">تمت الحذف بنجاح</p>
                 </div>
             </div>
             <h2 class="text-center text-blue-800 font-medium text-base mb-8" v-if="!myDrugs.length">لا يوجد أدوية
                 لعرضها</h2>
         </div>
+        <ConfirmDelete v-if="openDelete" @close="openDelete = false" :id="myId" :url="'/mobile/medicine/item'"
+                       :msg="'سيتم حذف جميع السجلات المتعلقة بهذا الدواء'"/>
     </div>
 </template>
 <script>
     import Bar from '../../components/app/Bar';
     import CustomCheckbox2 from '../../components/app/CustomCheckbox2'
+    import ConfirmDelete from '../../components/ConfirmDelete';
 
     export default {
         data() {
             return {
                 myDrugs: null,
                 success: false,
+                myId: null,
+                openDelete: false,
                 option: [
                     {
                         title: 'نعم'
@@ -67,25 +77,17 @@
         },
         components: {
             Bar,
-            CustomCheckbox2
+            CustomCheckbox2,
+            ConfirmDelete
         },
         methods: {
-            deleteMedicine(itemID) {
-                const $this = this;
-                console.log(itemID);
-                this.axios.delete(`/mobile/medicine/item/${itemID}`).then((res) => {
-                    this.success = true;
-                    setTimeout(function () {
-                        location.reload();
-                        $this.success = false;
-                    }, 3000);
-                }).catch((error) => {
-                    this.loading = false;
-                });
-            }
+            openDeleteModal(id) {
+                this.myId = id;
+                this.openDelete = !this.openDelete;
+            },
         },
         created() {
-            this.axios.get('/mobile/medicine/list')
+            this.axios.get('/mobile/medicine/items/list')
                 .then(response => (this.myDrugs = response.data.data))
         },
         computed: {

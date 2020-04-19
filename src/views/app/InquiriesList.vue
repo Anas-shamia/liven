@@ -18,9 +18,9 @@
                 </li>
             </ul>
             <div class="mb-20">
-                <div v-for="(item,index) in inquiries" :key="index">
+                <router-link tag="div" :to="`/ticket-details/${item.id}`" v-for="(item,index) in inquiries" :key="index">
                     <CustomCheckbox :index="item.id" :title="item.title" :date="item.created_at"/>
-                </div>
+                </router-link>
             </div>
             <div class="flex items-center flex-wrap">
                 <router-link tag="span" to="/add-ticket"

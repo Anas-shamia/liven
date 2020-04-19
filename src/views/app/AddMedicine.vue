@@ -125,6 +125,7 @@
                         title: 'لا'
                     },
                 ],
+                medicine: null,
                 sharedSize: 2000,
                 errorMsg: false,
                 imageMsg: false,
@@ -152,7 +153,16 @@
                         formData.append('status', this.form.status);
                         formData.append('image', this.imageSrc);
                         formData.append('notes', this.form.notes);
-                        this.axios.post('/mobile/medicine/item', formData, {
+
+                        let $url = '/mobile/medicine/item';
+                        let $id = this.$route.params.id;
+                        let $type = this.$route.params.type;
+
+                        if ($type === 'edit') {
+                            $url = `/mobile/medicine/item/update/${$id}`;
+                        }
+
+                        this.axios.post($url, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
@@ -206,6 +216,23 @@
             removeImage: function (e) {
                 this.form.image = '';
             }
+        },
+        created() {
+            let $id = this.$route.params.id;
+            if ($id) {
+                this.axios.get(`/mobile/medicine/item/${$id}`)
+                    .then(response => {
+                        this.medicine = response.data.data;
+                        this.form = {
+                            name: this.medicine.name,
+                            count: this.medicine.count,
+                            status: this.medicine.status,
+                            image: this.medicine.url,
+                            notes: this.medicine.notes
+                        };
+                    });
+            }
+
         }
     }
 </script>

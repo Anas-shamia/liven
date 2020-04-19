@@ -4,7 +4,8 @@
             <div class="w-4/5 3sm:mx-4 bg-white-900 mx-auto flex items-center justify-center rounded-lg custom-shadow px-4 py-4">
                 <div class="w-full mb-4">
                     <h3 class="text-blue-900 text-lg mb-6 flex items-center pb-2  border-b border-gray-200">
-                        <span class="flex-grow">هل أنت متأكد من الحذف</span>
+                        <span class="flex-grow" v-if="!this.msg">هل أنت متأكد من الحذف</span>
+                        <span class="flex-grow" v-else>{{this.msg}}</span>
                         <img class="w-4 cursor-pointer" src="@/assets/img/close.svg" alt="close"
                              @click="$emit('close')">
                     </h3>
@@ -34,7 +35,7 @@
 </template>
 <script>
     export default {
-        props: ['id','url'],
+        props: ['id','url','msg'],
         data() {
             return {
                 success: false,

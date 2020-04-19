@@ -3,16 +3,23 @@ import Vuex from 'vuex'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth'
+import VueLocalStorage from 'vue-localstorage'
+
+Vue.use(VueLocalStorage);
 
 Vue.use(VueAxios, axios);
 
 Vue.axios.defaults.baseURL = 'http://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
-const $token = localStorage.getItem('token');
-Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${$token}`;
+function getToken() {
+    return 'Bearer ' + this.$store.state.token;
+    // + localStorage.getItem('token')
+}
 
-// `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYTJhYTJjMmE3NmM2OTZhNzFjMjI1ZTM4NzVjNjQyMDk1MzhmNTE5ZWJlZWQ2MmU3MjNlMjNhZDhkNThkNzdjYzZiNGM1ZWM0NGFlOGM4MTUiLCJpYXQiOjE1ODYxODMwOTksIm5iZiI6MTU4NjE4MzA5OSwiZXhwIjoxNjE3NzE5MDk5LCJzdWIiOiI5MSIsInNjb3BlcyI6W119.EbMdlV60geri652XkKVPtXx7Vt9spEmGQfJbc5tfnTPgnxPxyLusFGb1-vz-5izFLUTys4bpcqIoln8hMBubpQ`;
+// const $token = window.token;
+Vue.axios.defaults.headers.common['Authorization'] = getToken();
+
 
 Vue.use(VueAuth, {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
@@ -26,6 +33,7 @@ export default new Vuex.Store({
         showMeal: false,
         menuOpen: false,
         openCall: false,
+        token: null
     },
     mutations: {
         setMealShow(state, status) {
@@ -37,6 +45,9 @@ export default new Vuex.Store({
         setCallOpen: (state, item) => {
             state.openCall = item;
         },
+        setToken: (state, item) => {
+            state.token = item;
+        }
     },
     actions: {
         getMealShow({commit}, status) {
@@ -47,6 +58,9 @@ export default new Vuex.Store({
         },
         getCallOpen({commit}, item) {
             commit('setCallOpen', item);
+        },
+        getToken({commit}, item) {
+            commit('setToken', item);
         },
     }
 })

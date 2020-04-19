@@ -11,6 +11,7 @@
                                 <CustomCheckbox :index="index" :title="item.title" v-model="form.type"/>
                             </div>
                         </div>
+                        <p class="message-danger" v-if="sendError">تم اضافة هذا النوع مسبقا</p>
                     </div>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="timing" name="timing" rules="required"
@@ -20,7 +21,7 @@
                                   class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                   :class="{ 'has-danger': (errors.length && touched) }"
                                   v-model="form.timing"
-                                  placeholder="وقت الوجبة" use12-hour></datetime>
+                                  :placeholder="form.timing?form.timing:'وقت الوجبة'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap mb-4 image-uploader">
@@ -127,12 +128,15 @@
                 success: false,
                 loading: false,
                 imageSrc: null,
+                sendError: false,
                 form: {
+                    meal_id: null,
                     type: '1',
                     image: '',
                     timing: null,
                     notes: null
-                }
+                },
+                meal: null,
             }
         },
         methods: {
@@ -143,6 +147,9 @@
                     return n
                 }
             },
+            isValidDate(d) {
+                return d instanceof Date && !isNaN(d);
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addMeal'].validate().then((result) => {
@@ -150,24 +157,37 @@
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
                         form.type = parseInt(form.type);
-                        const $timing = new Date(form.timing);
-                        const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
-                        const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
-                        form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
+                        if (this.isValidDate(new Date(form.timing))) {
+                            const $timing = new Date(form.timing);
+                            const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
+                            const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
+                            form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
+                        }
+                        let $url = '/mobile/meal';
+                        let $id = this.$route.params.id;
+                        let $type = this.$route.params.type;
+
                         const formData = new FormData();
                         formData.append('notes', this.form.notes);
                         formData.append('image', this.imageSrc);
                         formData.append('timing', form.timing);
                         formData.append('type', form.type);
-                        this.axios.post('/mobile/meal', formData, {
+
+                        if ($type === 'edit') {
+                            $url = '/mobile/meal/update';
+                            form.meal_id = $id;
+                            formData.append('meal_id', $id);
+                        }
+                        this.axios.post($url, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
                         }).then((res) => {
+                            this.sendError = false;
                             this.success = true;
                             this.loading = false;
                             this.form = {
-                                type: null,
+                                type: 1,
                                 image: '',
                                 timing: null,
                                 notes: null
@@ -181,6 +201,7 @@
                             this.loading = false;
                             if (error.response) {
                                 if (error.response.status === 422) {
+                                    this.sendError = true;
                                     this.$refs['addMeal'].setErrors(error.response.data.errors);
                                 }
                             }
@@ -212,6 +233,23 @@
             removeImage: function (e) {
                 this.form.image = '';
             }
+        },
+        created() {
+            let $id = this.$route.params.id;
+            if ($id) {
+                this.axios.get(`/mobile/meal/${$id}`)
+                    .then(response => {
+                        this.meal = response.data.data;
+                        this.form = {
+                            id: this.meal.id,
+                            type: this.meal.type,
+                            image: this.meal.image_url,
+                            timing: this.meal.timing,
+                            notes: this.meal.notes
+                        };
+                    });
+            }
+
         }
     }
 </script>
