@@ -241,9 +241,6 @@
                     this.profile = $data.data;
 
                     if ($data.hasOwnProperty('token')) {
-                        window.token = $data.token;
-                        this.$store.dispatch('getToken', $data.token);
-                        console.log(this.$store.state.token);
                         localStorage.setItem('token', $data.token);
                     }
                 });

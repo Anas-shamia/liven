@@ -3,23 +3,25 @@ import Vuex from 'vuex'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth'
-import VueLocalStorage from 'vue-localstorage'
-
-Vue.use(VueLocalStorage);
 
 Vue.use(VueAxios, axios);
 
-Vue.axios.defaults.baseURL = 'http://it-team-dev.com/api';
+axios.defaults.baseURL = 'http://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
-    return 'Bearer ' + this.$store.state.token;
-    // + localStorage.getItem('token')
+    return 'Bearer ' + localStorage.getItem('token')
 }
+axios.defaults.headers.common['Authorization'] = getToken();
 
-// const $token = window.token;
-Vue.axios.defaults.headers.common['Authorization'] = getToken();
-
+axios.interceptors.request.use(function (config) {
+    config.headers.Authorization = getToken();
+    // Do something before request is sent
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
 
 Vue.use(VueAuth, {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
