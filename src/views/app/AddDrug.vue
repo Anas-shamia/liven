@@ -136,12 +136,7 @@
         created() {
             this.axios.get('/mobile/medicine/items/list')
                 .then(response => {
-                    let $options = response.data.data.filter(x => {
-                        return {
-                            status: x.status === 0,
-                            id: x.id
-                        }
-                    });
+                    let $options = response.data.data.filter(x => x.status === 0);
                     this.options = $options;
                 });
             let $id = this.$route.params.id;
@@ -153,9 +148,7 @@
                             timing: this.drug.timing,
                             notes: this.drug.notes,
                         };
-                        if (this.drug.medicine_id) {
-                            this.form.medicine_id = this.options.find(x => x.value === this.options[this.drug.medicine_id]);
-                        }
+                        this.form.medicine_id = this.options.find(x => x.id === this.drug.medicine_id);
                     });
             }
         }
