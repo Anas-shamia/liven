@@ -213,6 +213,10 @@
                 loading: false,
                 checkbox: false,
                 profile: {},
+                genders: {
+                    Male: 'm',
+                    Female: 'f'
+                },
                 options: [
                     {
                         name: 'ذكر',
@@ -344,6 +348,9 @@
                         length: this.profile.length,
                         country: this.profile.country
                     };
+                    if (this.profile.gender) {
+                        this.form.gender = this.options.find(x => x.value === this.genders[this.profile.gender]);
+                    }
                 });
 
         },
