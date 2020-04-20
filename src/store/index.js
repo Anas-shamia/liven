@@ -10,8 +10,10 @@ axios.defaults.baseURL = 'http://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
-    return 'Bearer ' + localStorage.getItem('token')
+    return 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiOGEzNTk5YTYyYWIzZGE1MWMzMTBjNDZmNzUyMjNkNTU3NmMxNTUxNzM5MzVlMzRiMTQ5NGIxZTgyOWZmNzRhOGQxOTBjOWJhOWNlMjc5MGUiLCJpYXQiOjE1ODczNzI0ODQsIm5iZiI6MTU4NzM3MjQ4NCwiZXhwIjoxNjE4OTA4NDg0LCJzdWIiOiIxMjIiLCJzY29wZXMiOltdfQ.o_PuXTKs-4Kv5TKjArBB4YS9F83OvteaLghWmTDVDjtu9eVAn_FgXUubyuLFBHnvbfrPDHlIdvoHpEiAZOra-g'
+    // + localStorage.getItem('token')
 }
+
 axios.defaults.headers.common['Authorization'] = getToken();
 
 axios.interceptors.request.use(function (config) {

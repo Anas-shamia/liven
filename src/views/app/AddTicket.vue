@@ -65,6 +65,7 @@
                 success: false,
                 loading: false,
                 options: [],
+                ticket:null,
                 ticketError: false,
                 form: {
                     title: null,
@@ -123,8 +124,19 @@
             },
         },
         created() {
+            let $id = this.$route.params.id;
             this.axios.get('/mobile/categories/all')
-                .then(response => (this.options = response.data.data))
+                .then(response => (this.options = response.data.data));
+            if ($id) {
+                this.axios.get(`/mobile/ticket/${$id}`)
+                    .then(response => {
+                        this.ticket = response.data.data[0];
+                        this.form = {
+                            title: this.ticket.title,
+                            description: this.ticket.description,
+                        };
+                    });
+            }
         }
     }
 </script>
