@@ -39,7 +39,7 @@
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
-                        <button type="submit"
+                        <button type="submit" v-if="user !== '116'"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
                                 :disabled="loading">ارسال
                         </button>
@@ -132,6 +132,9 @@
             dirLang() {
                 return this.$i18n.locale === 'en' ? 'ltr' : 'rtl';
             },
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         },
         created() {
             this.axios.get('/mobile/medicine/items/list')

@@ -2,7 +2,7 @@
     <div class="bg-gray-100 min-h-screen">
         <div class="gradient mobile-padding pb-8">
             <div class="flex items-center justify-between relative" style="height: 45px;">
-                <img @click="openForm()" v-if="!active" src="@/assets/img/edit.svg" alt="">
+                <img @click="openForm()"  v-if="!active && user !== '116'" src="@/assets/img/edit.svg" alt="">
                 <svg aria-hidden="true" @click="updateForm" v-if="active" focusable="false" data-prefix="fas"
                      data-icon="check" role="img"
                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
@@ -377,6 +377,9 @@
             dirLang() {
                 return this.$i18n.locale === 'en' ? 'ltr' : 'rtl';
             },
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         }
     }
 </script>

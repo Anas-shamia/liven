@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap py-3 mobile-padding fixed inset-x-0 z-9 bar">
-        <router-link class="absolute rtl:right-0 ltr:left-0 icon-padding" :to="path" v-if="plus">
+        <router-link class="absolute rtl:right-0 ltr:left-0 icon-padding" :to="path" v-if="plus && user !== '116'">
             <img src="@/assets/img/plus.svg" alt="">
         </router-link>
         <h2 class="text-white-900 text-lg flex-grow text-center">{{title}}</h2>
@@ -23,6 +23,11 @@
                 type: Boolean
             },
             close: '',
+        },
+        computed:{
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         }
     }
 </script>

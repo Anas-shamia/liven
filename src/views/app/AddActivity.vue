@@ -42,7 +42,7 @@
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
-                        <button type="submit"
+                        <button v-if="user !== '116'" type="submit"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
                                 :disabled="loading">ارسال
                         </button>
@@ -134,6 +134,11 @@
                     }
                 });
             },
+        },
+        computed:{
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         }
     }
 </script>

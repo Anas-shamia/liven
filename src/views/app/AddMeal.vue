@@ -79,6 +79,7 @@
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
                         <button type="submit"
+                                v-if="user !=='116'"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
                                 :class="loading?'btn-loading':''"
                                 :disabled="loading">
@@ -250,6 +251,11 @@
                     });
             }
 
+        },
+        computed:{
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         }
     }
 </script>

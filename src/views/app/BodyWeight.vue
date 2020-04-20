@@ -34,7 +34,7 @@
                 </p>
             </div>
             <div>
-                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()">اضافة وزن جديد</p>
+                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">اضافة وزن جديد</p>
                 <div class="mb-4" v-if="newWeight">
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
@@ -83,7 +83,7 @@
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="openForm(item)" v-if="index===0 && !active" aria-hidden="true"
+                            <svg @click="openForm(item)" v-if="index===0 && !active && user !== '116'" aria-hidden="true"
                                  focusable="false"
                                  data-prefix="fas"
                                  data-icon="edit" role="img"
@@ -359,6 +359,11 @@
         components: {
             Bar,
             Input
+        },
+        computed:{
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         },
         created() {
             this.loadBodyAll();
