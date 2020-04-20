@@ -103,7 +103,7 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                                // $this.$router.push('/inquiries-list');
+                                $this.$router.push('/inquiries-list');
                             }, 3000);
                             this.$refs['addTicket'].reset();
                         }).catch((error) => {
