@@ -47,7 +47,7 @@
             <div class="flex items-center mb-6 notifications">
                 <h2 class="flex-grow text-base text-blue-800">التنبيهات والاشعارات</h2>
                 <label class="switch">
-                    <input type="checkbox" v-model="status" @click="toggleCheckbox">
+                    <input type="checkbox"  @input="toggleCheckbox($event)">
                     <div class="slider round"></div>
                 </label>
             </div>
@@ -213,7 +213,9 @@
                 loading: false,
                 checkbox: false,
                 profile: {},
-                status: 0,
+                status: {
+                    status: 0
+                },
                 genders: {
                     Male: 'm',
                     Female: 'f'
@@ -252,16 +254,11 @@
             },
         },
         methods: {
-            toggleCheckbox() {
-                this.checkbox = !this.checkbox;
-                if (this.checkbox === true) {
-                    this.status = 1
-                }
-                if (this.checkbox === false) {
-                    this.status = 0
-                }
+            toggleCheckbox($e) {
+                this.status = {
+                    status: $e.target.checked ? 1 : 0
+                };
                 this.changeStatus();
-                this.$emit('setCheckboxVal', this.checkbox)
             },
             openForm() {
                 this.active = !this.active;
@@ -367,7 +364,9 @@
                         length: this.profile.length,
                         country: this.profile.country
                     };
-                    this.status = this.profile.status
+                    this.status = {
+                        status: this.profile.status
+                    };
                     if (this.profile.gender) {
                         this.form.gender = this.options.find(x => x.value === this.genders[this.profile.gender]);
                     }
