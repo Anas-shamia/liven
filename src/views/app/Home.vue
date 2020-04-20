@@ -235,17 +235,11 @@
             if ($user_id)
                 url = `/mobile/user/${$user_id}/liven_app/token`;
 
-            if ($user_id === '116') {
-                localStorage.setItem('user_id', $user_id);
-            } else {
-                localStorage.removeItem('user_id', $user_id);
-            }
-
             this.axios.get(url)
                 .then(res => {
                     const $data = res.data;
                     this.profile = $data.data;
-
+                    localStorage.setItem('user_id', this.profile.user.id);
                     if ($data.hasOwnProperty('token')) {
                         localStorage.setItem('token', $data.token);
                     }
