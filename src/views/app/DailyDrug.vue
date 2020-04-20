@@ -20,7 +20,7 @@
                             </svg>
                         </button>
                         <router-link tag="div"  :to="`/edit-drug/edit/${item.id}`">
-                            <img class="custom-box w-full object-cover rounded-10px" v-if="item.url" :src="item.url"
+                            <img class="custom-box w-full object-cover rounded-10px" v-if="item.image" :src="item.image"
                                  alt="durg-img">
                             <img class="custom-box w-full object-cover rounded-10px" v-else src="@/assets/img/drug-img.jpg" alt="">
                         </router-link>

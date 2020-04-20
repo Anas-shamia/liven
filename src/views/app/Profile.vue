@@ -47,7 +47,7 @@
             <div class="flex items-center mb-6 notifications">
                 <h2 class="flex-grow text-base text-blue-800">التنبيهات والاشعارات</h2>
                 <label class="switch">
-                    <input type="checkbox" @click="toggleCheckbox">
+                    <input type="checkbox" v-model="status" @click="toggleCheckbox">
                     <div class="slider round"></div>
                 </label>
             </div>
@@ -213,6 +213,7 @@
                 loading: false,
                 checkbox: false,
                 profile: {},
+                status: 0,
                 genders: {
                     Male: 'm',
                     Female: 'f'
@@ -248,11 +249,18 @@
                 if ($val) {
                     this.uploadUserImage($val);
                 }
-            }
+            },
         },
         methods: {
             toggleCheckbox() {
                 this.checkbox = !this.checkbox;
+                if (this.checkbox === true) {
+                    this.status = 1
+                }
+                if (this.checkbox === false) {
+                    this.status = 0
+                }
+                this.changeStatus();
                 this.$emit('setCheckboxVal', this.checkbox)
             },
             openForm() {
@@ -336,6 +344,17 @@
                     }
                 });
             },
+            changeStatus() {
+                this.axios.post('/mobile/user/notification/update', this.status).then((res) => {
+                    console.log(res);
+                }).catch((error) => {
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            console.log('error');
+                        }
+                    }
+                });
+            }
         },
         created() {
             this.axios.get('/mobile/user/profile')
@@ -348,6 +367,7 @@
                         length: this.profile.length,
                         country: this.profile.country
                     };
+                    this.status = this.profile.status
                     if (this.profile.gender) {
                         this.form.gender = this.options.find(x => x.value === this.genders[this.profile.gender]);
                     }

@@ -9,7 +9,8 @@
                                         vid="value" name="sugar" rules="required|integer"
                                         v-slot="{ errors }">
                         <label class="w-2/6 text-base text-blue-800 rtl:pl-8 ltr:pr-8">قياس السكر</label>
-                        <input type="tel" inputmode="numeric" pattern="[0-9]*" class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
+                        <input type="tel" inputmode="numeric" pattern="[0-9]*"
+                               class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                placeholder="قياس السكر" v-model="form.value" :class="{ 'has-danger': errors.length }">
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
@@ -21,7 +22,7 @@
                                 class="theme-purple w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                 :class="{ 'has-danger': (errors.length && touched) }"
                                 v-model="form.date"
-                                placeholder="التاريخ" use12-hour></datetime>
+                                :placeholder="form.date?form.date:'التاريخ'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
@@ -32,7 +33,7 @@
                                   class="theme-purple w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                   :class="{ 'has-danger': (errors.length && touched) }"
                                   v-model="form.timing"
-                                  placeholder="الوقت" use12-hour></datetime>
+                                  :placeholder="form.timing?form.timing:'الوقت'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap mt-50%">
@@ -57,6 +58,7 @@
             return {
                 success: false,
                 loading: false,
+                diabetes: null,
                 form: {
                     id: null,
                     value: null,
@@ -66,19 +68,21 @@
             }
         },
         methods: {
+            isValidDate(d) {
+                return d instanceof Date && !isNaN(d);
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addSugar'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
-                        const $timing = new Date(form.timing);
-                        const $date = new Date(form.date);
-                        form.timing = $timing.getHours() + ':' + $timing.getMinutes();
-                        // const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
-                        // const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
-                        // form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
-                        form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
+                        if (this.isValidDate(new Date(form.timing))) {
+                            const $timing = new Date(form.timing);
+                            form.timing = $timing.getHours() + ':' + $timing.getMinutes();
+                            const $date = new Date(form.date);
+                            form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
+                        }
                         let $url = '/mobile/diabetes';
                         let $id = this.$route.params.id;
                         let $type = this.$route.params.type;
@@ -114,6 +118,20 @@
         },
         components: {
             Bar
+        },
+        created() {
+            let $id = this.$route.params.id;
+            if ($id) {
+                this.axios.get(`/mobile/diabetes/${$id}`)
+                    .then(response => {
+                        this.diabetes = response.data.data;
+                        this.form = {
+                            value: this.diabetes.value,
+                            timing: this.diabetes.timing,
+                            date: this.diabetes.date,
+                        };
+                    });
+            }
         }
     }
 </script>
