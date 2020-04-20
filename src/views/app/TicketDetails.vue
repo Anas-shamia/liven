@@ -94,7 +94,7 @@
         },
         created() {
             let $id = this.$route.params.id;
-            this.axios.get(`/mobile/ticket/replays?ticket_id=${$id}`)
+            this.axios.get(`/mobile/ticket/with/replays?ticket_id=${$id}`)
                 .then(response => (this.details = response.data.data[0]))
         }
     }
