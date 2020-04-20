@@ -58,7 +58,7 @@
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
-                        <button type="submit"
+                        <button type="submit" v-if="user !=='116'"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
                                 :class="loading?'btn-loading':''"
                                 :disabled="loading">
@@ -158,6 +158,11 @@
             },
             removeImage: function (e) {
                 this.form.image = '';
+            }
+        },
+        computed: {
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
             }
         }
     }

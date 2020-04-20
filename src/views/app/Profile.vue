@@ -14,7 +14,7 @@
             </div>
             <div class="text-center mt-4">
                 <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
-                    <div class="absolute z-2 top-0 rtl:right-0 ltr:left-0 rtl:mr-2 ltr:ml-2 mt-1">
+                    <div class="absolute z-2 top-0 rtl:right-0 ltr:left-0 rtl:mr-2 ltr:ml-2 mt-1" v-if="user !== '116'">
                         <input type="file" class="absolute w-full inset-0 opacity-0" style="opacity: 0"
                                @change="onFileChange">
                         <svg id="plus-circle"
@@ -39,7 +39,7 @@
                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
                 <p class="text-sm text-white-900 font-medium mb-6">{{profile.email}}</p>
-                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900">تغيير كلمة المرور
+                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900" v-if="user !== '116'">تغيير كلمة المرور
                 </router-link>
             </div>
         </div>
