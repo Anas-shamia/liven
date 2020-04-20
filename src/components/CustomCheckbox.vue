@@ -8,18 +8,17 @@
             <input class="custom-checkbox" type="checkbox" v-model="checked" :id="`chkbx${index}`" value="1" >
             <label :for="`chkbx${index}`" class="text-base flex items-center">
                 <span></span>
-                <span v-if="!checked">معلق</span>
-                <span v-if="checked" class="text-primary-900">تم</span>
+                <span v-if="!this.checked">معلق</span>
+                <span v-if="this.checked" class="text-primary-900">تم</span>
             </label>
         </div>
     </div>
 </template>
 <script>
     export default {
-        props:['index','title','date'],
+        props:['index','title','date','checked'],
         data(){
             return{
-                checked:false,
             }
         }
     }

@@ -13,7 +13,7 @@ Vue.axios.defaults.baseURL = 'http://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
-    return 'Bearer ' + this.$store.state.token;
+    return 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNmZiOGYzNDRiMTM5MmM0ZjkyNjYxYTE4MTk5ZTgyMjQ1MGZmNDYxMzFmYzRiNDY1MTNiYmM4NjI2ZmUxZjUzY2YyYmNhODhjMmU4ZWFlNGYiLCJpYXQiOjE1ODczMjkyODksIm5iZiI6MTU4NzMyOTI4OSwiZXhwIjoxNjE4ODY1Mjg5LCJzdWIiOiIxMjIiLCJzY29wZXMiOltdfQ.Afv6S9hI9VCaJVaEx1YDhyNe6dSlE_psoFUBleeiTXzwrw4IFkeKqqEt12qVebM-07mlbHoSzAEDKXD-wDB8tw';
     // + localStorage.getItem('token')
 }
 

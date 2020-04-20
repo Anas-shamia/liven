@@ -137,6 +137,12 @@ const routes = [
         component: AddTicket,
     },
     {
+        path: '/edit-ticket/:type/:id',
+        name: 'editTicket',
+        meta: {layout: 'mobile'},
+        component: AddTicket,
+    },
+    {
         path: '/food-plan',
         name: 'FoodPlan',
         meta: {layout: 'mobile'},

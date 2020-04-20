@@ -82,7 +82,17 @@
                 this.$refs['addTicket'].validate().then((result) => {
                     if (result) {
                         this.loading = true;
-                        this.axios.post('/mobile/ticket', $fields).then((res) => {
+
+                        let $url = '/mobile/ticket';
+                        let $id = this.$route.params.id;
+                        let $type = this.$route.params.type;
+
+                        if ($type === 'edit') {
+                            $url = `/mobile/ticket/update/${$id}`;
+                        }
+
+
+                        this.axios.post($url, $fields).then((res) => {
                             this.success = true;
                             this.loading = false;
                             this.form = {
@@ -92,7 +102,7 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                                $this.$router.push('/inquiries-list');
+                                // $this.$router.push('/inquiries-list');
                             }, 3000);
                             this.$refs['addTicket'].reset();
                         }).catch((error) => {
