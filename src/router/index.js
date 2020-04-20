@@ -89,6 +89,12 @@ const routes = [
         component: AddDrug,
     },
     {
+        path: '/edit-drug/:type/:id',
+        name: 'editDrug',
+        meta: {layout: 'mobile'},
+        component: AddDrug,
+    },
+    {
         path: '/add-meal',
         name: 'addMeal',
         meta: {layout: 'mobile'},

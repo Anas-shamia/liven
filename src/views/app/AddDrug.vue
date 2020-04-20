@@ -24,7 +24,7 @@
                                   class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                   :class="{ 'has-danger': (errors.length && touched) }"
                                   v-model="form.timing"
-                                  placeholder="وقت الدواء" use12-hour></datetime>
+                                  :placeholder="form.timing?form.timing:'وقت الدواء'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
@@ -65,6 +65,7 @@
                 options: [],
                 success: false,
                 loading: false,
+                drug: null,
                 form: {
                     medicine_id: null,
                     timing: null,
@@ -73,6 +74,16 @@
             }
         },
         methods: {
+            getTiming(n) {
+                if (n < 10) {
+                    return '0' + n;
+                } else {
+                    return n
+                }
+            },
+            isValidDate(d) {
+                return d instanceof Date && !isNaN(d);
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addDrug'].validate().then((result) => {
@@ -80,9 +91,19 @@
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
                         form.medicine_id = form.medicine_id.id;
-                        const $timing = new Date(form.timing);
-                        form.timing = $timing.getHours() + ':' + $timing.getMinutes();
-                        this.axios.post('/mobile/medicine', form).then((res) => {
+                        if (this.isValidDate(new Date(form.timing))) {
+                            const $timing = new Date(form.timing);
+                            const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
+                            const $hours = ($timing.getHours() > 12 || $timing.getHours() === 0) ? ($timing.getHours() === 0 ? 12 : $timing.getHours() - 12) : $timing.getHours();
+                            form.timing = this.getTiming($hours) + ':' + this.getTiming($timing.getMinutes()) + ' ' + ampm;
+                        }
+                        let $url = '/mobile/medicine';
+                        let $id = this.$route.params.id;
+                        let $type = this.$route.params.type;
+                        if ($type === 'edit') {
+                            $url = `/mobile/medicine/update/${$id}`;
+                        }
+                        this.axios.post($url, form).then((res) => {
                             this.success = true;
                             this.loading = false;
                             this.form = {
@@ -113,13 +134,30 @@
             },
         },
         created() {
-            this.axios.get('/mobile/medicine/list')
+            this.axios.get('/mobile/medicine/items/list')
                 .then(response => {
                     let $options = response.data.data.filter(x => {
-                        return x.status === 0
+                        return {
+                            status: x.status === 0,
+                            id: x.id
+                        }
                     });
                     this.options = $options;
                 });
+            let $id = this.$route.params.id;
+            if ($id) {
+                this.axios.get(`/mobile/medicine/${$id}`)
+                    .then(response => {
+                        this.drug = response.data.data;
+                        this.form = {
+                            timing: this.drug.timing,
+                            notes: this.drug.notes,
+                        };
+                        if (this.drug.medicine_id) {
+                            this.form.medicine_id = this.options.find(x => x.value === this.options[this.drug.medicine_id]);
+                        }
+                    });
+            }
         }
     }
 </script>
