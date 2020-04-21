@@ -137,7 +137,7 @@
                     count: null,
                     status: 1,
                     image: '',
-                    notes: null
+                    notes: ''
                 }
             }
         },
@@ -174,7 +174,7 @@
                                 count: null,
                                 status: null,
                                 image: '',
-                                notes: null
+                                notes: ''
                             };
                             setTimeout(function () {
                                 $this.success = false;

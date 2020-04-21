@@ -105,7 +105,7 @@
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الجنس</p>
                                         <p class="text-base text-blue-800">
-                                            <span class="px-2">{{profile.gender}}</span>
+                                            <span class="px-2">{{profile.gender_ar}}</span>
                                         </p>
                                     </div>
                                     <ValidationProvider tag="div" class="w-full"

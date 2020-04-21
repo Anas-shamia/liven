@@ -135,7 +135,7 @@
                     type: '1',
                     image: '',
                     timing: null,
-                    notes: null
+                    notes: ''
                 },
                 meal: null,
             }

@@ -13,7 +13,7 @@
            </div>
             <div v-if="details.replays.length">
                 <div class="py-4 border-b border-gray-200" v-for="(item,index) in details.replays" :key="index">
-                    <p class="text-base text-gray-700 mb-2">طبيب Liven</p>
+                    <p class="text-base text-gray-700 mb-2">{{item.replay_author}}</p>
                     <p class="text-lg text-blue-800 mb-3">{{item.replay_text}}</p>
                 </div>
             </div>

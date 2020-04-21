@@ -40,7 +40,7 @@
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap">
-                        <button type="submit"
+                        <button v-if="user !=='116'" type="submit"
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3"
                                 :disabled="loading">ارسال
                         </button>
@@ -122,6 +122,9 @@
             dirLang() {
                 return this.$i18n.locale === 'en' ? 'ltr' : 'rtl';
             },
+            user() {
+                return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
+            }
         },
         created() {
             let $id = this.$route.params.id;
@@ -138,6 +141,7 @@
                             title: this.ticket.title,
                             description: this.ticket.description,
                         };
+                        this.form.category_id = this.options.find(x => x.id === this.ticket.category_id);
                     });
             }
         }
