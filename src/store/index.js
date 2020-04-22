@@ -11,6 +11,7 @@ axios.defaults.baseURL = 'http://it-team-dev.com/api';
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
     return 'Bearer ' + localStorage.getItem('token');
+    // + localStorage.getItem('token');
     // + localStorage.getItem('token')
 }
 

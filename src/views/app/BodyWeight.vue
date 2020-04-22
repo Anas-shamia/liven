@@ -251,51 +251,6 @@
                     waist: 0,
                     highest: 0,
                 },
-                weights: [
-                    {
-                        date: 'Today , 02:15PM',
-                        weight: [
-                            {
-                                id: '0',
-                                title: 'الوزن',
-                                num: '82',
-                                unit: 'KG'
-                            },
-                            {
-                                id: '1',
-                                title: 'محيط الورك',
-                                num: '12',
-                                unit: 'CM'
-                            },
-                            {
-                                id: '2',
-                                title: 'محيط الخصر',
-                                num: '30',
-                                unit: 'CM'
-                            }
-                        ]
-                    },
-                    {
-                        date: 'yesterday , 02:15PM',
-                        weight: [
-                            {
-                                title: 'الوزن',
-                                num: '83',
-                                unit: 'KG'
-                            },
-                            {
-                                title: 'الوزن',
-                                num: '12',
-                                unit: 'CM'
-                            },
-                            {
-                                title: 'الماء بالجسم',
-                                num: '28',
-                                unit: 'CM'
-                            }
-                        ]
-                    },
-                ],
                 bodyAll: [],
                 itemEdit: null,
                 bodyAllByType: [],

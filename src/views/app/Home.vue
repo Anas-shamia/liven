@@ -30,16 +30,17 @@
                 <div class="w-full ltr:pl-2 rtl:pr-2">
                     <div class="flex items-end mb-2">
                         <p class="text-white-900 font-light text-xs flex-grow">نسبه انجازك لأهدافك</p>
-                        <p class="text-white-900 text-xl 2xs:text-base" v-if="profile.user.completion_rate">
+                        <p class="text-xl 2xs:text-base" v-if="profile.user.completion_rate"  :class="profile.user.completion_rate < 50 ? 'orange-color':'green-color'">
                             <span class="text-3xl 2xs:text-lg font-bold">{{profile.user.completion_rate}}</span>%</p>
                         <p class="text-white-900 text-xl 2xs:text-base" v-else>
                             <span class="text-3xl 2xs:text-lg font-bold">0</span>%</p>
                     </div>
                     <div class="shadow w-full bg-purple-100 rounded-full">
                         <div v-if="profile.user.completion_rate"
-                             class="bg-white-900 text-xs leading-none py-1 text-center rounded-full"
+                             class="text-xs leading-none py-1 text-center rounded-full"
+                             :class="profile.user.completion_rate < 50 ? 'orange':'green'"
                              :style="`width: ${profile.user.completion_rate}%`"></div>
-                        <div v-else class="bg-white-900 text-xs leading-none py-1 text-center rounded-full"
+                        <div v-else class="orange text-xs leading-none py-1 text-center rounded-full"
                              style="width: 0"></div>
                     </div>
                 </div>
@@ -53,15 +54,16 @@
                      :class="profile.diabetes.length === 1 ? 'w-2/3' :'w-1/3'">
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">القراءة الحالية</p>
-                        <p class="text-3xl font-bold text-blue-800">
+                        <p class="text-3xl font-bold"
+                           :class="(item.value<70 || item.value>180)?'orange-color':'green-color'">
                             <span class="text-base font-bold inline-block">mg/dL</span>
-
                             {{item.value}}
                         </p>
                     </div>
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">القراءة السابقة</p>
-                        <p class="text-3xl font-bold text-purple-100">
+                        <p class="text-3xl font-bold"
+                           :class="(item.value<70 || item.value>180)?'orange-color':'green-color'">
                             <span class="text-base font-bold inline-block">mg/dL</span>
 
                             {{item.value}}
@@ -87,14 +89,15 @@
                      :class="profile.body.length===1 ? 'w-2/3' :'w-1/3'">
                     <div v-if="index === 0">
                         <p class="text-xs font-light text-blue-800">الوزن الحالي</p>
-                        <p class="text-3xl font-bold text-blue-800">
+                        <p class="text-3xl font-bold"
+                           :class="(item.bmi>25?'orange-color':'') || (item.bmi < 25 ? 'green-color':'')">
                             <span class="text-base font-bold inline-block">KG</span>
                             {{item.weight}}
                         </p>
                     </div>
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">الوزن السابق</p>
-                        <p class="text-3xl font-bold text-purple-100">
+                        <p class="text-3xl font-bold" :class="(item.bmi>25?'orange-color':'') || (item.bmi < 25 ? 'green-color':'')">
                             <span class="text-base font-bold inline-block">KG</span>
                             {{item.weight}}
                         </p>
@@ -255,6 +258,22 @@
         > div {
             height: 100%;
         }
+    }
+
+    .orange-color {
+        color: #DB7E12;
+    }
+
+    .green-color {
+        color: #009D24;
+    }
+
+    .orange {
+        background: #DB7E12;
+    }
+
+    .green {
+        background: #009D24;
     }
 
 

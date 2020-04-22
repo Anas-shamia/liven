@@ -252,7 +252,7 @@
             }
 
         },
-        computed:{
+        computed: {
             user() {
                 return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
             }
