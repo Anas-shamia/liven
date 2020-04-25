@@ -25,6 +25,7 @@ import DailyFood from '../views/app/DailyFood.vue'
 import DailyDrug from '../views/app/DailyDrug.vue'
 import ChangePassword from '../views/app/ChangePassword.vue'
 import TicketDetails from '../views/app/TicketDetails.vue'
+import Call from "../views/app/Call";
 
 
 Vue.use(VueRouter);
@@ -207,6 +208,12 @@ const routes = [
         name: 'change-password',
         meta: {layout: 'mobile'},
         component: ChangePassword,
+    },
+    {
+        path: '/call',
+        name: 'call',
+        meta: {layout: 'mobile'},
+        component: Call,
     },
 ];
 
