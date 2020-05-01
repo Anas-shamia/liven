@@ -5,21 +5,21 @@
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ul class="flex flex-wrap items-center -mx-2 mb-6">
                 <li class="w-1/3 px-2 text-center">
-                    <div @click="changeChart('week');changeChart2('week');changeChart3('week')" class="rounded-25px py-2"
+                    <div @click="changeChart('week')" class="rounded-25px py-2"
                          :class="selectedChart==='week'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                     >
                         <span class="text-base font-medium">اسبوع</span>
                     </div>
                 </li>
                 <li class="w-1/3 px-2 text-center">
-                    <div @click="changeChart('month');changeChart2('month');changeChart3('month')" class="rounded-25px py-2"
+                    <div @click="changeChart('month')" class="rounded-25px py-2"
                          :class="selectedChart==='month'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                     >
                         <span class="text-base font-medium">شهر</span>
                     </div>
                 </li>
                 <li class="w-1/3 px-2 text-center">
-                    <div @click="changeChart('year');changeChart2('year');changeChart3('year')" class="rounded-25px py-2"
+                    <div @click="changeChart('year')" class="rounded-25px py-2"
                          :class="selectedChart==='year'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                     >
                         <span class="text-base font-medium">سنة</span>
@@ -75,14 +75,14 @@
                         </div>
                     </li>
                     <li class=" px-2 text-center">
-                        <div @click="changeType('type')" class="rounded-25px py-2 px-4 mb-2"
+                        <div @click="changeType('2')" class="rounded-25px py-2 px-4 mb-2"
                              :class="selectedType==='2'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">العاب قوى</span>
                         </div>
                     </li>
                     <li class=" px-2 text-center">
-                        <div @click="changeType('type')" class="rounded-25px py-2 px-4 mb-2"
+                        <div @click="changeType('3')" class="rounded-25px py-2 px-4 mb-2"
                              :class="selectedType==='3'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">لياقة</span>
@@ -137,6 +137,8 @@
         data() {
             return {
                 selectedChart: 'week',
+                selectedTyping: 'today',
+                firstLoad: 0,
                 selectedType: '0',
                 bmi: null,
                 chartOptions: {
@@ -408,7 +410,13 @@
                     .then(response => {
                         this.bodyAllByType = response.data.data;
                         this.chartOptions.series[0].data = this.bodyAllByType;
+                        this.firstLoad = 1;
                     });
+                if(this.firstLoad) {
+                    this.selectedTyping = type;
+                }
+                this.changeChart2(type);
+                this.changeChart3(type);
             },
             changeChart2(type) {
                 this.selectedChart = type;
@@ -431,7 +439,7 @@
             changeType(type) {
                 this.selectedType = type;
                 this.chartOptions3.series[0].data = [];
-                this.axios.get(`/mobile/activity/chart/today?type=${this.selectedType}`)
+                this.axios.get(`/mobile/activity/chart/${this.selectedTyping}?type=${this.selectedType}`)
                     .then(response => {
                         this.bodyAllByType = response.data.data;
                         console.log(this.bodyAllByType);
@@ -446,8 +454,6 @@
         },
         created() {
             this.changeChart('week');
-            this.changeChart2('week');
-            this.changeChart3('week');
             this.changeType('1');
             this.loadBMI();
         }

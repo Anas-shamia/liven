@@ -23,6 +23,7 @@
                                 :class="{ 'has-danger': (errors.length && touched) }"
                                 v-model="form.date"
                                 @input="formatDate(form.date)"
+                                :max-datetime="new Date().toISOString()"
                                 :placeholder="form.date?form.date:'التاريخ'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
