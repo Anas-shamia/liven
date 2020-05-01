@@ -60,30 +60,30 @@
                 <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">النشاطات</h2>
                 <ul class="flex flex-wrap flex-wrap items-center -mx-2 mb-6">
                     <li class="px-2 text-center">
-                        <div @click="changeType('0')" class="rounded-25px py-2 px-4 mb-2"
-                             :class="selectedType==='0'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                        <div @click="changeType('1')" class="rounded-25px py-2 px-4 mb-2"
+                             :class="selectedType==='1'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">جري</span>
                         </div>
                     </li>
 
                     <li class=" px-2 text-center">
-                        <div @click="changeType('1')" class="rounded-25px py-2 px-4 mb-2"
-                             :class="selectedType==='1'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                        <div @click="changeType('2')" class="rounded-25px py-2 px-4 mb-2"
+                             :class="selectedType==='2'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">مشي</span>
                         </div>
                     </li>
                     <li class=" px-2 text-center">
-                        <div @click="changeType('2')" class="rounded-25px py-2 px-4 mb-2"
-                             :class="selectedType==='2'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                        <div @click="changeType('3')" class="rounded-25px py-2 px-4 mb-2"
+                             :class="selectedType==='3'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">العاب قوى</span>
                         </div>
                     </li>
                     <li class=" px-2 text-center">
-                        <div @click="changeType('3')" class="rounded-25px py-2 px-4 mb-2"
-                             :class="selectedType==='3'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
+                        <div @click="changeType('4')" class="rounded-25px py-2 px-4 mb-2"
+                             :class="selectedType==='4'?'bg-primary-900 text-white-900':'bg-white-900 text-primary-900'"
                         >
                             <span class="text-base font-medium">لياقة</span>
                         </div>
