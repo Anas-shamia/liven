@@ -42,7 +42,7 @@
                                               class=""></path>
                                     </svg>
                                 </button>
-                                <input type="file" @change="onFileChange" accept="image/*;capture=camera">
+                                <input type="file" @input="onFileChange" accept="image/*;capture=camera">
                                 <p class="message-danger">{{ errors[0] }}</p>
                                 <p class="message-danger" v-if="errorMsg">حجم الصورة يجب ان يكون اقل من 2000kb</p>
                                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
@@ -212,6 +212,7 @@
             },
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
+
                 if (!files.length)
                     return;
                 const $file = files[0];
@@ -227,9 +228,28 @@
                 const reader = new FileReader();
                 const vm = this;
                 reader.onload = (e) => {
-                    vm.form.image = e.target.result;
+                    const arrayBuffer = reader.result;
+                    const blob = new Blob([arrayBuffer], {type: 'image/png'});
+                    let src = URL.createObjectURL(blob);
+                    let img = new Image();
+                    img.src = src;
+                    vm.form.image = src;
+                    img.onload = () => {
+                        let $canvas = document.createElement("canvas");
+                        let $width = $canvas.width = 500;
+                        let $height = $canvas.height = (500 * (img.height / img.width));
+                        $canvas.getContext('2d').drawImage(img, 0, 0, $width, $height);
+                        // vm.form.image = $canvas.toBlob();
+                        // vm.form.image = $canvas.toDataURL();
+                        $canvas.toBlob((blob) => {
+                            this.imageSrc = blob;
+                        });
+
+                    };
+                    // vm.form.image = e.target.result;
+
                 };
-                reader.readAsDataURL(file);
+                reader.readAsArrayBuffer(file);
             },
             removeImage: function (e) {
                 this.form.image = '';

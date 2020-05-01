@@ -4,7 +4,7 @@
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-2xl font-medium text-blue-800 mb-8 text-center">قائمة المواعيد</h2>
             <div v-for="(item,index) in appointments" :key="index" class="appointments-item">
-                <CustomCheckbox :index="index" :title="` اليوم ${item.day}`" :date="`${item.from} - ${item.to}`"/>
+                <CustomCheckbox :index="index" :title="` اليوم ${item.names}`" :date="`${item.to} - ${item.from}`"/>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         },
         methods: {
             loadAppointments() {
-                this.axios.get('/mobile/appointment')
+                this.axios.get('/mobile/appointment/reserved')
                     .then(response => (this.appointments = response.data.data))
             },
         },

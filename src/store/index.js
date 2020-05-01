@@ -6,11 +6,12 @@ import VueAuth from '@websanova/vue-auth'
 
 Vue.use(VueAxios, axios);
 
-axios.defaults.baseURL = 'http://it-team-dev.com/api';
+axios.defaults.baseURL = 'https://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
-    return 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDg5Y2I2Y2JjMzZlNDk4ZGE1NmI2ZDAxYTM1YzY0OGE0OTM4ODBmMmQ3YWIyNjg4YzUyMGI1NDYzY2RmYjFkMjA2OWVmNjE1NDRjYWYzMTAiLCJpYXQiOjE1ODc2MjU1MDgsIm5iZiI6MTU4NzYyNTUwOCwiZXhwIjoxNjE5MTYxNTA4LCJzdWIiOiIxNTkiLCJzY29wZXMiOltdfQ.jBJ-1dSMSH0-aa3ypnhw8UajhBw_78EmXO3cBHKKHmGMufBcxZGcmjtMnRIBSCzHhUHO8jn8Btnar06OnolLGQ';
+    return 'Bearer ' + localStorage.getItem('token');
+
     // + localStorage.getItem('token')
     // + localStorage.getItem('token');
     // + localStorage.getItem('token')

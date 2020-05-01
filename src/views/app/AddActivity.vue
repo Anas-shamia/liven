@@ -120,7 +120,7 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
-                                $this.$router.push('/');
+                                // $this.$router.push('/');
                             }, 2000);
                             this.$refs['addActivity'].reset();
                         }).catch((error) => {

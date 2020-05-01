@@ -30,7 +30,8 @@
                 <div class="w-full ltr:pl-2 rtl:pr-2">
                     <div class="flex items-end mb-2">
                         <p class="text-white-900 font-light text-xs flex-grow">نسبه انجازك لأهدافك</p>
-                        <p class="text-xl 2xs:text-base" v-if="profile.user.completion_rate"  :class="profile.user.completion_rate < 50 ? 'orange-color':'green-color'">
+                        <p class="text-xl 2xs:text-base" v-if="profile.user.completion_rate"
+                           :class="profile.user.completion_rate < 50 ? 'orange-color':'green-color'">
                             <span class="text-3xl 2xs:text-lg font-bold">{{profile.user.completion_rate}}</span>%</p>
                         <p class="text-white-900 text-xl 2xs:text-base" v-else>
                             <span class="text-3xl 2xs:text-lg font-bold">0</span>%</p>
@@ -63,7 +64,7 @@
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">القراءة السابقة</p>
                         <p class="text-3xl font-bold"
-                           :class="(item.value<70 || item.value>180)?'orange-color':'green-color'">
+                           :class="(item.value<70 || item.value>180)?'orange-color':'gray-color'">
                             <span class="text-base font-bold inline-block">mg/dL</span>
 
                             {{item.value}}
@@ -97,7 +98,8 @@
                     </div>
                     <div v-if="index > 0">
                         <p class="text-xs font-light text-purple-100">الوزن السابق</p>
-                        <p class="text-3xl font-bold" :class="(item.bmi>25?'orange-color':'') || (item.bmi < 25 ? 'green-color':'')">
+                        <p class="text-3xl font-bold"
+                           :class="(item.bmi>25?'gray-color':'') || (item.bmi < 25 ? 'gray-color':'')">
                             <span class="text-base font-bold inline-block">KG</span>
                             {{item.weight}}
                         </p>
@@ -136,11 +138,11 @@
 
             </router-link>
             <div class="flex items-center 2xs:flex-wrap mb-2 -mx-2 5sm:-mx-1">
-                <div class="w-full 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">
-                    <div class="flex flex-wrap items-center h-full flex-wrap px-3">
+                <div class="w-3/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">
+                    <div class="flex flex-wrap items-center h-full flex-wrap px-3 ">
                         <div class="w-3/4">
                             <h4 class="text-purple-100 text-base font-medium mb-2">المواعيد</h4>
-                            <p class="text-white-900 text-xs 5sm:text-xxs" v-if="profile.appointment.length">
+                            <p class="text-white-900 text-xxs" v-if="profile.appointment.length">
                                 لديك موعد مع الأخصائي بتاريخ {{profile.appointment[0].reserved_date}} من الساعة
                                 {{profile.appointment[0].appointment.from}} الى الساعة
                                 {{profile.appointment[0].appointment.to}}
@@ -160,21 +162,17 @@
                         </div>
                     </div>
                 </div>
-                <!--                <div class="w-1/2 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">-->
-                <!--                    <div class="flex flex-wrap items-center h-full flex-wrap px-3">-->
-                <!--                        <div class="w-1/2">-->
-                <!--                            <h4 class="text-purple-100 text-base font-medium mb-2">النشاط</h4>-->
-                <!--                            <p class="text-white-900 text-xl font-bold 4sm:text-base 5sm:text-xs">-->
-                <!--                                1248-->
-                <!--                                <span class="font-bold text-xxs">STEPS</span>-->
-                <!--                            </p>-->
-                <!--                        </div>-->
-                <!--                        <div class="w-1/2 ltr:text-right rtl:text-left">-->
-                <!--                            <img class="ltr:ml-auto rtl:mr-auto img-dir" src="@/assets/img/run.svg" alt="">-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-
-                <!--                </div>-->
+                <router-link to="/call" class="w-1/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px 2xs:mt-4">
+                    <div class="flex flex-wrap items-center justify-center h-full flex-wrap px-3">
+                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="phone" role="img"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             class="svg-inline--fa fa-phone w-8">
+                            <path fill="#fff"
+                                  d="M476.5 22.9L382.3 1.2c-21.6-5-43.6 6.2-52.3 26.6l-43.5 101.5c-8 18.6-2.6 40.6 13.1 53.4l40 32.7C311 267.8 267.8 311 215.4 339.5l-32.7-40c-12.8-15.7-34.8-21.1-53.4-13.1L27.7 329.9c-20.4 8.7-31.5 30.7-26.6 52.3l21.7 94.2c4.8 20.9 23.2 35.5 44.6 35.5C312.3 512 512 313.7 512 67.5c0-21.4-14.6-39.8-35.5-44.6zM69.3 464l-20.9-90.7 98.2-42.1 55.7 68.1c98.8-46.4 150.6-98 197-197l-68.1-55.7 42.1-98.2L464 69.3C463 286.9 286.9 463 69.3 464z"
+                                  class=""></path>
+                        </svg>
+                    </div>
+                </router-link>
             </div>
         </div>
         <div class="mobile-padding bg-gray-100 py-6">
@@ -267,7 +265,9 @@
     .green-color {
         color: #009D24;
     }
-
+    .gray-color{
+        color: #BBBBBB;
+    }
     .orange {
         background: #DB7E12;
     }

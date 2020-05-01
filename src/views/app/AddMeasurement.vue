@@ -22,6 +22,7 @@
                                 class="theme-purple w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
                                 :class="{ 'has-danger': (errors.length && touched) }"
                                 v-model="form.date"
+                                @input="formatDate(form.date)"
                                 :placeholder="form.date?form.date:'التاريخ'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
@@ -71,6 +72,12 @@
             isValidDate(d) {
                 return d instanceof Date && !isNaN(d);
             },
+            formatDate(test) {
+                if (this.isValidDate(new Date(test))) {
+                    const $date = new Date(test);
+                    this.form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
+                }
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addSugar'].validate().then((result) => {
@@ -80,9 +87,8 @@
                         if (this.isValidDate(new Date(form.timing))) {
                             const $timing = new Date(form.timing);
                             form.timing = $timing.getHours() + ':' + $timing.getMinutes();
-                            const $date = new Date(form.date);
-                            form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
                         }
+
                         let $url = '/mobile/diabetes';
                         let $id = this.$route.params.id;
                         let $type = this.$route.params.type;

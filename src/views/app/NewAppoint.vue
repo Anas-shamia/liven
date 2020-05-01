@@ -11,7 +11,7 @@
                         <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">المواعيد</label>
                         <v-select class="w-3/4 bg-white-900 rounded-25px py-3 px-6 appoint-select"
                                   :options="options"
-                                  label="name"
+                                  label="concatenated"
                                   placeholder="المواعيد" :dir="dirLang" v-model="form.appointment_id"
                                   :class="{ 'has-danger': errors.length }">
                         </v-select>
@@ -93,25 +93,9 @@
                 today = yyyy + '-' + mm + '-' + dd;
                 return this.theDay = today;
             },
-            getAppointments() {
-                this.axios.get(`/mobile/appointment`)
-                    .then(res => {
-                        const $days = {
-                            0: 'الأحد',
-                            1: 'الإثنين',
-                            2: 'الثلاثاء',
-                            3: 'الأربعاء',
-                            4: 'الخميس',
-                            5: 'الجمعة',
-                            6: 'السبت',
-                        };
-                        this.options = res.data.data.map(x=> {
-                            return {
-                                id: x.id,
-                                name: `${$days[x.day]} من ${x.from} الى ${x.to}`
-                            }
-                        });
-                    })
+            loadAppointments() {
+                this.axios.get('/mobile/appointment')
+                    .then(response => (this.options = response.data.data))
             },
             handleSubmit() {
                 const $this = this;
@@ -126,7 +110,7 @@
                             this.form = {
                                 appointment_id: null,
                                 title: null,
-                                note: null,
+                                notes: null,
                             };
                             setTimeout(function () {
                                 $this.success = false;
@@ -146,7 +130,7 @@
         },
         created() {
             this.getToday();
-            this.getAppointments();
+            this.loadAppointments();
         }
     }
 </script>

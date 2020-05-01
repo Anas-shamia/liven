@@ -34,7 +34,11 @@
                 </p>
             </div>
             <div>
-                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">اضافة وزن جديد</p>
+                <p class="text-base text-blue-800 underline mb-3" v-if="gender" @click="openImageModal()">
+                    القياس
+                </p>
+                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">اضافة وزن
+                    جديد</p>
                 <div class="mb-4" v-if="newWeight">
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
@@ -83,7 +87,8 @@
                     <p class="text-xs rlt:text-right rtl:text-left p-color mb-2">{{item.date}}</p>
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
-                            <svg @click="openForm(item)" v-if="index===0 && !active && user !== '116'" aria-hidden="true"
+                            <svg @click="openForm(item)" v-if="index===0 && !active && user !== '116'"
+                                 aria-hidden="true"
                                  focusable="false"
                                  data-prefix="fas"
                                  data-icon="edit" role="img"
@@ -174,6 +179,19 @@
             <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
                 <p class="p-3 text-base text-blue-800 font-medium">تمت العملية بنجاح</p>
             </div>
+
+            <div class="flex items-center justify-center relative" v-if="imageModal">
+                <div class="fixed inset-0 overlay flex items-center justify-center" @click.self="openImageModal()">
+                    <div class="relative w-4/5 3sm:mx-4 bg-white-900 mx-auto flex items-center justify-center rounded-lg custom-shadow px-4 py-4">
+                        <img class="w-4 cursor-pointer absolute left-0 top-0 m-4" src="@/assets/img/close.svg" alt="close"
+                             @click="openImageModal()">
+                        <div class="w-full mb-4">
+                            <img v-if="gender === 'Male'" class="mx-auto w-3/5 object-cover" src="@/assets/img/man-hip.png" alt="">
+                            <img v-else class="mx-auto w-4/5 object-cover" src="@/assets/img/lady-hip.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -189,6 +207,8 @@
                 success: false,
                 errorMsg: false,
                 newWeight: false,
+                gender: null,
+                imageModal: false,
                 chartOptions: {
                     active: false,
                     chart: {
@@ -257,13 +277,20 @@
             }
         },
         methods: {
+            openImageModal() {
+                this.imageModal = !this.imageModal;
+            },
             openForm(item) {
                 this.active = !this.active;
                 this.itemEdit = item;
             },
             loadBodyAll() {
                 this.axios.get('/mobile/body/all')
-                    .then(response => (this.bodyAll = response.data.data))
+                    .then(response => {
+                        this.bodyAll = response.data.data;
+                        this.gender = response.data.gender;
+
+                    });
             },
             changeChart(type) {
                 this.selectedChart = type;
@@ -315,7 +342,7 @@
             Bar,
             Input
         },
-        computed:{
+        computed: {
             user() {
                 return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
             }
