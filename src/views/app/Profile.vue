@@ -2,7 +2,7 @@
     <div class="bg-gray-100 min-h-screen">
         <div class="gradient mobile-padding pb-8">
             <div class="flex items-center justify-between relative" style="height: 45px;">
-                <img @click="openForm()"  v-if="!active && user !== '116'" src="@/assets/img/edit.svg" alt="">
+                <img @click="openForm()" v-if="!active && user !== '116'" src="@/assets/img/edit.svg" alt="">
                 <svg aria-hidden="true" @click="updateForm" v-if="active" focusable="false" data-prefix="fas"
                      data-icon="check" role="img"
                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
@@ -11,6 +11,20 @@
                           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
                           class=""></path>
                 </svg>
+                <p id="logout" style="transform: scaleX(-1)" onclick="myFunction()">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sign-out" role="img"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                         class="svg-inline--fa fa-sign-out w-6">
+                        <g class="fa-group">
+                            <path fill="#fff"
+                                  d="M180 448H96a96 96 0 0 1-96-96V160a96 96 0 0 1 96-96h84a12 12 0 0 1 12 12v40a12 12 0 0 1-12 12H96a32 32 0 0 0-32 32v192a32 32 0 0 0 32 32h84a12 12 0 0 1 12 12v40a12 12 0 0 1-12 12z"
+                                  class="fa-secondary"></path>
+                            <path fill="#fff"
+                                  d="M353 88.3l151.9 150.6a24 24 0 0 1 0 34.1l-152 150.8a24.08 24.08 0 0 1-33.9-.1l-21.9-21.9a24.07 24.07 0 0 1 .8-34.7l77.6-71.1H184a23.94 23.94 0 0 1-24-24v-32a23.94 23.94 0 0 1 24-24h191.5l-77.6-71.1a24 24 0 0 1-.7-34.6l21.9-21.9a24 24 0 0 1 33.9-.1z"
+                                  class="fa-primary"></path>
+                        </g>
+                    </svg>
+                </p>
             </div>
             <div class="text-center mt-4">
                 <div class="mx-auto w-28 h-28 mb-2 rounded-full border-2 border-white-900  flex items-center justify-center relative">
@@ -39,7 +53,8 @@
                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                 <p class="text-white-900 font-medium text-xl">{{profile.name}}</p>
                 <p class="text-sm text-white-900 font-medium mb-6">{{profile.email}}</p>
-                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900" v-if="user !== '116'">تغيير كلمة المرور
+                <router-link tag="p" to="/change-password" class="underline text-xs text-white-900"
+                             v-if="user !== '116'">تغيير كلمة المرور
                 </router-link>
             </div>
         </div>
@@ -47,7 +62,7 @@
             <div class="flex items-center mb-6 notifications">
                 <h2 class="flex-grow text-base text-blue-800">التنبيهات والاشعارات</h2>
                 <label class="switch">
-                    <input type="checkbox"  @input="toggleCheckbox($event)">
+                    <input type="checkbox" @input="toggleCheckbox($event)">
                     <div class="slider round"></div>
                 </label>
             </div>

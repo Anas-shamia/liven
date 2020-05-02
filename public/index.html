@@ -16,5 +16,22 @@
 <div id="app"></div>
 <script src="/js/AgoraRTCSDK-2.9.0.js"></script>
 <!-- built files will be auto injected -->
+<script>
+    function myFunction() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (iOS) {
+            window.webkit.messageHandlers.logout.postMessage('logout');
+        }
+    }
+
+    if ('serviceWorker' in navigator) {
+        // Register service worker
+        navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+            console.log("SW registration succeeded. Scope is " + reg.scope);
+        }).catch(function (err) {
+            console.error("SW registration failed with error " + err);
+        });
+    }
+</script>
 </body>
 </html>
