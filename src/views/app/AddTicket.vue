@@ -1,7 +1,7 @@
 <template>
     <div>
         <Bar :title="'الاستفسارات'" :close="'/inquiries-list'"/>
-        <div class="mobile-padding py-4 min-h-screen bg-gray-100">
+        <div class="mobile-padding custom-padding min-h-screen bg-gray-100">
             <h2 class="text-2xl font-medium text-blue-800 mb-8 text-center">تذكرة جديدة</h2>
             <ValidationObserver ref="addTicket">
                 <form @submit.prevent="handleSubmit">

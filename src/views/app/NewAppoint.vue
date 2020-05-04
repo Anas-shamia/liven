@@ -1,7 +1,7 @@
 <template>
     <div>
         <Bar :title="'المواعيد'" :close="'/appointments'"/>
-        <div class="mobile-padding py-4 min-h-screen bg-gray-100">
+        <div class="mobile-padding custom-padding pb-4 min-h-screen bg-gray-100">
             <h2 class="text-2xl font-medium text-blue-800 mb-8 text-center">موعد جديد</h2>
             <ValidationObserver ref="addAppointment">
                 <form @submit.prevent="handleSubmit" class="mt-4">
