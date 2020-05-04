@@ -25,26 +25,14 @@ import 'vue-select/dist/vue-select.css';
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 import VCalendar from 'v-calendar';
 
-Vue.use(ElementUI);
 
-import lang from 'element-ui/lib/locale/lang/en'
-import locale from 'element-ui/lib/locale'
-
-locale.use(lang);
-
-import VueDataTables from 'vue-data-tables'
-
-Vue.use(VueDataTables);
 Vue.use(VCalendar);
 
-import 'element-ui/lib/theme-chalk/index.css'
 
 import HighchartsVue from 'highcharts-vue'
 

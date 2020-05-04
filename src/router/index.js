@@ -209,12 +209,12 @@ const routes = [
         meta: {layout: 'mobile'},
         component: ChangePassword,
     },
-    {
-        path: '/call',
-        name: 'call',
-        meta: {layout: 'mobile'},
-        component: Call,
-    },
+    // {
+    //     path: '/call',
+    //     name: 'call',
+    //     meta: {layout: 'mobile'},
+    //     component: Call,
+    // },
 ];
 
 const router = new VueRouter({

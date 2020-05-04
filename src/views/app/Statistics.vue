@@ -47,13 +47,13 @@
                 </p>
             </div>
             <div class="mb-6">
-                <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">waist / hip</h2>
+                <h2 class="text-xl font-medium text-blue-800 mb-4 text-center">نسبة الخصر الى الورك</h2>
                 <div>
                     <highcharts :options="chartOptions4" :style="'height: 250px;'"></highcharts>
                 </div>
                 <p class="p-color text-xs flex items-center">
                     <span class="w-3 h-3 rounded-full bg-blue-800 ltr:mr-2 rtl:ml-2"></span>
-                    waist / hip
+                    نسبة الخصر الى الورك
                 </p>
             </div>
             <div class="mb-6">
@@ -103,7 +103,7 @@
                 </p>
             </div>
             <div class="ruler bg-white-900 rounded-lg pt-4 px-4 pb-8" v-if="bmi">
-                <h2 class="text-base font-medium text-blue-800 mb-4">معدل BMI</h2>
+                <h2 class="text-base font-medium text-blue-800 mb-4">مؤشر كتلة الجسم</h2>
                 <h2 class="text-base font-medium text-primary-900 mb-4">{{bmi.bmi}} <span
                         class="text-xs text-blue-800 pr-2">{{bmi.state}}</span>
                 </h2>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="theme-color" content="#693574">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="preload">
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
@@ -23,6 +24,13 @@
             window.webkit.messageHandlers.logout.postMessage('logout');
         }
     }
+    // function restPassword() {
+    //     console.log('test');
+    //     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    //     if (iOS) {
+    //         window.webkit.messageHandlers.logout.postMessage('resetPassword');
+    //     }
+    // }
 
     if ('serviceWorker' in navigator) {
         // Register service worker

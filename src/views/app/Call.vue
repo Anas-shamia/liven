@@ -52,8 +52,8 @@
                 </div>
             </div>
 
-            <div id="video" style="width: 320px; height: 100%; margin: 10px auto; ">
-                <div id="agora_local" style="width: 320px; height: 100%; margin: 10px auto; "></div>
+            <div id="video" style="width: 320px; height: 200px; margin: 10px auto; ">
+                <div id="agora_local" style="width: 320px; height: 200px; margin: 10px auto; "></div>
             </div>
         </div>
     </div>
@@ -197,7 +197,7 @@
                     var stream = evt.stream;
                     console.log("Subscribe remote stream successfully: " + stream.getId());
                     if ($('div#video #agora_remote' + stream.getId()).length === 0) {
-                        $('div#video').append('<div class="aogra-remote" id="agora_remote' + stream.getId() + '" style="width: 320px; height: 100%; margin: 10px auto; "></div>');
+                        $('div#video').append('<div class="aogra-remote" id="agora_remote' + stream.getId() + '" style="width: 320px; height: 200px; margin: 10px auto; "></div>');
                     }
                     stream.play('agora_remote' + stream.getId());
                 });
@@ -237,7 +237,7 @@
 <style lang="scss">
     #agora_local {
         width: 320px !important;
-        height: 100% !important;
+        height: 200px !important;
         margin: 0 auto;
     }
 
@@ -255,7 +255,7 @@
 
     .agora-remote {
         width: 320px !important;
-        height: 100% !important;
+        height: 200px !important;
         margin: 10px auto !important;
     }
 </style>
