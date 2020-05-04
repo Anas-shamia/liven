@@ -1,5 +1,6 @@
 const purgecss = require('@fullhuman/postcss-purgecss');
 const cssnano = require('cssnano');
+
 module.exports = {
     plugins: [
         require('tailwindcss'),
@@ -16,6 +17,6 @@ module.exports = {
             // content: ['index.html', '**/*.js', '**/*.html', '**/*.vue'],
             defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
             // (/[A-z0-9-:\\/%-.]+/g) || []
-        })
+        }),
     ]
 };
