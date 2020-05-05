@@ -34,11 +34,12 @@
                 </p>
             </div>
             <div>
-                <p class="text-base text-blue-800 underline mb-3" v-if="gender" @click="openImageModal()">
+                <p class="text-base text-blue-800 underline mb-3" @click="openImageModal()">
                     القياس
                 </p>
-                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">اضافة وزن
-                    جديد</p>
+                <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">
+                    اضافة قياسات الجسم
+                </p>
                 <div class="mb-4" v-if="newWeight">
                     <div class="flex flex-wrap -mx-2 2xs:-mx-1">
                         <div class="w-1/3 px-2 2xs:px-1 relative edit-weight-box">
@@ -183,11 +184,11 @@
             <div class="flex items-center justify-center relative" v-if="imageModal">
                 <div class="fixed inset-0 overlay flex items-center justify-center" @click.self="openImageModal()">
                     <div class="relative w-4/5 3sm:mx-4 bg-white-900 mx-auto flex items-center justify-center rounded-lg custom-shadow px-4 py-4">
-                        <img class="w-4 cursor-pointer absolute left-0 top-0 m-4" src="@/assets/img/close.svg" alt="close"
+                        <img class="w-4 cursor-pointer absolute left-0 top-0 m-4" src="@/assets/img/close.svg"
+                             alt="close"
                              @click="openImageModal()">
                         <div class="w-full mb-4">
-                            <img v-if="gender === 'Male'" class="mx-auto w-3/5 object-cover" src="@/assets/img/man-hip.png" alt="">
-                            <img v-else class="mx-auto w-4/5 object-cover" src="@/assets/img/lady-hip.png" alt="">
+                            <img class="mx-auto w-10/12 object-cover" src="@/assets/img/waist-hip.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -288,7 +289,6 @@
                 this.axios.get('/mobile/body/all')
                     .then(response => {
                         this.bodyAll = response.data.data;
-                        this.gender = response.data.gender;
 
                     });
             },

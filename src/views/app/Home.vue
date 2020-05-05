@@ -162,8 +162,8 @@
                         </div>
                     </div>
                 </div>
-                <a onclick="window.open('https://app.it-team-dev.com/call/index.html', '_blank', 'location=yes,height=720,width=320,scrollbars=yes,status=yes');" target="_blank"
-                   class="w-1/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px 2xs:mt-4">
+                <router-link :to="`/call/${profile.user.channel_id}`"
+                             class="w-1/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px 2xs:mt-4">
                     <div class="flex flex-wrap items-center justify-center h-full flex-wrap px-3">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="phone" role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
@@ -173,7 +173,7 @@
                                   class=""></path>
                         </svg>
                     </div>
-                </a>
+                </router-link>
             </div>
         </div>
         <div class="mobile-padding bg-gray-100 py-6">
@@ -229,6 +229,7 @@
         data() {
             return {
                 profile: null,
+
             }
         },
         created() {

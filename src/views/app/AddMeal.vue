@@ -24,6 +24,19 @@
                                   :placeholder="form.timing?form.timing:'وقت الوجبة'" use12-hour></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
+                    <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
+                                        vid="date" name="date"
+                                        v-slot="{ errors, touched }">
+                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">التاريخ</label>
+                        <datetime
+                                class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
+                                :class="{ 'has-danger': (errors.length && touched) }"
+                                v-model="theDate"
+                                @input="formatDate(theDate)"
+                                :max-datetime="new Date().toISOString()"
+                                :placeholder="form.date?form.date:'التاريخ'" use12-hour></datetime>
+                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                    </ValidationProvider>
                     <div class="flex items-center flex-wrap mb-4 image-uploader">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">صورة الوجبة</label>
                         <div v-if="!form.image"
@@ -44,7 +57,6 @@
                                 </button>
                                 <input type="file" @change="onFileChange" accept="image/*;capture=camera">
                                 <p class="message-danger">{{ errors[0] }}</p>
-                                <p class="message-danger" v-if="errorMsg">حجم الصورة يجب ان يكون اقل من 2000kb</p>
                                 <p class="message-danger" v-if="imageMsg">الرجاء رفع صورة</p>
                             </ValidationProvider>
                         </div>
@@ -123,6 +135,7 @@
                         title: 'وجبة خفيفة'
                     }
                 ],
+                meal: null,
                 sharedSize: 2000,
                 errorMsg: false,
                 imageMsg: false,
@@ -130,14 +143,15 @@
                 loading: false,
                 imageSrc: null,
                 sendError: false,
+                theDate: null,
                 form: {
                     meal_id: null,
                     type: '1',
+                    date: null,
                     image: '',
                     timing: null,
-                    notes: ''
+                    notes: '',
                 },
-                meal: null,
             }
         },
         methods: {
@@ -150,6 +164,13 @@
             },
             isValidDate(d) {
                 return d instanceof Date && !isNaN(d);
+            },
+            formatDate(x) {
+                if (this.isValidDate(new Date(x))) {
+                    const $date = new Date(x);
+                    this.form.date = $date.getDate() + '-' + ($date.getMonth() + 1) + '-' + $date.getFullYear();
+                    this.theDate = this.form.date;
+                }
             },
             handleSubmit() {
                 const $this = this;
@@ -173,6 +194,7 @@
                         formData.append('image', this.imageSrc);
                         formData.append('timing', form.timing);
                         formData.append('type', form.type);
+                        formData.append('date', form.date);
 
                         if ($type === 'edit') {
                             $url = '/mobile/meal/update';
@@ -191,7 +213,8 @@
                                 type: 1,
                                 image: '',
                                 timing: null,
-                                notes: null
+                                notes: null,
+                                date: null
                             };
                             setTimeout(function () {
                                 $this.success = false;
@@ -266,7 +289,8 @@
                             type: this.meal.type,
                             image: this.meal.image_url,
                             timing: this.meal.timing,
-                            notes: this.meal.notes
+                            notes: this.meal.notes,
+                            date: this.meal.date,
                         };
                     });
             }

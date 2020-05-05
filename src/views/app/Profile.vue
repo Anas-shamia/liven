@@ -62,7 +62,7 @@
             <div class="flex items-center mb-6 notifications">
                 <h2 class="flex-grow text-base text-blue-800">التنبيهات والاشعارات</h2>
                 <label class="switch">
-                    <input type="checkbox" @input="toggleCheckbox($event)">
+                    <input type="checkbox" v-model="profile.notification" @input="toggleCheckbox($event)">
                     <div class="slider round"></div>
                 </label>
             </div>
@@ -73,7 +73,7 @@
                         <ul class="flex flex-wrap -mx-3">
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             العمر</p>
 
@@ -95,7 +95,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الطول</p>
                                         <p class="text-base text-blue-800">
@@ -116,7 +116,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px relative">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الجنس</p>
                                         <p class="text-base text-blue-800">
@@ -138,7 +138,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الوزن</p>
                                         <p class="text-base text-blue-800">
@@ -161,7 +161,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             البلد</p>
                                         <p class="text-base text-blue-800">
@@ -169,7 +169,7 @@
                                         </p>
                                     </div>
                                     <ValidationProvider tag="div"
-                                                        vid="country" name="country" rules="required"
+                                                        vid="country" name="country"
                                                         v-slot="{ errors }">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
                                                class="bg-gray-100 text-lg font-bold w-full border border-transparent"
@@ -180,7 +180,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full">
+                                    <div class="flex items-center w-full mb-3">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             المدينة</p>
 
@@ -189,7 +189,7 @@
                                         </p>
                                     </div>
                                     <ValidationProvider tag="div"
-                                                        vid="city" name="city" rules="required"
+                                                        vid="city" name="city"
                                                         v-slot="{ errors }">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
                                                class="bg-gray-100 text-lg font-bold w-full border border-transparent"
@@ -297,13 +297,12 @@
                                 gender: null,
                                 weight: null,
                                 length: null,
-                                country: null
                             };
                             setTimeout(function () {
                                 location.reload();
                                 $this.success = false;
+                                $this.$refs['UpdateProfile'].reset();
                             }, 3000);
-                            this.$refs['UpdateProfile'].reset();
                         }).catch((error) => {
                             this.loading = false;
                             if (error.response) {
@@ -380,7 +379,7 @@
                         country: this.profile.country
                     };
                     this.status = {
-                        status: this.profile.status
+                        status: this.profile.notification
                     };
                     if (this.profile.gender) {
                         this.form.gender = this.options.find(x => x.value === this.genders[this.profile.gender]);

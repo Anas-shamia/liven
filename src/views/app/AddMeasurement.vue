@@ -73,9 +73,9 @@
             isValidDate(d) {
                 return d instanceof Date && !isNaN(d);
             },
-            formatDate(test) {
-                if (this.isValidDate(new Date(test))) {
-                    const $date = new Date(test);
+            formatDate(x) {
+                if (this.isValidDate(new Date(x))) {
+                    const $date = new Date(x);
                     this.form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
                 }
             },

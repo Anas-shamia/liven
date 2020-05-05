@@ -23,7 +23,7 @@
                         <CustomCheckbox class="flex-grow pl-14" :index="item.id" :title="item.title"
                                         :date="item.created_at" :checked="item.status===0 ? false: true"/>
                     </router-link>
-                    <router-link class="absolute top-0 left-0 pl-6 pt-2" tag="p" :to="`/edit-ticket/edit/${item.id}`">
+                    <router-link class="absolute top-0 left-0 pl-6 " tag="p" :to="`/edit-ticket/edit/${item.id}`">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="edit" role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                              class="svg-inline--fa fa-edit w-5">
@@ -32,7 +32,7 @@
                                   class=""></path>
                         </svg>
                     </router-link>
-                    <button class="absolute top-0 left-0 pt-2" @click="openDeleteModal(item.id)">
+                    <button class="absolute top-0 left-0" @click="openDeleteModal(item.id)">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
                              role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"

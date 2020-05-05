@@ -24,12 +24,17 @@
             window.webkit.messageHandlers.logout.postMessage('logout');
         }
     }
+
     // function restPassword() {
     //     console.log('test');
     //     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     //     if (iOS) {
     //         window.webkit.messageHandlers.logout.postMessage('resetPassword');
     //     }
+    // }
+    // function externalLink(channel_id) {
+    //     console.log(channel_id);
+    //     window.webkit.messageHandlers.openurl.postMessage(`https://app.it-team-dev.com/call/index.html`);
     // }
 
     if ('serviceWorker' in navigator) {
