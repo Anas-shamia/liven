@@ -3,19 +3,19 @@
         <Bar :title="'الاستفسارات'" :plus="true" :path="'/add-ticket'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">قائمة استفساراتي</h2>
-            <ul class="flex flex-wrap items-center -mx-2 mb-8">
+            <ul class="flex flex-wrap items-center -mx-2 mb-8 justify-center">
                 <li class="w-1/2 px-2 text-center cursor-pointer" @click.prevent="selectTab(1)"
                     :class="selectedTab===1?'active':''">
                     <div class="bg-white-900 text-primary-900 rounded-25px py-2">
                         <span class="text-base font-medium">خدمة عملاء</span>
                     </div>
                 </li>
-                <li class="w-1/2 px-2 text-center cursor-pointer" @click.prevent="selectTab(2)"
-                    :class="selectedTab===2?'active':''">
-                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
-                        <span class="text-base font-medium">أخصائي تغذية</span>
-                    </div>
-                </li>
+                <!--                <li class="w-1/2 px-2 text-center cursor-pointer" @click.prevent="selectTab(2)"-->
+                <!--                    :class="selectedTab===2?'active':''">-->
+                <!--                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">-->
+                <!--                        <span class="text-base font-medium">أخصائي تغذية</span>-->
+                <!--                    </div>-->
+                <!--                </li>-->
             </ul>
             <div class="mb-20">
                 <div class="flex items-center relative" v-for="(item,index) in inquiries" :key="index">
@@ -23,7 +23,7 @@
                         <CustomCheckbox class="flex-grow pl-14" :index="item.id" :title="item.title"
                                         :date="item.created_at" :checked="item.status===0 ? false: true"/>
                     </router-link>
-                    <router-link class="absolute top-0 left-0 pl-6 " tag="p" :to="`/edit-ticket/edit/${item.id}`">
+                    <router-link class="pl-4" tag="p" :to="`/edit-ticket/edit/${item.id}`" v-if="item.status !==1">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="edit" role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                              class="svg-inline--fa fa-edit w-5">
@@ -32,7 +32,7 @@
                                   class=""></path>
                         </svg>
                     </router-link>
-                    <button class="absolute top-0 left-0" @click="openDeleteModal(item.id)">
+                    <button class="" @click="openDeleteModal(item.id)" v-if="!item.replays">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt"
                              role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -42,6 +42,7 @@
                                   class=""></path>
                         </svg>
                     </button>
+                    <p class="text-primary-900 pr-6" v-if="item.status ===1">مغلق</p>
                 </div>
 
             </div>

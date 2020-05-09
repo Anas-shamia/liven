@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="theme-color" content="#693574">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="preload">
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
@@ -22,6 +21,8 @@
         var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         if (iOS) {
             window.webkit.messageHandlers.logout.postMessage('logout');
+        } else {
+            window.appInterface.postMessage('logout');
         }
     }
 
@@ -32,10 +33,17 @@
     //         window.webkit.messageHandlers.logout.postMessage('resetPassword');
     //     }
     // }
-    // function externalLink(channel_id) {
-    //     console.log(channel_id);
-    //     window.webkit.messageHandlers.openurl.postMessage(`https://app.it-team-dev.com/call/index.html`);
-    // }
+    function externalLink() {
+        let $channel = document.getElementById("channel").innerHTML;
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (iOS) {
+            if ($channel) {
+                window.webkit.messageHandlers.openurl.postMessage('https://app.it-team-dev.com/call/' + $channel);
+            }
+        } else {
+            window.appInterface.postMessage('https://app.it-team-dev.com/call/' + $channel);
+        }
+    }
 
     if ('serviceWorker' in navigator) {
         // Register service worker

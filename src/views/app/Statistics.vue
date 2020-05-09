@@ -139,6 +139,7 @@
                 selectedChart: 'week',
                 selectedTyping: 'today',
                 firstLoad: 0,
+                gender: null,
                 selectedType: '0',
                 bmi: null,
                 chartOptions: {
@@ -295,23 +296,17 @@
                         title: {
                             text: ''
                         },
-                        plotLines: [{
-                            value: 70,
-                            color: 'red',
-                            dashStyle: 'shortdash',
-                            width: 2,
-                            label: {
-                                text: '70 mg/dl'
+                        plotLines: [
+                            {
+                                value: null,
+                                color: 'red',
+                                dashStyle: 'shortdash',
+                                width: 2,
+                                label: {
+                                    text: null
+                                }
                             }
-                        }, {
-                            value: 180,
-                            color: 'red',
-                            dashStyle: 'shortdash',
-                            width: 2,
-                            label: {
-                                text: '180 mg/dl'
-                            }
-                        }]
+                        ]
                     },
                     legend: {
                         enabled: false,
@@ -412,7 +407,7 @@
                         this.chartOptions.series[0].data = this.bodyAllByType;
                         this.firstLoad = 1;
                     });
-                if(this.firstLoad) {
+                if (this.firstLoad) {
                     this.selectedTyping = type;
                 }
                 this.changeChart2(type);
@@ -433,6 +428,7 @@
                 this.axios.get(`/mobile/body/waist_hip/chart/${this.selectedChart}`)
                     .then(response => {
                         this.bodyAllByType = response.data.data;
+                        this.gender = response.data.gender;
                         this.chartOptions4.series[0].data = this.bodyAllByType;
                     });
             },
@@ -442,7 +438,6 @@
                 this.axios.get(`/mobile/activity/chart/${this.selectedTyping}?type=${this.selectedType}`)
                     .then(response => {
                         this.bodyAllByType = response.data.data;
-                        console.log(this.bodyAllByType);
                         this.chartOptions3.series[0].data = this.bodyAllByType;
                     });
             },
@@ -451,11 +446,21 @@
                 this.axios.get('/mobile/body/bmi')
                     .then(response => (this.bmi = response.data.data[0]))
             },
+            getGender() {
+                if (this.gender === 'Female') {
+                    this.chartOptions4.yAxis.plotLines[0].value = 0.85;
+                    this.chartOptions4.yAxis.plotLines[0].label.text = '>0.85 Obesity';
+                } else {
+                    this.chartOptions4.yAxis.plotLines[0].value = 0.90;
+                    this.chartOptions4.yAxis.plotLines[0].label.text = '>0.90 Obesity';
+                }
+            }
         },
         created() {
             this.changeChart('week');
             this.changeType('1');
             this.loadBMI();
+            this.getGender();
         }
     }
 </script>

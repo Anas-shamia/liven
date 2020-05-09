@@ -23,6 +23,7 @@
                 options: {
                     min: 0,
                     height: 6,
+                    max: 10,
                     disabled: true,
                     tooltip: 'none'
                 }

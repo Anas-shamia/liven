@@ -3,17 +3,17 @@
         <Bar :title="'الاتصال'" :close="user === '116' ? '':'/'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
 
-            <div class="flex items-center justify-center mb-8">
-                <div class="mx-4">
-                    <svg aria-hidden="true" @click="openCamera()" focusable="false" data-prefix="fas" data-icon="video"
-                         role="img"
-                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                         class="svg-inline--fa fa-video w-6">
-                        <path fill="#14123d"
-                              d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
-                              class=""></path>
-                    </svg>
-                </div>
+            <div class="flex items-center justify-center mt-12 mb-6">
+                <!--                <div class="mx-4">-->
+                <!--                    <svg aria-hidden="true" @click="openCamera()" focusable="false" data-prefix="fas" data-icon="video"-->
+                <!--                         role="img"-->
+                <!--                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"-->
+                <!--                         class="svg-inline&#45;&#45;fa fa-video w-6">-->
+                <!--                        <path fill="#14123d"-->
+                <!--                              d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"-->
+                <!--                              class=""></path>-->
+                <!--                    </svg>-->
+                <!--                </div>-->
                 <div class="mx-4">
                     <svg aria-hidden="true" @click="openMice()" focusable="false" data-prefix="fas"
                          data-icon="microphone" role="img"
@@ -44,8 +44,6 @@
             <div id="div_join" class="panel panel-default">
                 <div class="panel-body mb-4">
                     <div class="">
-                        <p class="underline text-primary-900 mb-4 text-left">
-                            {{`https://app.it-team-dev.com/call/${this.$route.params.channel_id}`}}</p>
                         <div class="flex items-center flex-wrap mb-4 hidden">
                             <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">القناة</label>
                             <input id="channel"
@@ -60,18 +58,32 @@
                             </label>
                         </div>
                     </div>
-                    <div class="flex items-center flex-wrap mt-4">
-                        <button id="join" class="bg-blue-800 mb-2 text-white-900 rounded-lg px-4 mr-2 py-2"
-                                @click="join()">Join
-                        </button>
-                        <button id="leave" class="bg-blue-800 mb-2 text-white-900 rounded-lg px-4 mx-2 py-2"
-                                @click="leave()">Leave
-                        </button>
+                    <div class="flex items-center justify-center flex-wrap mt-4 call-div">
+                        <div id="join" v-if="call" @click="join()"
+                             class="mx-16 5sm:mx-8 rounded-full flex items-center justify-center accept">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 class="svg-inline--fa fa-phone w-8">
+                                <path fill="#fff"
+                                      d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+                                      class=""></path>
+                            </svg>
+                        </div>
+                        <div v-if="decline" id="leave" @click="leave()"
+                             class="rounded-full flex items-center mx-16 5sm:mx-8  justify-center decline">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-slash"
+                                 role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                                 class="svg-inline--fa fa-phone-slash w-8">
+                                <path fill="#fff"
+                                      d="M268.2 381.4l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48c-10.7 4.6-16.5 16.1-13.9 27.5l24 104c2.5 10.8 12.1 18.6 23.4 18.6 100.7 0 193.7-32.4 269.7-86.9l-80-61.8c-10.9 6.5-22.1 12.7-33.6 18.1zm365.6 76.7L475.1 335.5C537.9 256.4 576 156.9 576 48c0-11.2-7.7-20.9-18.6-23.4l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-12.2 26.1-27.9 50.3-46 72.8L45.5 3.4C38.5-2 28.5-.8 23 6.2L3.4 31.4c-5.4 7-4.2 17 2.8 22.4l588.4 454.7c7 5.4 17 4.2 22.5-2.8l19.6-25.3c5.4-6.8 4.1-16.9-2.9-22.3z"
+                                      class=""></path>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="video" style="width: 320px; height: 200px; margin: 10px auto; ">
+            <div id="video" style="width: 320px; height: 200px; margin: 10px auto; display: none;">
                 <div id="agora_local" style="width: 320px; height: 200px; margin: 10px auto; "></div>
             </div>
         </div>
@@ -88,6 +100,8 @@
             return {
                 mice: false,
                 camera: false,
+                decline: false,
+                call: true,
             }
         },
         components: {
@@ -138,7 +152,8 @@
             join() {
                 let audioSource = document.querySelector('select#audioSource');
                 let videoSource = document.querySelector('select#videoSource');
-
+                this.decline = true;
+                this.call = false;
                 document.getElementById("join").disabled = true;
                 document.getElementById("video").disabled = true;
                 var channel_key = null;
@@ -158,7 +173,7 @@
                                 audio: true,
                                 cameraId: camera,
                                 microphoneId: microphone,
-                                video: document.getElementById("video").checked,
+                                video: false,
                                 screen: false
                             });
                             //localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
@@ -293,9 +308,31 @@
         width: 150px !important;
     }
 
+    #agora_remote {
+        display: none !important;
+    }
+
     .agora-remote {
         width: 320px !important;
         height: 200px !important;
         margin: 10px auto !important;
+    }
+
+    .decline,
+    .accept {
+        background-color: #F43808;
+        width: 60px;
+        height: 60px;
+    }
+
+    .accept {
+        background-color: #359A28;
+    }
+
+    .call-div {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 80%;
     }
 </style>

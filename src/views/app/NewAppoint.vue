@@ -44,6 +44,7 @@
                                 class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3">ارسال
                         </button>
                     </div>
+                    <p class="message-danger">{{serveErrors}}</p>
                     <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
                         <p class="p-3 text-base text-blue-800 font-medium">تمت الاضافة بنجاح</p>
                     </div>
@@ -65,6 +66,7 @@
                     visibility: 'focus',
                 },
                 options: [],
+                serveErrors: null,
                 theDay: null,
                 dates: {
                     minDate: new Date(this.getToday()),
@@ -114,13 +116,14 @@
                             };
                             setTimeout(function () {
                                 $this.success = false;
+                                $this.$router.push('/appointments');
                             }, 3000);
                             this.$refs['addAppointment'].reset();
                         }).catch((error) => {
                             this.loading = false;
                             if (error.response) {
                                 if (error.response.status === 422) {
-                                    this.$refs['addAppointment'].setErrors(error.response.data.errors);
+                                    this.serveErrors = 'لديك موعد في هذا اليوم';
                                 }
                             }
                         });

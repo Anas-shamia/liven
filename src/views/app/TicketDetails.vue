@@ -39,7 +39,7 @@
                         </div>
                     </form>
                     <div class="bg-green-100 mt-4 rounded-10px text-center" v-if="success">
-                        <p class="p-3 text-base text-blue-800 font-medium">Sent Successfully</p>
+                        <p class="p-3 text-base text-blue-800 font-medium">تم الإرسال بنجاح</p>
                     </div>
                 </ValidationObserver>
             </div>

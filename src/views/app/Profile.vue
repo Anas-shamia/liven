@@ -11,7 +11,7 @@
                           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
                           class=""></path>
                 </svg>
-                <p id="logout" style="transform: scaleX(-1)" onclick="myFunction()">
+                <p id="logout" style="transform: scaleX(-1)" onclick="myFunction()" v-if="user !== '116'">
                     <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sign-out" role="img"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                          class="svg-inline--fa fa-sign-out w-6">
@@ -73,7 +73,7 @@
                         <ul class="flex flex-wrap -mx-3">
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             العمر</p>
 
@@ -85,17 +85,18 @@
                                     <ValidationProvider tag="div"
                                                         vid="age" name="age" rules="required|integer"
                                                         v-slot="{ errors }">
-                                        <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-blue-800 text-lg font-bold w-full border border-transparent"
+                                        <input type="tel" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-blue-800 text-lg font-bold w-full border border-transparent mt-2"
                                                v-model="form.age"
-                                               v-if="active"/>
+                                               v-if="active"
+                                               inputmode="numeric" pattern="[0-9]*"/>
                                         <p class="message-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الطول</p>
                                         <p class="text-base text-blue-800">
@@ -106,17 +107,18 @@
                                     <ValidationProvider tag="div"
                                                         vid="length" name="length" rules="required|integer"
                                                         v-slot="{ errors }">
-                                        <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                        <input type="tel" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
                                                v-model="form.length"
-                                               v-if="active"/>
+                                               v-if="active"
+                                               inputmode="numeric" pattern="[0-9]*"/>
                                         <p class="message-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px relative">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الجنس</p>
                                         <p class="text-base text-blue-800">
@@ -124,21 +126,21 @@
                                         </p>
                                     </div>
                                     <ValidationProvider tag="div" class="w-full"
-                                                        vid="gender" name="gender" rules="required"
+                                                        vid="gender" name="gender"
                                                         v-slot="{ errors }">
-                                        <v-select class="bg-gray-100 w-full text-center" v-if="active"
+                                        <v-select class="bg-gray-100 w-full text-center mt-2" v-if="active"
                                                   :options="options"
                                                   label="name"
                                                   :dir="dirLang" v-model="form.gender">
                                         </v-select>
-                                        <p class="message-danger" v-if="genderError">please select Gender</p>
+<!--                                        <p class="message-danger" v-if="genderError">please select Gender</p>-->
                                     </ValidationProvider>
 
                                 </div>
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             الوزن</p>
                                         <p class="text-base text-blue-800">
@@ -149,10 +151,11 @@
                                     <ValidationProvider tag="div"
                                                         vid="weight" name="weight" rules="required|integer"
                                                         v-slot="{ errors }">
-                                        <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                        <input type="tel" :class="{ 'has-danger': errors.length }"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
                                                v-model="form.weight"
-                                               v-if="active"/>
+                                               v-if="active"
+                                               inputmode="numeric" pattern="[0-9]*"/>
                                         <p class="message-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
 
@@ -161,7 +164,7 @@
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             البلد</p>
                                         <p class="text-base text-blue-800">
@@ -170,17 +173,19 @@
                                     </div>
                                     <ValidationProvider tag="div"
                                                         vid="country" name="country"
-                                                        v-slot="{ errors }">
+                                                        v-slot="{ errors }"
+                                                        rules="alpha">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
                                                v-model="form.country"
                                                v-if="active"/>
+                                        <p class="message-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
                             </li>
                             <li class="w-1/2 mb-2 px-3 profile-box">
                                 <div class="flex items-center flex-wrap bg-white-900 py-3 px-4 rounded-10px">
-                                    <div class="flex items-center w-full mb-3">
+                                    <div class="flex items-center w-full">
                                         <p class="text-lg text-primary-900 flex-grow" style="margin-left: 12px">
                                             المدينة</p>
 
@@ -190,11 +195,13 @@
                                     </div>
                                     <ValidationProvider tag="div"
                                                         vid="city" name="city"
-                                                        v-slot="{ errors }">
+                                                        v-slot="{ errors }"
+                                                        rules="alpha">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
                                                v-model="form.city"
                                                v-if="active"/>
+                                        <p class="message-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
                             </li>

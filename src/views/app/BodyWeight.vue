@@ -35,7 +35,7 @@
             </div>
             <div>
                 <p class="text-base text-blue-800 underline mb-3" @click="openImageModal()">
-                    القياس
+                    طريقة أخذ القياس
                 </p>
                 <p class="text-base text-blue-800 underline mb-3" @click="AddNewWeight()" v-if="user !=='116'">
                     اضافة قياسات الجسم
@@ -311,11 +311,21 @@
                         setTimeout(function () {
                             location.reload();
                             $this.success = false;
+                            $this.newWeight = false;
                         }, 3000);
                     }).catch((error) => {
                     if (error.response) {
                         if (error.response.status === 422) {
                             this.errorMsg = true;
+                            this.form = {
+                                weight: 0,
+                                waist: 0,
+                                highest: 0,
+                            };
+                            setTimeout(function () {
+                                $this.newWeight = false;
+                                $this.errorMsg = false;
+                            }, 3000);
                         }
                     }
                 });
@@ -331,6 +341,7 @@
                         this.success = true;
                         setTimeout(function () {
                             $this.success = false;
+                            location.reload();
                         }, 3000);
                     });
             },

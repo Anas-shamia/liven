@@ -35,12 +35,12 @@
 </template>
 <script>
     export default {
-        props: ['id','url','msg'],
+        props: ['id', 'url', 'msg'],
         data() {
             return {
                 success: false,
                 myID: this.id,
-                myUrl : this.url,
+                myUrl: this.url,
             }
         },
         methods: {
@@ -50,8 +50,8 @@
                     this.success = true;
                     setTimeout(function () {
                         $this.success = false;
-                        location.reload();
                     }, 3000);
+                    location.reload();
                 }).catch((error) => {
                 });
             }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Bar :title="'اضافة وجبة'" :close="'/'"/>
+        <Bar :title="'اضافة وجبة'" :close="'/food-plan'"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <ValidationObserver ref="addMeal">
                 <form @submit.prevent="handleSubmit" class="mt-4">

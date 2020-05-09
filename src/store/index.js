@@ -10,7 +10,7 @@ axios.defaults.baseURL = 'https://it-team-dev.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {
-    return 'Bearer ' + localStorage.getItem('token');
+    return 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYzk1Y2ZhNDE5ODI1NDVjNWNiZWVhYzJmZmFjM2I0YWU3MjNhNTFlYmZhZWJjNjMzMWNmYTc1ZGVmOWFjNDI2NmNlMjAyMTg2NTA0Nzk5ZDQiLCJpYXQiOjE1ODg3MjAwNjMsIm5iZiI6MTU4ODcyMDA2MywiZXhwIjoxNjIwMjU2MDYzLCJzdWIiOiIxOTgiLCJzY29wZXMiOltdfQ.iaSi5ldWUl_Ayn1GETZcgSOY0PsfO82YePeIJjNP26Vr0tUScdE_z47XBV9maUe2Jsi7qHrteUPwavDAxaArzA';
 
     // + localStorage.getItem('token')
     // + localStorage.getItem('token');
