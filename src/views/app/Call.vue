@@ -262,8 +262,6 @@
                 });
             },
             leave() {
-                document.getElementById("leave").disabled = false;
-                document.getElementById("join").disabled = false;
                 document.getElementById("video").disabled = false;
                 client.leave(function () {
                     let $element = document.getElementById(video);

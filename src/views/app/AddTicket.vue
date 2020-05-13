@@ -15,18 +15,18 @@
                                :class="{ 'has-danger': errors.length }">
                         <p class="message-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
-                    <!--                    <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"-->
-                    <!--                                        vid="category_id" name="Type" rules="required"-->
-                    <!--                                        v-slot="{ errors }">-->
-                    <!--                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">النوع</label>-->
-                    <!--                        <v-select class="w-3/4 bg-white-900 rounded-25px py-3 px-6 appoint-select"-->
-                    <!--                                  :options="options"-->
-                    <!--                                  label="name"-->
-                    <!--                                  placeholder="ما هو النوع" :dir="dirLang" v-model="form.category_id"-->
-                    <!--                                  :class="{ 'has-danger': errors.length }">-->
-                    <!--                        </v-select>-->
-                    <!--                        <p class="message-danger" v-if="ticketError">please select Type</p>-->
-                    <!--                    </ValidationProvider>-->
+                    <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
+                                        vid="category_id" name="Type" rules="required"
+                                        v-slot="{ errors }">
+                        <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">النوع</label>
+                        <v-select class="w-3/4 bg-white-900 rounded-25px py-3 px-6 appoint-select"
+                                  :options="options"
+                                  label="name"
+                                  placeholder="ما هو النوع" :dir="dirLang" v-model="form.category_id"
+                                  :class="{ 'has-danger': errors.length }">
+                        </v-select>
+                        <p class="message-danger" v-if="ticketError">please select Type</p>
+                    </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="description"
                                         name="Message"
                                         rules="required"
@@ -69,7 +69,7 @@
                 ticketError: false,
                 form: {
                     title: null,
-                    category_id: 1,
+                    category_id: null,
                     description: null,
                 },
             }
@@ -79,7 +79,8 @@
                 const $this = this;
                 this.ticketError = true;
                 let $fields = _.cloneDeep(this.form);
-                $fields.category_id = $fields.category_id ? ($fields.category_id.id = 1) : null;
+                $fields.category_id = $fields.category_id ? $fields.category_id.id : null;
+
                 this.$refs['addTicket'].validate().then((result) => {
                     if (result) {
                         this.loading = true;

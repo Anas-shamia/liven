@@ -37,7 +37,9 @@
                                 v-model="form.date"
                                 @input="formatDate(form.date)"
                                 :max-datetime="new Date().toISOString()"
-                                :placeholder="form.date?form.date:'التاريخ'" use12-hour></datetime>
+                                zone="Asia/Jerusalem"
+                                value-zone="Asia/Jerusalem"
+                                :placeholder="form.date?form.date:'التاريخ'"></datetime>
                         <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
@@ -130,7 +132,7 @@
                                 medicine_id: null,
                                 timing: null,
                                 notes: null,
-                                date:null
+                                date: null
                             };
                             setTimeout(function () {
                                 $this.success = false;

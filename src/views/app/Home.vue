@@ -21,13 +21,12 @@
                     </div>
                     <div class="ltr:pl-2 rtl:pr-2">
                         <p class="text-white-900 text-xl 2xs:text-base">مرحبا <span>{{profile.user.name}}</span></p>
-                        <p class="text-white-900 font-light text-xs mt-2"
-                           v-if="profile.user.subscription_state !== 'free'">أنت الآن في الاسبوع
+                        <p class="text-white-900 font-light text-xs mt-2">أنت الآن في الاسبوع
                             <span>{{profile.user.weeks}}</span></p>
                     </div>
                 </div>
             </div>
-            <div class="flex items-center mb-6" v-if="profile.user.subscription_state !== 'free'">
+            <div class="flex items-center mb-6">
                 <div class="w-full ltr:pl-2 rtl:pr-2">
                     <div class="flex items-end mb-2">
                         <p class="text-white-900 font-light text-xs flex-grow">نسبه انجازك لأهدافك</p>
@@ -47,8 +46,7 @@
                     </div>
                 </div>
             </div>
-            <router-link tag="div" to="/measurement" class="flex items-center measure-sugar box-height mb-6"
-                         :class="profile.user.subscription_state === 'free' ? 'mt-6': ''">
+            <router-link tag="div" to="/measurement" class="flex items-center measure-sugar box-height mb-6">
                 <div class="w-1/3 flex items-center justify-center bg-purple-100 rtl:rounded-r-10px ltr:rounded-l-10px">
                     <h4 class="font-medium text-base text-white-900 mb-0">قياس السكر</h4>
                 </div>
@@ -139,8 +137,7 @@
 
 
             </router-link>
-            <div class="flex items-center 2xs:flex-wrap mb-2 -mx-2 5sm:-mx-1"
-                 v-if="profile.user.subscription_state !== 'free'">
+            <div class="flex items-center 2xs:flex-wrap mb-2 -mx-2 5sm:-mx-1">
                 <div class="w-3/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px">
                     <div class="flex flex-wrap items-center h-full flex-wrap px-3 ">
                         <div class="w-3/4">

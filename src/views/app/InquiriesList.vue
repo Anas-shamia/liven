@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Bar :title="'الاستفسارات'" :plus="true" :path="'/add-ticket'"/>
+        <Bar :title="'الاستفسارات'" :plus="true" :path="`/add-ticket`"/>
         <div class="mobile-padding pb-4 custom-padding min-h-screen bg-gray-100">
             <h2 class="text-xl font-medium text-blue-800 mb-6 text-center">قائمة استفساراتي</h2>
             <ul class="flex flex-wrap items-center -mx-2 mb-8 justify-center">
@@ -10,12 +10,13 @@
                         <span class="text-base font-medium">خدمة عملاء</span>
                     </div>
                 </li>
-                <!--                <li class="w-1/2 px-2 text-center cursor-pointer" @click.prevent="selectTab(2)"-->
-                <!--                    :class="selectedTab===2?'active':''">-->
-                <!--                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">-->
-                <!--                        <span class="text-base font-medium">أخصائي تغذية</span>-->
-                <!--                    </div>-->
-                <!--                </li>-->
+                <li class="w-1/2 px-2 text-center cursor-pointer"
+                    @click.prevent="selectTab(2)"
+                    :class="selectedTab===2?'active':''">
+                    <div class="bg-white-900 text-primary-900 rounded-25px py-2">
+                        <span class="text-base font-medium">أخصائي تغذية</span>
+                    </div>
+                </li>
             </ul>
             <div class="mb-20">
                 <div class="flex items-center relative" v-for="(item,index) in inquiries" :key="index">
@@ -47,7 +48,7 @@
 
             </div>
             <div class="flex items-center flex-wrap">
-                <router-link tag="span" to="/add-ticket"
+                <router-link tag="span" :to="`/add-ticket`"
                              class="w-full text-white-900 text-base font-medium bg-blue-800 rounded-25px py-3 text-center">
                     اضافة تذكرة
                 </router-link>
@@ -87,7 +88,9 @@
             // }
             loadInquiries() {
                 this.axios.get('/mobile/ticket/all')
-                    .then(response => (this.inquiriesList = response.data.data))
+                    .then(response => {
+                        this.inquiriesList = response.data.data;
+                    })
             },
             listInquiries() {
                 this.inquiries = this.inquiriesList.filter(x => {
