@@ -108,7 +108,7 @@
                                                         vid="length" name="length" rules="required|integer"
                                                         v-slot="{ errors }">
                                         <input type="tel" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.length"
                                                v-if="active"
                                                inputmode="numeric" pattern="[0-9]*"/>
@@ -152,7 +152,7 @@
                                                         vid="weight" name="weight" rules="required|integer"
                                                         v-slot="{ errors }">
                                         <input type="tel" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.weight"
                                                v-if="active"
                                                inputmode="numeric" pattern="[0-9]*"/>
@@ -176,7 +176,7 @@
                                                         v-slot="{ errors }"
                                                         rules="alpha">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.country"
                                                v-if="active"/>
                                         <p class="message-danger">{{ errors[0] }}</p>
@@ -198,7 +198,7 @@
                                                         v-slot="{ errors }"
                                                         rules="alpha">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
-                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2"
+                                               class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.city"
                                                v-if="active"/>
                                         <p class="message-danger">{{ errors[0] }}</p>
@@ -323,12 +323,14 @@
             },
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
+
                 if (!files.length)
                     return;
                 const $file = files[0];
                 if ($file['type'] === 'image/png' || $file['type'] === 'image/jpeg' || $file['type'] === 'image/jpg') {
                     this.createImage($file);
                     this.imageSrc = $file;
+                    this.errorMsg = false
                 } else {
                     this.imageMsg = true;
                 }
@@ -337,9 +339,24 @@
                 const reader = new FileReader();
                 const vm = this;
                 reader.onload = (e) => {
-                    vm.image = e.target.result;
+                    const arrayBuffer = reader.result;
+                    const blob = new Blob([arrayBuffer], {type: 'image/png'});
+                    let src = URL.createObjectURL(blob);
+                    let img = new Image();
+                    img.src = src;
+                    vm.image = src;
+                    img.onload = () => {
+                        let $canvas = document.createElement("canvas");
+                        let $width = $canvas.width = 500;
+                        let $height = $canvas.height = (500 * (img.height / img.width));
+                        $canvas.getContext('2d').drawImage(img, 0, 0, $width, $height);
+                        $canvas.toBlob((blob) => {
+                            this.imageSrc = blob;
+                        });
+
+                    };
                 };
-                reader.readAsDataURL(file);
+                reader.readAsArrayBuffer(file);
             },
             uploadUserImage($file) {
                 console.log($file);
@@ -407,7 +424,7 @@
 <style lang="scss">
     .profile-box {
         input {
-            padding: 0 !important;
+            padding: 2px 5px!important;
             width: 100%;
             border-radius: 0 !important;
         }
@@ -420,6 +437,11 @@
 
         .vs__selected-options {
             flex-wrap: nowrap;
+        }
+    }
+    .vs__selected-options{
+        input{
+            padding: 0 !important;
         }
     }
 

@@ -11,7 +11,8 @@
                     <span class="text-xs text-blue-800 px-2 whitespace-no-wrap">كوب ماء</span>
                 </div>
             </div>
-            <vue-slider v-model="value" v-bind="options" :direction="dirLang"></vue-slider>
+            <vue-slider v-model="value" v-bind="options" :direction="dirLang" v-if="value<'10'"></vue-slider>
+            <vue-slider v-model="newValue" v-bind="options" :direction="dirLang" v-else></vue-slider>
         </div>
     </div>
 </template>
@@ -20,6 +21,7 @@
         props: ['value'],
         data() {
             return {
+                newValue: 10,
                 options: {
                     min: 0,
                     height: 6,

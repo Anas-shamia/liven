@@ -163,8 +163,22 @@
                     </div>
                 </div>
                 <!--                :to="`/call/${profile.user.channel_id}`"-->
-                <div onclick="externalLink()"
+                <div onclick="externalLink()" v-if="profile.user.subscription_state !== 'free'"
                      class="w-1/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px 2xs:mt-4">
+                    <p id="channel" class="hidden">{{profile.user.channel_id}}</p>
+                    <div class="flex flex-wrap items-center justify-center h-full flex-wrap px-3">
+                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="phone" role="img"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             class="svg-inline--fa fa-phone w-8">
+                            <path fill="#fff"
+                                  d="M476.5 22.9L382.3 1.2c-21.6-5-43.6 6.2-52.3 26.6l-43.5 101.5c-8 18.6-2.6 40.6 13.1 53.4l40 32.7C311 267.8 267.8 311 215.4 339.5l-32.7-40c-12.8-15.7-34.8-21.1-53.4-13.1L27.7 329.9c-20.4 8.7-31.5 30.7-26.6 52.3l21.7 94.2c4.8 20.9 23.2 35.5 44.6 35.5C312.3 512 512 313.7 512 67.5c0-21.4-14.6-39.8-35.5-44.6zM69.3 464l-20.9-90.7 98.2-42.1 55.7 68.1c98.8-46.4 150.6-98 197-197l-68.1-55.7 42.1-98.2L464 69.3C463 286.9 286.9 463 69.3 464z"
+                                  class=""></path>
+                        </svg>
+                    </div>
+                </div>
+                <div v-else
+                     class="w-1/4 2xs:w-full box-height mx-2 5sm:mx-1 bg-purple-400 rounded-10px 2xs:mt-4"
+                     @click="showModal">
                     <p id="channel" class="hidden">{{profile.user.channel_id}}</p>
                     <div class="flex flex-wrap items-center justify-center h-full flex-wrap px-3">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="phone" role="img"
@@ -236,16 +250,24 @@
             <!--                </router-link>-->
             <!--            </ul>-->
         </div>
-
+        <Msg v-if="msg" @close="msg = false"/>
     </div>
 </template>
 <script>
-
+    import Msg from '../../components/Msg';
     export default {
         data() {
             return {
                 profile: null,
-
+                msg: false,
+            }
+        },
+        components:{
+            Msg
+        },
+        methods: {
+            showModal() {
+                this.msg = !this.msg;
             }
         },
         created() {
