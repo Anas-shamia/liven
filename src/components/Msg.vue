@@ -10,7 +10,7 @@
                     <div class="mt-4 rounded-10px">
                         <p class="p-3 text-base text-blue-800 font-medium">لا يمكنك استخدام هذه الخدمة لمزيد من المعلومات الرجاء زيارة موقعنا
                             <span onclick="openSite()">www.Liven-sa.com</span></p>
-                    </div>,w
+                    </div>
                     <div class="flex flex-wrap mt-4 -mx-4">
                         <div class="w-1/2 px-4">
                         </div>

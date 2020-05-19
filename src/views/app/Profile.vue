@@ -133,7 +133,7 @@
                                                   label="name"
                                                   :dir="dirLang" v-model="form.gender">
                                         </v-select>
-<!--                                        <p class="message-danger" v-if="genderError">please select Gender</p>-->
+                                        <!--                                        <p class="message-danger" v-if="genderError">please select Gender</p>-->
                                     </ValidationProvider>
 
                                 </div>
@@ -174,7 +174,7 @@
                                     <ValidationProvider tag="div"
                                                         vid="country" name="country"
                                                         v-slot="{ errors }"
-                                                        rules="alpha">
+                                                        rules="alpha_spaces">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
                                                class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.country"
@@ -196,7 +196,7 @@
                                     <ValidationProvider tag="div"
                                                         vid="city" name="city"
                                                         v-slot="{ errors }"
-                                                        rules="alpha">
+                                                        rules="alpha_spaces">
                                         <input type="text" :class="{ 'has-danger': errors.length }"
                                                class="bg-gray-100 text-lg font-bold w-full border border-transparent mt-2 px-2"
                                                v-model="form.city"
@@ -267,13 +267,6 @@
                     country: null
                 }
             }
-        },
-        watch: {
-            image: function ($val) {
-                if ($val) {
-                    this.uploadUserImage($val);
-                }
-            },
         },
         methods: {
             toggleCheckbox($e) {
@@ -352,17 +345,18 @@
                         $canvas.getContext('2d').drawImage(img, 0, 0, $width, $height);
                         $canvas.toBlob((blob) => {
                             this.imageSrc = blob;
+                            this.uploadUserImage(this.imageSrc);
                         });
-
                     };
+
                 };
                 reader.readAsArrayBuffer(file);
+
             },
-            uploadUserImage($file) {
-                console.log($file);
+            uploadUserImage($theFile) {
                 this.loading = true;
                 let formData = new FormData();
-                formData.append('image', this.imageSrc);
+                formData.append('image', $theFile);
                 this.axios.post('/mobile/user/image', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -374,18 +368,15 @@
                     this.loading = false;
                     if (error.response) {
                         if (error.response.status === 422) {
-                            console.log('error');
                         }
                     }
                 });
             },
             changeStatus() {
                 this.axios.post('/mobile/user/notification/update', this.status).then((res) => {
-                    console.log(res);
                 }).catch((error) => {
                     if (error.response) {
                         if (error.response.status === 422) {
-                            console.log('error');
                         }
                     }
                 });
@@ -424,7 +415,7 @@
 <style lang="scss">
     .profile-box {
         input {
-            padding: 2px 5px!important;
+            padding: 2px 5px !important;
             width: 100%;
             border-radius: 0 !important;
         }
@@ -439,8 +430,9 @@
             flex-wrap: nowrap;
         }
     }
-    .vs__selected-options{
-        input{
+
+    .vs__selected-options {
+        input {
             padding: 0 !important;
         }
     }

@@ -15,29 +15,34 @@
                     </div>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="timing" name="timing" rules="required"
-                                        v-slot="{ errors, touched }">
+                                        v-slot="{ errors}">
                         <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">الوقت</label>
-                        <datetime type="time"
-                                  class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                                  :class="{ 'has-danger': (errors.length && touched) }"
-                                  v-model="form.timing"
-                                  :placeholder="form.timing?form.timing:'وقت الوجبة'" use12-hour></datetime>
-                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                        <div class=" w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none border border-transparent"
+                             :class="myError?'has-danger':'' ">
+                            <datetime type="time"
+                                      class="theme-purple"
+                                      @input="changeStatus()"
+                                      v-model="form.timing"
+                                      :placeholder="form.timing?form.timing:'وقت الوجبة'" use12-hour></datetime>
+                        </div>
+                        <p class="message-danger" v-if="myError">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="date" name="date"
-                                        v-slot="{ errors, touched }">
+                                        v-slot="{ errors}">
                         <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">التاريخ</label>
-                        <datetime
-                                class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                                :class="{ 'has-danger': (errors.length && touched) }"
-                                v-model="theDate"
-                                @input="formatDate(theDate)"
-                                :max-datetime="new Date().toISOString()"
-                                zone="Asia/Jerusalem"
-                                value-zone="Asia/Jerusalem"
-                                :placeholder="form.date?form.date:'التاريخ'"></datetime>
-                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                        <div class="w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none border border-transparent"
+                             :class="myError2?'has-danger':'' ">
+                            <datetime
+                                    class="theme-purple "
+                                    v-model="theDate"
+                                    @input="formatDate(theDate)"
+                                    :max-datetime="new Date().toISOString()"
+                                    zone="Asia/Jerusalem"
+                                    value-zone="Asia/Jerusalem"
+                                    :placeholder="form.date?form.date:'التاريخ'"></datetime>
+                        </div>
+                        <p class="message-danger" v-if="myError2">The Date field is required</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap mb-4 image-uploader">
                         <label class="w-full text-base text-blue-800 rtl:pl-8 ltr:pr-8 mb-4">صورة الوجبة</label>
@@ -146,6 +151,8 @@
                 imageSrc: null,
                 sendError: false,
                 theDate: null,
+                myError: false,
+                myError2: false,
                 form: {
                     meal_id: null,
                     type: '1',
@@ -172,13 +179,21 @@
                     const $date = new Date(x);
                     this.form.date = $date.getDate() + '-' + ($date.getMonth() + 1) + '-' + $date.getFullYear();
                     this.theDate = this.form.date;
+                    this.myError2 = false;
                 }
+            },
+            changeStatus() {
+                this.myError = false;
             },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addMeal'].validate().then((result) => {
+                    this.myError = !this.form.timing;
+                    this.myError2 = !this.form.date;
                     if (result) {
                         this.loading = true;
+                        this.myError = false;
+                        this.myError2 = false;
                         let form = _.cloneDeep(this.form);
                         form.type = parseInt(form.type);
                         if (this.isValidDate(new Date(form.timing))) {
@@ -211,6 +226,8 @@
                             this.sendError = false;
                             this.success = true;
                             this.loading = false;
+                            this.myError = false;
+                            this.myError2 = false;
                             this.form = {
                                 type: 1,
                                 image: '',

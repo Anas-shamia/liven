@@ -21,14 +21,16 @@
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="timing" name="timing" rules="required"
-                                        v-slot="{ errors, touched }">
+                                        v-slot="{ errors }">
                         <label class="w-1/4 text-base text-blue-800 rtl:pl-8 ltr:pr-8">الوقت</label>
-                        <datetime type="time"
-                                  class="theme-purple w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                                  :class="{ 'has-danger': (errors.length && touched) }"
-                                  v-model="form.timing"
-                                  placeholder="وقت النشاط" use12-hour></datetime>
-                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                        <div class=" w-3/4 bg-white-900 rounded-25px py-3 px-6 focus:outline-none border border-transparent"  :class="myError?'has-danger':'' ">
+                            <datetime type="time"
+                                      class="theme-purple"
+                                      @input="changeStatus()"
+                                      v-model="form.timing"
+                                      placeholder="وقت النشاط" use12-hour></datetime>
+                        </div>
+                        <p class="message-danger" v-if="myError">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div" vid="notes"
                                         name="notes"
@@ -82,6 +84,7 @@
                 ],
                 success: false,
                 loading: false,
+                myError: false,
                 form: {
                     type: '1',
                     timing: null,
@@ -98,12 +101,17 @@
                     return n
                 }
             },
+            changeStatus() {
+                this.myError = false;
+            },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addActivity'].validate().then((result) => {
+                    this.myError = !this.form.timing;
                     if (result) {
                         this.loading = true;
                         let form = _.cloneDeep(this.form);
+                        this.myError = false;
                         form.type = parseInt(form.type);
                         const $timing = new Date(form.timing);
                         const ampm = $timing.getHours() >= 12 ? 'pm' : 'am';
@@ -112,6 +120,7 @@
                         this.axios.post('/mobile/activity', form).then((res) => {
                             this.success = true;
                             this.loading = false;
+                            this.myError = false;
                             this.form = {
                                 type: null,
                                 timing: null,
@@ -135,7 +144,7 @@
                 });
             },
         },
-        computed:{
+        computed: {
             user() {
                 return localStorage.getItem('user_id') ? localStorage.getItem('user_id') : null;
             }

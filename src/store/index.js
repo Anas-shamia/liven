@@ -6,7 +6,7 @@ import VueAuth from '@websanova/vue-auth'
 
 Vue.use(VueAxios, axios);
 
-axios.defaults.baseURL = 'https://it-team-dev.com/api';
+axios.defaults.baseURL = 'https://liven-sa.com/api';
 
 // const $token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
 function getToken() {

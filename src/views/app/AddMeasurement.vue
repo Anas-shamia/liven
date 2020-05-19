@@ -16,29 +16,35 @@
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="date" name="date" rules="required"
-                                        v-slot="{ errors, touched }">
+                                        v-slot="{ errors}">
                         <label class="w-2/6 text-base text-blue-800 rtl:pl-8 ltr:pr-8">التاريخ</label>
-                        <datetime
-                                class="theme-purple w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                                :class="{ 'has-danger': (errors.length && touched) }"
-                                v-model="form.date"
-                                @input="formatDate(form.date)"
-                                :max-datetime="new Date().toISOString()"
-                                zone="Asia/Jerusalem"
-                                value-zone="Asia/Jerusalem"
-                                :placeholder="form.date?form.date:'التاريخ'"></datetime>
-                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                        <div class="w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none border border-transparent"
+                             :class="myError?'has-danger':'' ">
+                            <datetime
+                                    class="theme-purple "
+
+                                    v-model="form.date"
+                                    @input="formatDate(form.date)"
+                                    :max-datetime="new Date().toISOString()"
+                                    zone="Asia/Jerusalem"
+                                    value-zone="Asia/Jerusalem"
+                                    :placeholder="form.date?form.date:'التاريخ'"></datetime>
+                        </div>
+                        <p class="message-danger" v-if="myError">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <ValidationProvider class="flex items-center flex-wrap mb-4" tag="div"
                                         vid="timing" name="timing" rules="required"
-                                        v-slot="{ errors, touched }">
+                                        v-slot="{ errors }">
                         <label class="w-2/6 text-base text-blue-800 rtl:pl-8 ltr:pr-8">الوقت</label>
-                        <datetime type="time"
-                                  class="theme-purple w-4/6 bg-white-900 rounded-25px py-3 px-6 focus:outline-none"
-                                  :class="{ 'has-danger': (errors.length && touched) }"
-                                  v-model="form.timing"
-                                  :placeholder="form.timing?form.timing:'الوقت'" use12-hour></datetime>
-                        <p class="message-danger" v-if="touched">{{ errors[0] }}</p>
+                        <div class="w-4/6 bg-white-900 rounded-25px py-3 px-6 border border-transparent focus:outline-none"
+                             :class="myError2?'has-danger':'' ">
+                            <datetime type="time"
+                                      class="theme-purple"
+                                      v-model="form.timing"
+                                      @input="changeStatus()"
+                                      :placeholder="form.timing?form.timing:'الوقت'" use12-hour></datetime>
+                        </div>
+                        <p class="message-danger" v-if="myError2">{{ errors[0] }}</p>
                     </ValidationProvider>
                     <div class="flex items-center flex-wrap mt-50%">
                         <button type="submit"
@@ -62,6 +68,8 @@
             return {
                 success: false,
                 loading: false,
+                myError: false,
+                myError2: false,
                 diabetes: null,
                 form: {
                     id: null,
@@ -79,13 +87,22 @@
                 if (this.isValidDate(new Date(x))) {
                     const $date = new Date(x);
                     this.form.date = $date.getDate() + '/' + ($date.getMonth() + 1) + '/' + $date.getFullYear();
+                    this.myError = false;
                 }
+            },
+            changeStatus() {
+                this.myError2 = false;
             },
             handleSubmit() {
                 const $this = this;
                 this.$refs['addSugar'].validate().then((result) => {
+                    this.myError = !this.form.date;
+                    this.myError2 = !this.form.timing;
+
                     if (result) {
                         this.loading = true;
+                        this.myError = false;
+                        this.myError2 = false;
                         let form = _.cloneDeep(this.form);
                         if (this.isValidDate(new Date(form.timing))) {
                             const $timing = new Date(form.timing);
@@ -103,6 +120,8 @@
                         this.axios.post($url, form).then((res) => {
                             this.success = true;
                             this.loading = false;
+                            this.myError = false;
+                            this.myError2 = false;
                             this.form = {
                                 value: null,
                                 timing: null,

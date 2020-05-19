@@ -449,10 +449,10 @@
             getGender() {
                 if (this.gender === 'Female') {
                     this.chartOptions4.yAxis.plotLines[0].value = 0.85;
-                    this.chartOptions4.yAxis.plotLines[0].label.text = '>0.85 Obesity';
+                    this.chartOptions4.yAxis.plotLines[0].label.text = '';
                 } else {
                     this.chartOptions4.yAxis.plotLines[0].value = 0.90;
-                    this.chartOptions4.yAxis.plotLines[0].label.text = '>0.90 Obesity';
+                    this.chartOptions4.yAxis.plotLines[0].label.text = '';
                 }
             }
         },
